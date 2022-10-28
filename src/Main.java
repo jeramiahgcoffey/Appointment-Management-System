@@ -17,8 +17,8 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         DBConnection.openConnection();
-        DBConnection.closeConnection();
         launch(args);
+        DBConnection.closeConnection();
     }
 
     /**
@@ -26,7 +26,7 @@ public class Main extends Application {
      */
     @Override
     public void start(@NotNull Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")));
         stage.setTitle("Appointment Management System");
         stage.setScene(new Scene(root, 405, 250));
         stage.setResizable(false);
