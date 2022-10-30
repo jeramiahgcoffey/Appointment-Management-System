@@ -20,7 +20,7 @@
       <Label layoutX="92.0" layoutY="215.0" text="Language:" />
       <Label layoutX="172.0" layoutY="188.0" text="America/Chicago" />
       <ComboBox layoutX="172.0" layoutY="211.0" prefHeight="25.0" prefWidth="141.0" />
-      <Label layoutX="93.0" layoutY="101.0" text="Test error message here" textFill="RED" />
-      <Label layoutX="93.0" layoutY="167.0" text="Test error message here" textFill="RED" />
+      <Label fx:id="loginUsernameErrorLabel" layoutX="93.0" layoutY="101.0" textFill="RED" />
+      <Label fx:id="loginPasswordErrorLabel" layoutX="93.0" layoutY="167.0" textFill="RED" />
    </children>
 </AnchorPane>

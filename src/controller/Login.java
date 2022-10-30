@@ -4,16 +4,25 @@ import db.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.User;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Login implements Initializable {
+    @FXML
+    private Label loginPasswordErrorLabel;
+
+    @FXML
+    private Label loginUsernameErrorLabel;
+
     @FXML
     private TextField loginUsernameTF;
 
@@ -23,6 +32,7 @@ public class Login implements Initializable {
     private UserDAO userDAO;
 
     /**
+     * Initializes FXML controller. Sets userDAO to the singleton instance of the UserDAO class.
      * @param url URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
      */
@@ -32,11 +42,11 @@ public class Login implements Initializable {
     }
 
     /**
-     * Compare candidate password with fetched user's password.
+     * Compare candidate password with user's password.
      * @param user User object with password property
      * @param candidate The candidate password to check
      */
-    public Boolean comparePassword(User user, String candidate) {
+    public Boolean comparePassword(@NotNull User user, String candidate) {
         return user.getPassword().equals(candidate);
     }
 
@@ -55,9 +65,31 @@ public class Login implements Initializable {
      */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException, SQLException {
+        loginUsernameErrorLabel.setText("");
+        loginPasswordErrorLabel.setText("");
+
         String username = loginUsernameTF.getText();
         String password = loginPasswordTF.getText();
+
+        if (Objects.equals(username, "")) {
+            loginUsernameErrorLabel.setText("Please enter your username.");
+            return;
+        }
+        if (Objects.equals(password, "")) {
+            loginPasswordErrorLabel.setText("Please enter your password.");
+            return;
+        }
+
         User user = fetchUser(username);
-        if (comparePassword(user, password)) System.out.println("logged in");
+        if (user == null) {
+            loginPasswordErrorLabel.setText("Invalid credentials.");
+            loginPasswordTF.setText("");
+            return;
+        }
+        if (!comparePassword(user, password)) {
+            loginPasswordErrorLabel.setText("Invalid credentials.");
+            loginPasswordTF.setText("");
+            return;
+        };
     }
 }
