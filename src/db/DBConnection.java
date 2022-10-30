@@ -14,7 +14,7 @@ public abstract class DBConnection {
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
 
-    public static void openConnection()
+    public static Connection openConnection()
     {
         try {
             Class.forName(driver); // Locate Driver
@@ -25,6 +25,7 @@ public abstract class DBConnection {
         {
             System.out.println("Error:" + e.getMessage());
         }
+        return null;
     }
 
     public static void closeConnection() {
