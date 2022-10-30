@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Optional;
 
 public class UserDAO implements DAO<User> {
     /** Stores single instance of this class. */
@@ -55,8 +54,19 @@ public class UserDAO implements DAO<User> {
      * @return The User associated with the id param
      */
     @Override
-    public Optional<User> get(int id) {
-        return Optional.empty();
+    public User get(int id) {
+        String query = "SELECT * FROM users WHERE User_ID = '" + id + "'";
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            String username = rs.getString("User_Name");
+            String password = rs.getString("Password");
+            return new User(id, username, password);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     /**
@@ -91,12 +101,13 @@ public class UserDAO implements DAO<User> {
     }
 
     /**
-     * Delete the User.
+     * Delete the object.
      *
-     * @param user The User to delete
+     * @param user The object to delete
      */
     @Override
     public void delete(User user) {
 
     }
+
 }

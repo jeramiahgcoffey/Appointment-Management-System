@@ -1,7 +1,6 @@
 package db;
 
 import java.util.List;
-import java.util.Optional;
 
 /** Data access object layer for CRUD operations. */
 public interface DAO<T> {
@@ -10,7 +9,7 @@ public interface DAO<T> {
      * @param id Unique id associated with the object
      * @return The object associated with the id param
      */
-    Optional<T> get(int id);
+    T get(int id);
 
     /**
      * Get all objects.
