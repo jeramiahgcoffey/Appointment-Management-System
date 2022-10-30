@@ -51,7 +51,7 @@ public class AppointmentDAO implements DAO<Appointment>{
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
-            rs.next();
+            while (rs.next()) {
             int id = rs.getInt("Appointment_ID");
             String title = rs.getString("Title");
             String description = rs.getString("Description");
@@ -74,6 +74,7 @@ public class AppointmentDAO implements DAO<Appointment>{
                     custId,
                     userId
             ));
+            }
         } catch (SQLException e) {
             System.out.println(e);
             return null;

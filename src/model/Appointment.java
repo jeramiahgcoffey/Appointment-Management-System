@@ -37,4 +37,44 @@ public class Appointment {
         this.custId = custId;
         this.userId = userId;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public int getCustId() {
+        return custId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
 }
