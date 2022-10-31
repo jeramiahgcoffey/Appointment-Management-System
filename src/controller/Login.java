@@ -98,15 +98,15 @@ public class Login implements Initializable {
             return;
         };
 
-        redirectToMain(event);
+        redirectToSchedule(event);
     }
 
     /**
-     * Redirect to main page.
+     * Redirect to schedule page.
      * @param event The event that was triggered from the login page.
      */
-    public void redirectToMain(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/main.fxml")));
+    public void redirectToSchedule(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/schedule.fxml")));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setResizable(false);

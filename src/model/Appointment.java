@@ -3,7 +3,7 @@ package model;
 import java.util.Date;
 
 public class Appointment {
-    private int id;
+    private final int id;
     private String title;
     private String description;
     private String location;
@@ -12,7 +12,7 @@ public class Appointment {
     private Date start;
     private Date end;
     private int custId;
-    private int userId;
+    private final int userId;
 
     public Appointment(
             int id,
@@ -76,5 +76,37 @@ public class Appointment {
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public void setCustId(int custId) {
+        this.custId = custId;
     }
 }
