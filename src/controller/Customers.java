@@ -1,5 +1,6 @@
 package controller;
 
+import db.CustomerDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,16 +16,17 @@ import java.util.ResourceBundle;
 
 public class Customers implements Initializable {
     /**
-     * @param url URL used to resolve paths, null if not known
+     * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.print(CustomerDAO.getInstance().getAll());
     }
 
     /**
      * Redirect to schedule page.
+     *
      * @param event The event that was triggered from the login page.
      */
     public void redirectToSchedule(ActionEvent event) throws IOException {
