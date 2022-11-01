@@ -1,17 +1,13 @@
 package controller;
 
 import db.UserDAO;
+import helper.Redirect;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import model.User;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,7 +71,7 @@ public class Login implements Initializable {
     }
 
     /**
-     * Event handler for Login button.
+     * Handle Login button clicked.
      *
      * @param event The event that triggered the handler
      */
@@ -110,20 +106,6 @@ public class Login implements Initializable {
             return;
         }
 
-        redirectToSchedule(event);
-    }
-
-    /**
-     * Redirect to schedule page.
-     *
-     * @param event The event that was triggered from the login page.
-     */
-    private void redirectToSchedule(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/schedule.fxml")));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
+        Redirect.getInstance().to(event, "/view/schedule.fxml");
     }
 }

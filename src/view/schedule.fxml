@@ -27,7 +27,7 @@
     <RadioButton layoutX="16.0" layoutY="75.0" mnemonicParsing="false" text="RadioButton"/>
     <RadioButton layoutX="133.0" layoutY="75.0" mnemonicParsing="false" text="RadioButton"/>
     <RadioButton layoutX="252.0" layoutY="75.0" mnemonicParsing="false" text="RadioButton"/>
-    <Button layoutX="549.0" layoutY="72.0" mnemonicParsing="false" onAction="#redirectToCustomers" text="Customers"/>
+    <Button layoutX="549.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleCustomers" text="Customers"/>
     <DatePicker layoutX="775.0" layoutY="71.0" prefHeight="25.0" prefWidth="219.0"/>
     <Label layoutX="775.0" layoutY="54.0" text="Time Zone: "/>
     <Label layoutX="846.0" layoutY="54.0" text="America/Chicago"/>
