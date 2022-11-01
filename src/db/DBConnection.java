@@ -2,6 +2,8 @@ package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public abstract class DBConnection {
     private static final String protocol = "jdbc";
@@ -13,16 +15,14 @@ public abstract class DBConnection {
     private static final String userName = "sqlUser"; // Username
     private static final String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
+    public static PreparedStatement preparedStatement;
 
-    public static void openConnection()
-    {
+    public static void openConnection() {
         try {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
             System.out.println("Connection successful!");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }
@@ -31,10 +31,12 @@ public abstract class DBConnection {
         try {
             connection.close();
             System.out.println("Connection closed!");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
+    }
+
+    public static void setPreparedStatement(String sqlStatement) throws SQLException {
+        preparedStatement = connection.prepareStatement(sqlStatement);
     }
 }

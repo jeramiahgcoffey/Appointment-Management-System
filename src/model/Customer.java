@@ -26,6 +26,7 @@ public class Customer {
             String updatedBy,
             int divisionId
     ) {
+//        TODO: Add state field based on first_level_divisons table
         this.id = id;
         this.name = name;
         this.address = address;

@@ -89,7 +89,7 @@ public class CustomerDAO implements DAO<Customer> {
     }
 
     /**
-     * Persist changes to the Customer.
+     * Persist new Customer.
      *
      * @param customer The Customer to save
      */
@@ -99,7 +99,7 @@ public class CustomerDAO implements DAO<Customer> {
     }
 
     /**
-     * Make changes to the Customer's data.
+     * Persist changes to the Customer's data.
      *
      * @param customer The Customer to change
      * @param params   Values to be changed

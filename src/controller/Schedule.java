@@ -17,6 +17,7 @@ import model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -45,10 +46,10 @@ public class Schedule implements Initializable {
     private TableColumn<Character, String> typeCol;
 
     @FXML
-    private TableColumn<Date, Date> startCol;
+    private TableColumn<Date, Timestamp> startCol;
 
     @FXML
-    private TableColumn<Date, Date> endCol;
+    private TableColumn<Date, Timestamp> endCol;
 
     @FXML
     private TableColumn<Number, Integer> custIdCol;
@@ -58,7 +59,8 @@ public class Schedule implements Initializable {
 
     /**
      * Initialize the view controller. Display appointments in table view.
-     * @param url URL used to resolve paths, null if not known
+     *
+     * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
      */
     @Override
@@ -78,6 +80,7 @@ public class Schedule implements Initializable {
 
     /**
      * Redirect to customers page.
+     *
      * @param event The event that was triggered from the login page.
      */
     public void redirectToCustomers(ActionEvent event) throws IOException {

@@ -1,11 +1,15 @@
 package db;
 
+import java.sql.SQLException;
 import java.util.List;
 
-/** Data access object layer for CRUD operations. */
+/**
+ * Data access object layer for CRUD operations.
+ */
 public interface DAO<T> {
     /**
      * Get object by id.
+     *
      * @param id Unique id associated with the object
      * @return The object associated with the id param
      */
@@ -13,25 +17,29 @@ public interface DAO<T> {
 
     /**
      * Get all objects.
+     *
      * @return A List of all objects
      */
     List<T> getAll();
 
     /**
-     * Persist changes to the object.
+     * Persist new object.
+     *
      * @param t The object to save
      */
-    void save(T t);
+    void save(T t) throws SQLException;
 
     /**
-     * Make changes to the object's data.
-     * @param t The object to change
+     * Persist changes to the object's data.
+     *
+     * @param t      The object to change
      * @param params Values to be changed
      */
     void update(T t, String[] params);
 
     /**
      * Delete the object.
+     *
      * @param t The object to delete
      */
     void delete(T t);

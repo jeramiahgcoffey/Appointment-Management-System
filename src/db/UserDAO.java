@@ -9,14 +9,20 @@ import java.sql.Statement;
 import java.util.List;
 
 public class UserDAO implements DAO<User> {
-    /** Stores single instance of this class. */
+    /**
+     * Stores single instance of this class.
+     */
     private static UserDAO instance;
 
-    /** Private constructor to ensure single instance. */
-    private UserDAO() {}
+    /**
+     * Private constructor to ensure single instance.
+     */
+    private UserDAO() {
+    }
 
     /**
      * Gets the single instance of this class
+     *
      * @return This class instance
      */
     public static UserDAO getInstance() {
@@ -80,7 +86,7 @@ public class UserDAO implements DAO<User> {
     }
 
     /**
-     * Persist changes to the User.
+     * Persist new User.
      *
      * @param user The User to save
      */
@@ -90,7 +96,7 @@ public class UserDAO implements DAO<User> {
     }
 
     /**
-     * Make changes to the User's data.
+     * Persist changes to the User's data.
      *
      * @param user   The User to change
      * @param params Values to be changed
