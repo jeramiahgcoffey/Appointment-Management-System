@@ -15,14 +15,13 @@ import java.util.ResourceBundle;
  */
 public class Main extends Application {
     /**
-     * Main function which gets called when the application is run.
+     * Main function that's called when the application is run.
      *
      * @param args Optional arguments passed to the main function.
      */
     public static void main(String[] args) {
         DBConnection.openConnection();
-        Locale.setDefault(new Locale("fr"));
-        System.out.println(Locale.getDefault());
+        Locale.setDefault(new Locale("es"));
         launch(args);
         DBConnection.closeConnection();
     }

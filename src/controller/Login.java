@@ -1,7 +1,6 @@
 package controller;
 
 import db.UserDAO;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,12 +56,7 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userDAO = UserDAO.getInstance();
-
         zoneIdLabel.setText(String.valueOf(ZoneId.systemDefault()));
-
-        String[] languages = {"English", "French"};
-        langComboBox.setItems(FXCollections.observableArrayList(languages));
-        langComboBox.setValue(this.language);
     }
 
     /**
@@ -71,7 +65,7 @@ public class Login implements Initializable {
      * @param user      User object with password property
      * @param candidate The candidate password to check
      */
-    public Boolean comparePassword(@NotNull User user, String candidate) {
+    private Boolean comparePassword(@NotNull User user, String candidate) {
         return user.getPassword().equals(candidate);
     }
 
@@ -129,7 +123,7 @@ public class Login implements Initializable {
      *
      * @param event The event that was triggered from the login page.
      */
-    public void redirectToSchedule(ActionEvent event) throws IOException {
+    private void redirectToSchedule(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/schedule.fxml")));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
