@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,9 +25,6 @@ import java.util.ResourceBundle;
 
 public class Login implements Initializable {
     @FXML
-    private ComboBox<String> langComboBox;
-
-    @FXML
     private Label loginPasswordErrorLabel;
 
     @FXML
@@ -43,7 +39,6 @@ public class Login implements Initializable {
     @FXML
     private Label zoneIdLabel;
 
-    private String language = "English";
     private UserDAO userDAO;
 
 

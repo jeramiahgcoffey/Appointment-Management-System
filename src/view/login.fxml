@@ -20,5 +20,5 @@
     <Label fx:id="zoneIdLabel" layoutX="203.0" layoutY="188.0" prefHeight="17.0" prefWidth="194.0"/>
     <Label fx:id="loginUsernameErrorLabel" layoutX="93.0" layoutY="101.0" textFill="RED"/>
     <Label fx:id="loginPasswordErrorLabel" layoutX="93.0" layoutY="167.0" textFill="RED"/>
-    <Label fx:id="langLabel" layoutX="204.0" layoutY="215.0" prefHeight="17.0" prefWidth="194.0" text="%lang"/>
+    <Label layoutX="204.0" layoutY="215.0" prefHeight="17.0" prefWidth="194.0" text="%lang"/>
 </AnchorPane>

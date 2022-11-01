@@ -84,4 +84,18 @@ public class Customers implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void handleAddCustomer(ActionEvent event) throws IOException {
+        this.redirectToCustomerForm(event);
+    }
+
+    private void redirectToCustomerForm(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/customerForm.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
