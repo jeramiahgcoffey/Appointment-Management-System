@@ -45,7 +45,7 @@ public class UserDAO implements DAO<User> {
             ResultSet rs = stmt.executeQuery(query);
             rs.next();
             int id = rs.getInt("User_ID");
-            String password = rs.getString("Password");
+            String password = rs.getString("password");
             return new User(id, username, password);
         } catch (SQLException e) {
             System.out.println(e);
@@ -67,7 +67,7 @@ public class UserDAO implements DAO<User> {
             ResultSet rs = stmt.executeQuery(query);
             rs.next();
             String username = rs.getString("User_Name");
-            String password = rs.getString("Password");
+            String password = rs.getString("password");
             return new User(id, username, password);
         } catch (SQLException e) {
             System.out.println(e);

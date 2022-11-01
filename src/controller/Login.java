@@ -1,6 +1,7 @@
 package controller;
 
 import db.UserDAO;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,10 +21,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Login implements Initializable {
+    @FXML
+    private ComboBox<String> langComboBox;
+
     @FXML
     private Label loginPasswordErrorLabel;
 
@@ -38,6 +44,7 @@ public class Login implements Initializable {
     @FXML
     private Label zoneIdLabel;
 
+    private String language = "English";
     private UserDAO userDAO;
 
 
@@ -50,7 +57,12 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userDAO = UserDAO.getInstance();
+
         zoneIdLabel.setText(String.valueOf(ZoneId.systemDefault()));
+
+        String[] languages = {"English", "French"};
+        langComboBox.setItems(FXCollections.observableArrayList(languages));
+        langComboBox.setValue(this.language);
     }
 
     /**
@@ -80,6 +92,8 @@ public class Login implements Initializable {
      */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException, SQLException {
+        ResourceBundle bundle = ResourceBundle.getBundle("strings", Locale.getDefault());
+
         loginUsernameErrorLabel.setText("");
         loginPasswordErrorLabel.setText("");
 
@@ -87,26 +101,25 @@ public class Login implements Initializable {
         String password = loginPasswordTF.getText();
 
         if (Objects.equals(username, "")) {
-            loginUsernameErrorLabel.setText("Please enter your username.");
+            loginUsernameErrorLabel.setText(bundle.getString("username.error"));
             return;
         }
         if (Objects.equals(password, "")) {
-            loginPasswordErrorLabel.setText("Please enter your password.");
+            loginPasswordErrorLabel.setText(bundle.getString("password.error"));
             return;
         }
 
         User user = fetchUser(username);
         if (user == null) {
-            loginPasswordErrorLabel.setText("Invalid credentials.");
+            loginPasswordErrorLabel.setText(bundle.getString("creds.error"));
             loginPasswordTF.setText("");
             return;
         }
         if (!comparePassword(user, password)) {
-            loginPasswordErrorLabel.setText("Invalid credentials.");
+            loginPasswordErrorLabel.setText(bundle.getString("creds.error"));
             loginPasswordTF.setText("");
             return;
         }
-        ;
 
         redirectToSchedule(event);
     }

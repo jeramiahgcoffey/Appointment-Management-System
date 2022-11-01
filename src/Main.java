@@ -6,8 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /**
  * Main class for the application.
@@ -18,22 +19,21 @@ public class Main extends Application {
      *
      * @param args Optional arguments passed to the main function.
      */
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         DBConnection.openConnection();
-//        String test = "test";
-//        Appointment a = new Appointment(0, test, test, test, 1, test, null, null, null, null, null, null, 1, 1);
-//        AppointmentDAO.getInstance().save(a);
-//        System.out.println(ZoneId.systemDefault());
+        Locale.setDefault(new Locale("fr"));
+        System.out.println(Locale.getDefault());
         launch(args);
         DBConnection.closeConnection();
     }
 
     /**
-     * @param stage
+     * @param stage The first stage to load on program start
      */
     @Override
     public void start(@NotNull Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")));
+        ResourceBundle bundle = ResourceBundle.getBundle("strings", Locale.getDefault());
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")), bundle);
         stage.setTitle("Appointment Management System");
         stage.setScene(new Scene(root, 405, 250));
         stage.setResizable(false);
