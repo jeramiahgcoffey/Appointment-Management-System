@@ -23,6 +23,7 @@ public class Main extends Application {
 //        String test = "test";
 //        Appointment a = new Appointment(0, test, test, test, 1, test, null, null, null, null, null, null, 1, 1);
 //        AppointmentDAO.getInstance().save(a);
+//        System.out.println(ZoneId.systemDefault());
         launch(args);
         DBConnection.closeConnection();
     }
