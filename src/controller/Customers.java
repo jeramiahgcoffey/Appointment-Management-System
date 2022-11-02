@@ -15,7 +15,8 @@ import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -40,13 +41,13 @@ public class Customers implements Initializable {
     private TableColumn<Character, String> stateCol;
 
     @FXML
-    private TableColumn<Date, Date> createdAtCol;
+    private TableColumn<Date, Timestamp> createdAtCol;
 
     @FXML
     private TableColumn<Character, String> createdByCol;
 
     @FXML
-    private TableColumn<Date, Date> updatedAtCol;
+    private TableColumn<Date, Timestamp> updatedAtCol;
 
     @FXML
     private TableColumn<Character, String> updatedByCol;
@@ -64,7 +65,7 @@ public class Customers implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postal"));
-//        stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
+        stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
         createdAtCol.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         createdByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
         updatedAtCol.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
@@ -126,6 +127,5 @@ public class Customers implements Initializable {
      */
     private void setSelectedCustomer() {
         selectedCustomer = custTable.getSelectionModel().getSelectedItem();
-        System.out.println(selectedCustomer.getName());
     }
 }

@@ -81,7 +81,6 @@ public class CustomerForm implements Initializable {
      */
     @FXML
     private void handleCancel(ActionEvent event) throws IOException {
-        System.out.println(Customers.formMode);
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");
     }
 
@@ -116,7 +115,7 @@ public class CustomerForm implements Initializable {
             Customer newCustomer = new Customer(Integer.parseInt(custIdTF.getText()), name, address, postal, phone, null, null, null, null, division.id());
 //            CustomerCRUD.update(newCustomer);
         }
-
+        System.out.println(Login.currentUser.getUsername());
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");
     }
 }

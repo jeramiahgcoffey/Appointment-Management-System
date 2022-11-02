@@ -35,6 +35,8 @@ public class Login implements Initializable {
     @FXML
     private Label zoneIdLabel;
 
+    public static User currentUser;
+
     /**
      * Initializes FXML controller. Sets userDAO to the singleton instance of the UserDAO class.
      *
@@ -101,7 +103,7 @@ public class Login implements Initializable {
             loginPasswordTF.setText("");
             return;
         }
-
+        currentUser = user;
         FXUtils.getInstance().redirect(event, "/view/schedule.fxml");
     }
 }

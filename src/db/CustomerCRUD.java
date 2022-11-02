@@ -4,7 +4,6 @@ import model.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public abstract class CustomerCRUD {
@@ -35,8 +34,8 @@ public abstract class CustomerCRUD {
                 String address = rs.getString("Address");
                 String postal = rs.getString("Postal_Code");
                 String phone = rs.getString("Phone");
-                Date createdAt = rs.getDate("Create_Date");
-                Date updatedAt = rs.getDate("Last_Update");
+                Timestamp createdAt = rs.getTimestamp("Create_Date");
+                Timestamp updatedAt = rs.getTimestamp("Last_Update");
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int divisionId = rs.getInt("Division_ID");

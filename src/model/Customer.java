@@ -1,18 +1,26 @@
 package model;
 
+import db.DivisionCRUD;
+
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 public class Customer {
     private final int id;
     private String name;
     private String address;
     private String postal;
+    private String state;
     private String phone;
-    private final Date createdAt;
-    private final Date updatedAt;
+    private final Timestamp createdAt;
+    private final Timestamp updatedAt;
     private final String createdBy;
     private final String updatedBy;
     private int divisionId;
+
+    private static final HashMap<Integer, String> divisionMap = new HashMap<Integer, String>();
 
     public Customer(
             int id,
@@ -20,17 +28,25 @@ public class Customer {
             String address,
             String postal,
             String phone,
-            Date createdAt,
-            Date updatedAt,
+            Timestamp createdAt,
+            Timestamp updatedAt,
             String createdBy,
             String updatedBy,
             int divisionId
     ) {
-//        TODO: Add state field based on first_level_divisons table
+        if (divisionMap.isEmpty()) {
+            List<Division> allDivisions = DivisionCRUD.getAll();
+            assert allDivisions != null;
+            for (Division division : allDivisions) {
+                divisionMap.put(division.id(), division.name());
+            }
+        }
+
         this.id = id;
         this.name = name;
         this.address = address;
         this.postal = postal;
+        this.state = divisionMap.get(divisionId);
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -53,6 +69,10 @@ public class Customer {
 
     public String getPostal() {
         return postal;
+    }
+
+    public String getState() {
+        return state;
     }
 
     public String getPhone() {
@@ -89,6 +109,10 @@ public class Customer {
 
     public void setPostal(String postal) {
         this.postal = postal;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public void setPhone(String phone) {

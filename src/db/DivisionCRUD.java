@@ -34,5 +34,30 @@ public abstract class DivisionCRUD {
         }
         return divisions;
     }
+
+    /**
+     * Get all Divisions.
+     *
+     * @return A List of all Divisions.
+     */
+    public static List<Division> getAll() {
+        ArrayList<Division> divisions = new ArrayList<Division>();
+        String query = "SELECT * FROM first_level_divisions";
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("Division_ID");
+                int countryId = rs.getInt("Country_ID");
+                String name = rs.getString("Division");
+
+                divisions.add(new Division(id, countryId, name));
+            }
+            return divisions;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }
 
