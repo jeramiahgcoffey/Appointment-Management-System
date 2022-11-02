@@ -73,7 +73,10 @@ public abstract class AppointmentCRUD {
      * @param appointment The Appointment to save
      */
     public static void save(Appointment appointment) throws SQLException {
-        String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO appointments" +
+                " (Title, Description, Location, Type, Start, End, Create_Date," +
+                " Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) " +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         DBConnection.setPreparedStatement(sql);
         PreparedStatement ps = DBConnection.preparedStatement;

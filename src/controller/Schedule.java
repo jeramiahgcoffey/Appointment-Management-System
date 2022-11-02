@@ -79,7 +79,7 @@ public class Schedule implements Initializable {
     /**
      * Handle Customers button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the Schedule page.
      */
     @FXML
     private void handleCustomers(ActionEvent event) throws IOException {
@@ -89,7 +89,7 @@ public class Schedule implements Initializable {
     /**
      * Handle Delete Appointment button clicked
      *
-     * @param event The event that triggered the handler
+     * @param event The event that was fired from the Schedule page.
      */
     @FXML
     private void handleDeleteAppointment(ActionEvent event) {
@@ -111,7 +111,7 @@ public class Schedule implements Initializable {
     /**
      * Handle Logout button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the Schedule page.
      */
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {

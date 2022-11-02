@@ -73,7 +73,7 @@ public class Customers implements Initializable {
     /**
      * Handle Schedule button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the Customers page.
      */
     @FXML
     private void handleSchedule(ActionEvent event) throws IOException {
@@ -83,7 +83,7 @@ public class Customers implements Initializable {
     /**
      * Handle Add Customer button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the Customers page.
      */
     @FXML
     private void handleAddCustomer(ActionEvent event) throws IOException {
@@ -94,7 +94,7 @@ public class Customers implements Initializable {
     /**
      * Handle Add Customer button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the Customers page.
      */
     @FXML
     private void handleModifyCustomer(ActionEvent event) throws IOException {
@@ -105,7 +105,7 @@ public class Customers implements Initializable {
     /**
      * Handle Logout button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the Customers page.
      */
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {

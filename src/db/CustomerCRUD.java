@@ -2,10 +2,7 @@ package db;
 
 import model.Customer;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,8 +65,24 @@ public abstract class CustomerCRUD {
      *
      * @param customer The Customer to save
      */
-    public static void save(Customer customer) {
+    public static void save(Customer customer) throws SQLException {
+        String sql = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
+        DBConnection.setPreparedStatement(sql);
+        PreparedStatement ps = DBConnection.preparedStatement;
+
+        ps.setInt(1, customer.getId());
+        ps.setString(2, customer.getName());
+        ps.setString(3, customer.getAddress());
+        ps.setString(4, customer.getPostal());
+        ps.setString(5, customer.getPhone());
+        ps.setString(6, null);
+        ps.setString(7, null);
+        ps.setString(8, null);
+        ps.setString(9, null);
+        ps.setInt(10, customer.getDivisionId());
+
+        ps.execute();
     }
 
     /**

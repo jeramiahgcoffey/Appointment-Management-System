@@ -1,6 +1,7 @@
 package controller;
 
 import db.CountryCRUD;
+import db.CustomerCRUD;
 import db.DivisionCRUD;
 import enumerable.FormMode;
 import javafx.collections.FXCollections;
@@ -11,11 +12,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Country;
+import model.Customer;
 import model.Division;
 import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class CustomerForm implements Initializable {
@@ -67,7 +70,7 @@ public class CustomerForm implements Initializable {
     /**
      * Handle Cancel button clicked.
      *
-     * @param event The event that was triggered from the login page.
+     * @param event The event that was fired from the CustomerForm.
      */
     @FXML
     private void handleCancel(ActionEvent event) throws IOException {
@@ -78,11 +81,30 @@ public class CustomerForm implements Initializable {
     /**
      * Handle Country CB change
      *
-     * @param event The event that was triggered from the CustomerForm
+     * @param event The event that was fired from the CustomerForm
      */
     @FXML
     private void handleCountryChange(ActionEvent event) throws IOException {
         int countryId = custCountryCB.getSelectionModel().getSelectedItem().id();
         custDivisionCB.setItems(FXCollections.observableArrayList(DivisionCRUD.getAllByCountry(countryId)));
+    }
+
+    /**
+     * Handle Save clicked
+     *
+     * @param event The event that was fired from the CustomerForm.
+     */
+    @FXML
+    private void handleSaveCustomer(ActionEvent event) throws IOException, SQLException {
+        String name = custNameTF.getText();
+        String address = custAddressTF.getText();
+        Division division = custDivisionCB.getValue();
+        String postal = custPostalTF.getText();
+        String phone = custPhoneTF.getText();
+
+        Customer newCustomer = new Customer(0, name, address, postal, phone, null, null, null, null, division.id());
+        CustomerCRUD.save(newCustomer);
+
+        FXUtils.getInstance().redirect(event, "/view/customers.fxml");
     }
 }

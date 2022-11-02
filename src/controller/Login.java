@@ -69,7 +69,7 @@ public class Login implements Initializable {
     /**
      * Handle Login button clicked.
      *
-     * @param event The event that triggered the handler
+     * @param event The event that was fired from the login page.
      */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException, SQLException {

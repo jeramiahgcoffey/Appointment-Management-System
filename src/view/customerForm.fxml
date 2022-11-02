@@ -26,7 +26,8 @@
     </Label>
     <Button layoutX="95.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0"
             prefWidth="70.0" text="Cancel"/>
-    <Button layoutX="313.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Save"/>
+    <Button layoutX="313.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0"
+            onAction="#handleSaveCustomer" text="Save"/>
     <TextField fx:id="custIdTF" disable="true" editable="false" layoutX="222.0" layoutY="64.0" opacity="0.0"
                prefHeight="25.0" prefWidth="161.0"/>
     <Label fx:id="custIdLabel" layoutX="97.0" layoutY="68.0" opacity="0.0" text="Customer ID"/>
