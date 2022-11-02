@@ -1,7 +1,7 @@
 package controller;
 
-import db.CustomerDAO;
-import helper.Redirect;
+import db.CustomerCRUD;
+import enumerable.FormMode;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,10 +10,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Customer;
+import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Customers implements Initializable {
@@ -48,6 +50,8 @@ public class Customers implements Initializable {
     @FXML
     private TableColumn<Character, String> updatedByCol;
 
+    public static FormMode formMode;
+
     /**
      * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
@@ -63,7 +67,7 @@ public class Customers implements Initializable {
         createdByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
         updatedAtCol.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
         updatedByCol.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
-        custTable.setItems(FXCollections.observableList(CustomerDAO.getInstance().getAll()));
+        custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
     }
 
     /**
@@ -73,7 +77,7 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleSchedule(ActionEvent event) throws IOException {
-        Redirect.getInstance().to(event, "/view/schedule.fxml");
+        FXUtils.getInstance().redirect(event, "/view/schedule.fxml");
     }
 
     /**
@@ -83,6 +87,28 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleAddCustomer(ActionEvent event) throws IOException {
-        Redirect.getInstance().to(event, "/view/customerForm.fxml");
+        formMode = FormMode.ADD;
+        FXUtils.getInstance().redirect(event, "/view/customerForm.fxml");
+    }
+
+    /**
+     * Handle Add Customer button clicked.
+     *
+     * @param event The event that was triggered from the login page.
+     */
+    @FXML
+    private void handleModifyCustomer(ActionEvent event) throws IOException {
+        formMode = FormMode.MODIFY;
+        FXUtils.getInstance().redirect(event, "/view/customerForm.fxml");
+    }
+
+    /**
+     * Handle Logout button clicked.
+     *
+     * @param event The event that was triggered from the login page.
+     */
+    @FXML
+    private void handleLogout(ActionEvent event) throws IOException {
+//        FXUtils.getInstance().redirect(event, "/view/login.fxml");
     }
 }

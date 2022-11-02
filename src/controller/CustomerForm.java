@@ -1,9 +1,9 @@
 package controller;
 
-import helper.Redirect;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,7 +16,7 @@ public class CustomerForm implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        System.out.println(Customers.formMode);
     }
 
     /**
@@ -26,6 +26,7 @@ public class CustomerForm implements Initializable {
      */
     @FXML
     private void handleCancel(ActionEvent event) throws IOException {
-        Redirect.getInstance().to(event, "/view/customers.fxml");
+        System.out.println(Customers.formMode);
+        FXUtils.getInstance().redirect(event, "/view/customers.fxml");
     }
 }

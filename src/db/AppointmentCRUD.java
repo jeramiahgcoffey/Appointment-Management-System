@@ -6,38 +6,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppointmentDAO implements DAO<Appointment> {
-    /**
-     * Stores single instance of this class.
-     */
-    private static AppointmentDAO instance;
-
-    /**
-     * Private constructor to ensure single instance.
-     */
-    private AppointmentDAO() {
-    }
-
-    /**
-     * Gets the single instance of this class
-     *
-     * @return This class instance
-     */
-    public static AppointmentDAO getInstance() {
-        if (instance == null) {
-            instance = new AppointmentDAO();
-        }
-        return instance;
-    }
-
+public abstract class AppointmentCRUD {
     /**
      * Get Appointment by id.
      *
      * @param id Unique id associated with the Appointment
      * @return The Appointment associated with the id param
      */
-    @Override
-    public Appointment get(int id) {
+    public static Appointment get(int id) {
         return null;
     }
 
@@ -46,8 +22,7 @@ public class AppointmentDAO implements DAO<Appointment> {
      *
      * @return A List of all Appointments
      */
-    @Override
-    public List<Appointment> getAll() {
+    public static List<Appointment> getAll() {
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
         String query = "SELECT * FROM appointments";
         Connection conn = DBConnection.connection;
@@ -97,8 +72,7 @@ public class AppointmentDAO implements DAO<Appointment> {
      *
      * @param appointment The Appointment to save
      */
-    @Override
-    public void save(Appointment appointment) throws SQLException {
+    public static void save(Appointment appointment) throws SQLException {
         String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         DBConnection.setPreparedStatement(sql);
@@ -127,8 +101,7 @@ public class AppointmentDAO implements DAO<Appointment> {
      * @param appointment The Appointment to change
      * @param params      Values to be changed
      */
-    @Override
-    public void update(Appointment appointment, String[] params) {
+    public static void update(Appointment appointment, String[] params) {
 
     }
 
@@ -137,8 +110,7 @@ public class AppointmentDAO implements DAO<Appointment> {
      *
      * @param appointment The Appointment to delete
      */
-    @Override
-    public void delete(Appointment appointment) {
+    public static void delete(Appointment appointment) {
 
     }
 }

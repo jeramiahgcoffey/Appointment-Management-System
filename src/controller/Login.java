@@ -1,7 +1,6 @@
 package controller;
 
-import db.UserDAO;
-import helper.Redirect;
+import db.UserCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.User;
 import org.jetbrains.annotations.NotNull;
+import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,9 +35,6 @@ public class Login implements Initializable {
     @FXML
     private Label zoneIdLabel;
 
-    private UserDAO userDAO;
-
-
     /**
      * Initializes FXML controller. Sets userDAO to the singleton instance of the UserDAO class.
      *
@@ -46,7 +43,6 @@ public class Login implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userDAO = UserDAO.getInstance();
         zoneIdLabel.setText(String.valueOf(ZoneId.systemDefault()));
     }
 
@@ -67,7 +63,7 @@ public class Login implements Initializable {
      * @return User object associated with the username
      */
     public User fetchUser(String username) throws SQLException {
-        return userDAO.getByUsername(username);
+        return UserCRUD.getByUsername(username);
     }
 
     /**
@@ -106,6 +102,6 @@ public class Login implements Initializable {
             return;
         }
 
-        Redirect.getInstance().to(event, "/view/schedule.fxml");
+        FXUtils.getInstance().redirect(event, "/view/schedule.fxml");
     }
 }

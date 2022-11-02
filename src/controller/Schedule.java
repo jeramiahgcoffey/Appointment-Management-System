@@ -1,7 +1,6 @@
 package controller;
 
-import db.AppointmentDAO;
-import helper.Redirect;
+import db.AppointmentCRUD;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +9,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
+import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Schedule implements Initializable {
@@ -70,7 +71,7 @@ public class Schedule implements Initializable {
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("custId"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        aptTable.setItems(FXCollections.observableList(AppointmentDAO.getInstance().getAll()));
+        aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
     }
 
     /**
@@ -80,6 +81,16 @@ public class Schedule implements Initializable {
      */
     @FXML
     private void handleCustomers(ActionEvent event) throws IOException {
-        Redirect.getInstance().to(event, "/view/customers.fxml");
+        FXUtils.getInstance().redirect(event, "/view/customers.fxml");
+    }
+
+    /**
+     * Handle Logout button clicked.
+     *
+     * @param event The event that was triggered from the login page.
+     */
+    @FXML
+    private void handleLogout(ActionEvent event) throws IOException {
+//        FXUtils.getInstance().redirect(event, "/view/login.fxml");
     }
 }

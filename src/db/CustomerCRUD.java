@@ -10,38 +10,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CustomerDAO implements DAO<Customer> {
-    /**
-     * Stores single instance of this class.
-     */
-    private static CustomerDAO instance;
-
-    /**
-     * Private constructor to ensure single instance.
-     */
-    private CustomerDAO() {
-    }
-
-    /**
-     * Gets the single instance of this class
-     *
-     * @return This class instance
-     */
-    public static CustomerDAO getInstance() {
-        if (instance == null) {
-            instance = new CustomerDAO();
-        }
-        return instance;
-    }
-
+public abstract class CustomerCRUD {
     /**
      * Get Customer by id.
      *
      * @param id Unique id associated with the Customer
      * @return The Customer associated with the id param
      */
-    @Override
-    public Customer get(int id) {
+    public static Customer get(int id) {
         return null;
     }
 
@@ -50,8 +26,7 @@ public class CustomerDAO implements DAO<Customer> {
      *
      * @return A List of all Customers
      */
-    @Override
-    public List<Customer> getAll() {
+    public static List<Customer> getAll() {
         ArrayList<Customer> customers = new ArrayList<Customer>();
         String query = "SELECT * FROM customers";
         Connection conn = DBConnection.connection;
@@ -93,8 +68,7 @@ public class CustomerDAO implements DAO<Customer> {
      *
      * @param customer The Customer to save
      */
-    @Override
-    public void save(Customer customer) {
+    public static void save(Customer customer) {
 
     }
 
@@ -104,8 +78,7 @@ public class CustomerDAO implements DAO<Customer> {
      * @param customer The Customer to change
      * @param params   Values to be changed
      */
-    @Override
-    public void update(Customer customer, String[] params) {
+    public static void update(Customer customer, String[] params) {
 
     }
 
@@ -114,8 +87,7 @@ public class CustomerDAO implements DAO<Customer> {
      *
      * @param customer The Customer to delete
      */
-    @Override
-    public void delete(Customer customer) {
+    public static void delete(Customer customer) {
 
     }
 }
