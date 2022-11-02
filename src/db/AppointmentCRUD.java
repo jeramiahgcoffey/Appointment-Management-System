@@ -110,7 +110,13 @@ public abstract class AppointmentCRUD {
      *
      * @param appointment The Appointment to delete
      */
-    public static void delete(Appointment appointment) {
+    public static void delete(Appointment appointment) throws SQLException {
+        String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
 
+        DBConnection.setPreparedStatement(sql);
+        PreparedStatement ps = DBConnection.preparedStatement;
+        ps.setInt(1, appointment.getId());
+
+        ps.execute();
     }
 }

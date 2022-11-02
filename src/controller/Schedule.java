@@ -1,6 +1,7 @@
 package controller;
 
 import db.AppointmentCRUD;
+import exception.ItemNotSelectedException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
@@ -82,6 +84,28 @@ public class Schedule implements Initializable {
     @FXML
     private void handleCustomers(ActionEvent event) throws IOException {
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");
+    }
+
+    /**
+     * Handle Delete Appointment button clicked
+     *
+     * @param event The event that triggered the handler
+     */
+    @FXML
+    private void handleDeleteAppointment(ActionEvent event) {
+        try {
+            Appointment selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
+
+            if (selectedAppointment == null) throw new ItemNotSelectedException("NO ITEM");
+            AppointmentCRUD.delete(selectedAppointment);
+            aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
+        } catch (ItemNotSelectedException e) {
+//            TODO: Show error popup here
+            System.out.println(e);
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
