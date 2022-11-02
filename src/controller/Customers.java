@@ -2,6 +2,7 @@ package controller;
 
 import db.CustomerCRUD;
 import enumerable.FormMode;
+import exception.ItemNotSelectedException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,6 +52,7 @@ public class Customers implements Initializable {
     private TableColumn<Character, String> updatedByCol;
 
     public static FormMode formMode;
+    public static Customer selectedCustomer;
 
     /**
      * @param url            URL used to resolve paths, null if not known
@@ -98,8 +100,14 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleModifyCustomer(ActionEvent event) throws IOException {
-        formMode = FormMode.MODIFY;
-        FXUtils.getInstance().redirect(event, "/view/customerForm.fxml");
+        try {
+            if (custTable.getSelectionModel().getSelectedItem() == null) throw new ItemNotSelectedException("NO ITEM");
+            formMode = FormMode.MODIFY;
+            setSelectedCustomer();
+            FXUtils.getInstance().redirect(event, "/view/customerForm.fxml");
+        } catch (ItemNotSelectedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -109,6 +117,15 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {
+//        TODO: FIX THIS
 //        FXUtils.getInstance().redirect(event, "/view/login.fxml");
+    }
+
+    /**
+     * Sets selectedCustomer to the currently selected customer in the table view.
+     */
+    private void setSelectedCustomer() {
+        selectedCustomer = custTable.getSelectionModel().getSelectedItem();
+        System.out.println(selectedCustomer.getName());
     }
 }

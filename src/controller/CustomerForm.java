@@ -62,10 +62,17 @@ public class CustomerForm implements Initializable {
             customerFormTitle.setText("Modify Customer");
             custIdTF.setOpacity(1);
             custIdLabel.setOpacity(1);
+
+            Customer customer = Customers.selectedCustomer;
+            custNameTF.setText(customer.getName());
+            custAddressTF.setText(customer.getAddress());
+
+            custPostalTF.setText(customer.getPostal());
+            custPhoneTF.setText(customer.getPhone());
+            custIdTF.setText(String.valueOf(customer.getId()));
         }
 
     }
-
 
     /**
      * Handle Cancel button clicked.
@@ -102,8 +109,13 @@ public class CustomerForm implements Initializable {
         String postal = custPostalTF.getText();
         String phone = custPhoneTF.getText();
 
-        Customer newCustomer = new Customer(0, name, address, postal, phone, null, null, null, null, division.id());
-        CustomerCRUD.save(newCustomer);
+        if (Customers.formMode.equals(FormMode.ADD)) {
+            Customer newCustomer = new Customer(0, name, address, postal, phone, null, null, null, null, division.id());
+            CustomerCRUD.save(newCustomer);
+        } else if (Customers.formMode.equals(FormMode.MODIFY)) {
+            Customer newCustomer = new Customer(Integer.parseInt(custIdTF.getText()), name, address, postal, phone, null, null, null, null, division.id());
+//            CustomerCRUD.update(newCustomer);
+        }
 
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");
     }

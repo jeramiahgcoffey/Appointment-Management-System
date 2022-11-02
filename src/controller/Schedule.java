@@ -115,6 +115,7 @@ public class Schedule implements Initializable {
      */
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {
+        //        TODO: FIX THIS
 //        FXUtils.getInstance().redirect(event, "/view/login.fxml");
     }
 }

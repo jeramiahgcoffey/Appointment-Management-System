@@ -66,7 +66,10 @@ public abstract class CustomerCRUD {
      * @param customer The Customer to save
      */
     public static void save(Customer customer) throws SQLException {
-        String sql = "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO customers (" +
+                "Customer_ID, Customer_Name, Address, Postal_Code," +
+                " Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID" +
+                ") VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         DBConnection.setPreparedStatement(sql);
         PreparedStatement ps = DBConnection.preparedStatement;
