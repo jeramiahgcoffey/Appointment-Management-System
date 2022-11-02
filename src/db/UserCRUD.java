@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 public abstract class UserCRUD {
     /**
@@ -50,42 +49,4 @@ public abstract class UserCRUD {
             return null;
         }
     }
-
-    /**
-     * Get all Users.
-     *
-     * @return A List of all Users
-     */
-    public static List<User> getAll() {
-        return null;
-    }
-
-    /**
-     * Persist new User.
-     *
-     * @param user The User to save
-     */
-    public static void save(User user) {
-
-    }
-
-    /**
-     * Persist changes to the User's data.
-     *
-     * @param user   The User to change
-     * @param params Values to be changed
-     */
-    public static void update(User user, String[] params) {
-
-    }
-
-    /**
-     * Delete the object.
-     *
-     * @param user The object to delete
-     */
-    public static void delete(User user) {
-
-    }
-
 }

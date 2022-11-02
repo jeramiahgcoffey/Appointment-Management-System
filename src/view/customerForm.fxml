@@ -3,21 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="345.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/19"
+<AnchorPane prefHeight="345.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerForm">
-    <Label layoutX="97.0" layoutY="83.0" text="Customer Name"/>
-    <Label layoutX="97.0" layoutY="115.0" text="Street Address"/>
-    <TextField layoutX="222.0" layoutY="79.0"/>
-    <TextField layoutX="222.0" layoutY="111.0"/>
-    <Label layoutX="97.0" layoutY="149.0" text="Country"/>
-    <ComboBox layoutX="222.0" layoutY="145.0" prefHeight="25.0" prefWidth="161.0"/>
-    <Label layoutX="97.0" layoutY="182.0" text="Division"/>
-    <ComboBox layoutX="222.0" layoutY="178.0" prefHeight="25.0" prefWidth="161.0"/>
-    <Label layoutX="97.0" layoutY="214.0" text="Postal Code"/>
-    <TextField layoutX="222.0" layoutY="210.0" prefHeight="25.0" prefWidth="161.0"/>
-    <TextField layoutX="222.0" layoutY="242.0"/>
-    <Label layoutX="97.0" layoutY="246.0" text="Phone Number"/>
-    <Label alignment="CENTER" layoutX="127.0" layoutY="14.0" prefHeight="44.0" prefWidth="226.0" text="Add Customer">
+    <Label layoutX="97.0" layoutY="99.0" text="Customer Name"/>
+    <Label layoutX="97.0" layoutY="131.0" text="Street Address"/>
+    <TextField fx:id="custNameTF" layoutX="222.0" layoutY="95.0"/>
+    <TextField fx:id="custAddressTF" layoutX="222.0" layoutY="127.0"/>
+    <Label layoutX="97.0" layoutY="165.0" text="Country"/>
+    <ComboBox fx:id="custCountryCB" layoutX="222.0" layoutY="161.0" prefHeight="25.0" prefWidth="161.0"/>
+    <Label layoutX="97.0" layoutY="198.0" text="Division"/>
+    <ComboBox fx:id="custDivisionCB" layoutX="222.0" layoutY="194.0" prefHeight="25.0" prefWidth="161.0"/>
+    <Label layoutX="97.0" layoutY="230.0" text="Postal Code"/>
+    <TextField fx:id="custPostalTF" layoutX="222.0" layoutY="226.0" prefHeight="25.0" prefWidth="161.0"/>
+    <TextField fx:id="custPhoneTF" layoutX="222.0" layoutY="258.0"/>
+    <Label layoutX="97.0" layoutY="262.0" text="Phone Number"/>
+    <Label fx:id="customerFormTitle" alignment="CENTER" layoutX="0" layoutY="14.0" prefHeight="44.0"
+           prefWidth="480.0" text="Add Customer">
         <font>
             <Font size="36.0"/>
         </font>
@@ -25,4 +26,7 @@
     <Button layoutX="95.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0"
             prefWidth="70.0" text="Cancel"/>
     <Button layoutX="313.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Save"/>
+    <TextField fx:id="custIdTF" disable="true" editable="false" layoutX="222.0" layoutY="64.0" opacity="0.0"
+               prefHeight="25.0" prefWidth="161.0"/>
+    <Label fx:id="custIdLabel" layoutX="97.0" layoutY="68.0" opacity="0.0" text="Customer ID"/>
 </AnchorPane>
