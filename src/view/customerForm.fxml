@@ -10,14 +10,15 @@
     <TextField fx:id="custNameTF" layoutX="222.0" layoutY="95.0"/>
     <TextField fx:id="custAddressTF" layoutX="222.0" layoutY="127.0"/>
     <Label layoutX="97.0" layoutY="165.0" text="Country"/>
-    <ComboBox fx:id="custCountryCB" layoutX="222.0" layoutY="161.0" prefHeight="25.0" prefWidth="161.0"/>
+    <ComboBox fx:id="custCountryCB" layoutX="222.0" layoutY="161.0" prefHeight="25.0" prefWidth="161.0"
+              onAction="#handleCountryChange"/>
     <Label layoutX="97.0" layoutY="198.0" text="Division"/>
     <ComboBox fx:id="custDivisionCB" layoutX="222.0" layoutY="194.0" prefHeight="25.0" prefWidth="161.0"/>
     <Label layoutX="97.0" layoutY="230.0" text="Postal Code"/>
     <TextField fx:id="custPostalTF" layoutX="222.0" layoutY="226.0" prefHeight="25.0" prefWidth="161.0"/>
     <TextField fx:id="custPhoneTF" layoutX="222.0" layoutY="258.0"/>
     <Label layoutX="97.0" layoutY="262.0" text="Phone Number"/>
-    <Label fx:id="customerFormTitle" alignment="CENTER" layoutX="0" layoutY="14.0" prefHeight="44.0"
+    <Label fx:id="customerFormTitle" alignment="CENTER" layoutY="14.0" prefHeight="44.0"
            prefWidth="480.0" text="Add Customer">
         <font>
             <Font size="36.0"/>
