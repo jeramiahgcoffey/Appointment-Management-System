@@ -102,7 +102,13 @@ public abstract class CustomerCRUD {
      *
      * @param customer The Customer to delete
      */
-    public static void delete(Customer customer) {
+    public static void delete(Customer customer) throws SQLException {
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
 
+        DBConnection.setPreparedStatement(sql);
+        PreparedStatement ps = DBConnection.preparedStatement;
+        ps.setInt(1, customer.getId());
+
+        ps.execute();
     }
 }

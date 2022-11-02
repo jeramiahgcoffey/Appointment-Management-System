@@ -18,6 +18,56 @@ public abstract class AppointmentCRUD {
     }
 
     /**
+     * Get Appointment by customer id.
+     *
+     * @param custId Unique customer id associated with the Appointment
+     * @return The Appointment associated with the id param
+     */
+    public static List<Appointment> getByCustomerId(int custId) {
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        String query = "SELECT * FROM appointments WHERE Customer_ID=" + custId;
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactId = rs.getInt("Contact_ID");
+                String type = rs.getString("Type");
+                Timestamp start = rs.getTimestamp("Start");
+                Timestamp end = rs.getTimestamp("End");
+                Timestamp createdAt = rs.getTimestamp("Create_Date");
+                Timestamp updatedAt = rs.getTimestamp("Last_Update");
+                String createdBy = rs.getString("Created_By");
+                String updatedBy = rs.getString("Last_Updated_By");
+                int userId = rs.getInt("User_ID");
+                appointments.add(new Appointment(
+                        id,
+                        title,
+                        description,
+                        location,
+                        contactId,
+                        type,
+                        start,
+                        end,
+                        createdAt,
+                        updatedAt,
+                        createdBy,
+                        updatedBy,
+                        custId,
+                        userId
+                ));
+            }
+            return appointments;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    /**
      * Get all Appointments.
      *
      * @return A List of all Appointments
@@ -60,11 +110,11 @@ public abstract class AppointmentCRUD {
                         userId
                 ));
             }
+            return appointments;
         } catch (SQLException e) {
             System.out.println(e);
             return null;
         }
-        return appointments;
     }
 
     /**

@@ -1,5 +1,6 @@
 package controller;
 
+import db.AppointmentCRUD;
 import db.CustomerCRUD;
 import enumerable.FormMode;
 import exception.ItemNotSelectedException;
@@ -10,13 +11,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Appointment;
 import model.Customer;
 import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -107,6 +111,35 @@ public class Customers implements Initializable {
             setSelectedCustomer();
             FXUtils.getInstance().redirect(event, "/view/customerForm.fxml");
         } catch (ItemNotSelectedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Handle Delete Customer button clicked
+     *
+     * @param event The event that was fired from the Schedule page.
+     */
+    @FXML
+    private void handleDeleteCustomer(ActionEvent event) {
+        try {
+            Customer selectedCustomer = custTable.getSelectionModel().getSelectedItem();
+            if (selectedCustomer == null) throw new ItemNotSelectedException("NO ITEM");
+
+            List<Appointment> customerAppointments = AppointmentCRUD.getByCustomerId(selectedCustomer.getId());
+            assert customerAppointments != null;
+            if (!customerAppointments.isEmpty()) {
+                // TODO: SHOW POPUP
+                System.out.print("NO");
+                return;
+            }
+            CustomerCRUD.delete(selectedCustomer);
+            custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
+        } catch (ItemNotSelectedException e) {
+//            TODO: Show error popup here
+            System.out.println(e);
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

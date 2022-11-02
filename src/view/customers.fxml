@@ -28,6 +28,7 @@
     <Button layoutX="124.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleAddCustomer" text="Add Customer"/>
     <Button layoutX="252.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleModifyCustomer"
             text="Modify Customer"/>
-    <Button layoutX="396.0" layoutY="561.0" mnemonicParsing="false" text="Delete Customer" textFill="#f80000"/>
+    <Button layoutX="396.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleDeleteCustomer"
+            text="Delete Customer" textFill="#f80000"/>
     <Button layoutX="937.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout"/>
 </AnchorPane>
