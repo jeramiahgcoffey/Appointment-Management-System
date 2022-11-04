@@ -59,5 +59,21 @@ public abstract class DivisionCRUD {
             return null;
         }
     }
+
+    public static Division get(int id) {
+        String query = "SELECT * FROM first_level_divisions WHERE Division_ID=" + id;
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            int countryId = rs.getInt("Country_ID");
+            String name = rs.getString("Division");
+
+            return new Division(id, countryId, name);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }
 

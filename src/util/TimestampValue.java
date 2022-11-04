@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public record TimestampValue(Timestamp originalValue) {
+    public static TimestampValue now() {
+        return new TimestampValue(new Timestamp(System.currentTimeMillis()));
+    }
 
     public LocalDateTime toLocalDateTime() {
         if (originalValue == null) return null;

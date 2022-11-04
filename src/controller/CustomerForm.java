@@ -15,10 +15,12 @@ import model.Country;
 import model.Customer;
 import model.Division;
 import util.FXUtils;
+import util.TimestampValue;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CustomerForm implements Initializable {
@@ -66,10 +68,15 @@ public class CustomerForm implements Initializable {
             Customer customer = Customers.selectedCustomer;
             custNameTF.setText(customer.getName());
             custAddressTF.setText(customer.getAddress());
-
             custPostalTF.setText(customer.getPostal());
             custPhoneTF.setText(customer.getPhone());
             custIdTF.setText(String.valueOf(customer.getId()));
+
+            Country currentCountry = CountryCRUD.getByDivision(customer.getDivisionId());
+            assert currentCountry != null;
+            custDivisionCB.setItems(FXCollections.observableArrayList(DivisionCRUD.getAllByCountry(currentCountry.id())));
+            custCountryCB.setValue(CountryCRUD.getByDivision(customer.getDivisionId()));
+            custDivisionCB.setValue(DivisionCRUD.get(customer.getDivisionId()));
         }
     }
 
@@ -92,6 +99,7 @@ public class CustomerForm implements Initializable {
     private void handleCountryChange(ActionEvent event) throws IOException {
         int countryId = custCountryCB.getSelectionModel().getSelectedItem().id();
         custDivisionCB.setItems(FXCollections.observableArrayList(DivisionCRUD.getAllByCountry(countryId)));
+        custDivisionCB.setValue(null);
     }
 
     /**
@@ -101,6 +109,9 @@ public class CustomerForm implements Initializable {
      */
     @FXML
     private void handleSaveCustomer(ActionEvent event) throws IOException, SQLException {
+//        TODO: Show Popup here
+        if (Objects.equals(custNameTF.getText(), "") || custDivisionCB.getValue() == null) return;
+
         String name = custNameTF.getText();
         String address = custAddressTF.getText();
         Division division = custDivisionCB.getValue();
@@ -108,13 +119,12 @@ public class CustomerForm implements Initializable {
         String phone = custPhoneTF.getText();
 
         if (Customers.formMode.equals(FormMode.ADD)) {
-            Customer newCustomer = new Customer(0, name, address, postal, phone, null, null, null, null, division.id());
+            Customer newCustomer = new Customer(0, name, address, postal, phone, TimestampValue.now(), TimestampValue.now(), null, null, division.id());
             CustomerCRUD.save(newCustomer);
         } else if (Customers.formMode.equals(FormMode.MODIFY)) {
-            Customer newCustomer = new Customer(Integer.parseInt(custIdTF.getText()), name, address, postal, phone, null, null, null, null, division.id());
-//            CustomerCRUD.update(newCustomer);
+            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, TimestampValue.now(), null, null, division.id());
+            CustomerCRUD.update(updatedCustomer);
         }
-        System.out.println(Login.currentUser.getUsername());
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");
     }
 }

@@ -12,8 +12,8 @@
             <TableColumn fx:id="addressCol" prefWidth="160.0" text="Address"/>
             <TableColumn fx:id="postalCol" minWidth="18.0" text="Postal"/>
             <TableColumn fx:id="stateCol" prefWidth="100.0" text="Division"/>
+            <TableColumn fx:id="phoneCol" prefWidth="110.0" text="Phone"/>
             <TableColumn fx:id="createdAtCol" prefWidth="135.0" text="Created At"/>
-            <TableColumn fx:id="createdByCol" prefWidth="105.0" text="Created By"/>
             <TableColumn fx:id="updatedAtCol" prefWidth="135.0" text="Updated At"/>
             <TableColumn fx:id="updatedByCol" minWidth="0.0" prefWidth="105.0" text="Updated By"/>
         </columns>

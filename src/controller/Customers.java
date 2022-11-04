@@ -28,6 +28,9 @@ public class Customers implements Initializable {
     private TableView<Customer> custTable;
 
     @FXML
+    private TableColumn<Customer, String> phoneCol;
+
+    @FXML
     private TableColumn<Customer, Integer> custIdCol;
 
     @FXML
@@ -44,9 +47,6 @@ public class Customers implements Initializable {
 
     @FXML
     private TableColumn<Customer, String> createdAtCol;
-
-    @FXML
-    private TableColumn<Customer, String> createdByCol;
 
     @FXML
     private TableColumn<Customer, String> updatedAtCol;
@@ -69,7 +69,7 @@ public class Customers implements Initializable {
         postalCol.setCellValueFactory(new PropertyValueFactory<>("postal"));
         stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
         createdAtCol.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-        createdByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
+        phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         updatedAtCol.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
         updatedByCol.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
         custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
@@ -114,12 +114,10 @@ public class Customers implements Initializable {
     }
 
     /**
-     * Handle Delete Customer button clicked
-     *
-     * @param event The event that was fired from the Schedule page.
+     * Handle Delete Customer button clicked.
      */
     @FXML
-    private void handleDeleteCustomer(ActionEvent event) {
+    private void handleDeleteCustomer() {
         try {
             Customer selectedCustomer = custTable.getSelectionModel().getSelectedItem();
             if (selectedCustomer == null) throw new ItemNotSelectedException("NO ITEM");

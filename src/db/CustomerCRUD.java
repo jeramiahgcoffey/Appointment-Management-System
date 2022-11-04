@@ -79,9 +79,9 @@ public abstract class CustomerCRUD {
         ps.setString(3, customer.getAddress());
         ps.setString(4, customer.getPostal());
         ps.setString(5, customer.getPhone());
-        ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+        ps.setTimestamp(6, customer.getCreatedAtTimestamp());
         ps.setString(7, null);
-        ps.setString(8, null);
+        ps.setTimestamp(8, customer.getUpdatedAtTimestamp());
         ps.setString(9, null);
         ps.setInt(10, customer.getDivisionId());
 
@@ -92,10 +92,29 @@ public abstract class CustomerCRUD {
      * Persist changes to the Customer's data.
      *
      * @param customer The Customer to change
-     * @param params   Values to be changed
      */
-    public static void update(Customer customer, String[] params) {
+    public static void update(Customer customer) throws SQLException {
+        String sql = "UPDATE customers " +
+                "SET Customer_Name = ?," +
+                "Address = ?," +
+                "Postal_Code = ?," +
+                "Phone = ?," +
+                "Last_Update = ?," +
+                "Division_ID = ? " +
+                "WHERE Customer_ID = ?";
 
+        DBConnection.setPreparedStatement(sql);
+        PreparedStatement ps = DBConnection.preparedStatement;
+
+        ps.setString(1, customer.getName());
+        ps.setString(2, customer.getAddress());
+        ps.setString(3, customer.getPostal());
+        ps.setString(4, customer.getPhone());
+        ps.setTimestamp(5, customer.getUpdatedAtTimestamp());
+        ps.setInt(6, customer.getDivisionId());
+        ps.setInt(7, customer.getId());
+
+        ps.execute();
     }
 
     /**
