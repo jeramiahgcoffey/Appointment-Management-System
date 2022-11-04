@@ -4,7 +4,6 @@ import db.DivisionCRUD;
 import util.DateTimeFormat;
 
 import java.sql.Timestamp;
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,12 +79,12 @@ public class Customer {
         return phone;
     }
 
-    public ZonedDateTime getCreatedAt() {
-        return DateTimeFormat.sqlToLocal(createdAt);
+    public String getCreatedAt() {
+        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(createdAt));
     }
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
+    public String getUpdatedAt() {
+        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(updatedAt));
     }
 
     public String getCreatedBy() {

@@ -1,15 +1,18 @@
 package util;
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class DateTimeFormat {
-    public static ZonedDateTime sqlToLocal(Timestamp dt) {
+    public static LocalDateTime sqlToLocal(Timestamp dt) {
         if (dt == null) return null;
-        String val = dt.toLocalDateTime() + "Z";
-        Instant timestamp = Instant.parse(val);
-        return timestamp.atZone(ZoneId.systemDefault());
+        return dt.toLocalDateTime();
+    }
+
+    public static String displayFormat(LocalDateTime dt) {
+        if (dt == null) return null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        return dt.format(formatter);
     }
 }

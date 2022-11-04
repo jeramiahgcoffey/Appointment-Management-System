@@ -135,8 +135,8 @@ public abstract class AppointmentCRUD {
         ps.setString(2, appointment.getDescription());
         ps.setString(3, appointment.getLocation());
         ps.setString(4, appointment.getType());
-        ps.setTimestamp(5, appointment.getStart());
-        ps.setTimestamp(6, appointment.getEnd());
+//        ps.setTimestamp(5, appointment.getStart());
+//        ps.setTimestamp(6, appointment.getEnd());
         ps.setTimestamp(7, appointment.getCreatedAt());
         ps.setString(8, appointment.getCreatedBy());
         ps.setTimestamp(9, appointment.getUpdatedAt());

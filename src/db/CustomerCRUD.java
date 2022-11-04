@@ -78,7 +78,7 @@ public abstract class CustomerCRUD {
         ps.setString(3, customer.getAddress());
         ps.setString(4, customer.getPostal());
         ps.setString(5, customer.getPhone());
-        ps.setString(6, null);
+        ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
         ps.setString(7, null);
         ps.setString(8, null);
         ps.setString(9, null);

@@ -15,8 +15,6 @@ import util.FXUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -26,34 +24,34 @@ public class Schedule implements Initializable {
     private TableView<Appointment> aptTable;
 
     @FXML
-    private TableColumn<Number, Integer> aptIdCol;
+    private TableColumn<Appointment, Integer> aptIdCol;
 
     @FXML
-    private TableColumn<Character, String> titleCol;
+    private TableColumn<Appointment, String> titleCol;
 
     @FXML
-    private TableColumn<Character, String> descCol;
+    private TableColumn<Appointment, String> descCol;
 
     @FXML
-    private TableColumn<Character, String> locationCol;
+    private TableColumn<Appointment, String> locationCol;
 
     @FXML
-    private TableColumn<Number, Integer> contactCol;
+    private TableColumn<Appointment, Integer> contactCol;
 
     @FXML
-    private TableColumn<Character, String> typeCol;
+    private TableColumn<Appointment, String> typeCol;
 
     @FXML
-    private TableColumn<Date, Timestamp> startCol;
+    private TableColumn<Appointment, String> startCol;
 
     @FXML
-    private TableColumn<Date, Timestamp> endCol;
+    private TableColumn<Appointment, String> endCol;
 
     @FXML
-    private TableColumn<Number, Integer> custIdCol;
+    private TableColumn<Appointment, Integer> custIdCol;
 
     @FXML
-    private TableColumn<Number, Integer> userIdCol;
+    private TableColumn<Appointment, Integer> userIdCol;
 
     /**
      * Initialize the view controller. Display appointments in table view.

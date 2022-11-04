@@ -21,6 +21,7 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         DBConnection.openConnection();
+        System.out.println();
         launch(args);
         DBConnection.closeConnection();
     }

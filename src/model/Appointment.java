@@ -1,5 +1,7 @@
 package model;
 
+import util.DateTimeFormat;
+
 import java.sql.Timestamp;
 
 public class Appointment {
@@ -74,12 +76,12 @@ public class Appointment {
         return type;
     }
 
-    public Timestamp getStart() {
-        return start;
+    public String getStart() {
+        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(start));
     }
 
-    public Timestamp getEnd() {
-        return end;
+    public String getEnd() {
+        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(end));
     }
 
     public Timestamp getCreatedAt() {

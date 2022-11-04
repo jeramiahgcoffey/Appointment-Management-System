@@ -17,9 +17,7 @@ import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -30,31 +28,31 @@ public class Customers implements Initializable {
     private TableView<Customer> custTable;
 
     @FXML
-    private TableColumn<Number, Integer> custIdCol;
+    private TableColumn<Customer, Integer> custIdCol;
 
     @FXML
-    private TableColumn<Character, String> nameCol;
+    private TableColumn<Customer, String> nameCol;
 
     @FXML
-    private TableColumn<Character, String> addressCol;
+    private TableColumn<Customer, String> addressCol;
 
     @FXML
-    private TableColumn<Character, String> postalCol;
+    private TableColumn<Customer, String> postalCol;
 
     @FXML
-    private TableColumn<Character, String> stateCol;
+    private TableColumn<Customer, String> stateCol;
 
     @FXML
-    private TableColumn<Character, String> createdAtCol;
+    private TableColumn<Customer, String> createdAtCol;
 
     @FXML
-    private TableColumn<Character, String> createdByCol;
+    private TableColumn<Customer, String> createdByCol;
 
     @FXML
-    private TableColumn<Date, Timestamp> updatedAtCol;
+    private TableColumn<Customer, String> updatedAtCol;
 
     @FXML
-    private TableColumn<Character, String> updatedByCol;
+    private TableColumn<Customer, String> updatedByCol;
 
     public static FormMode formMode;
     public static Customer selectedCustomer;
