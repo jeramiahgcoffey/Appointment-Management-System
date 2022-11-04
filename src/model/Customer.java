@@ -1,9 +1,10 @@
 package model;
 
 import db.DivisionCRUD;
+import util.DateTimeFormat;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -79,11 +80,11 @@ public class Customer {
         return phone;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public ZonedDateTime getCreatedAt() {
+        return DateTimeFormat.sqlToLocal(createdAt);
     }
 
-    public Date getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 

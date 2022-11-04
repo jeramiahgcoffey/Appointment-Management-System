@@ -21,7 +21,6 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         DBConnection.openConnection();
-        Locale.setDefault(new Locale("es"));
         launch(args);
         DBConnection.closeConnection();
     }

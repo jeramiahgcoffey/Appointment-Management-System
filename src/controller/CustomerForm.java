@@ -71,7 +71,6 @@ public class CustomerForm implements Initializable {
             custPhoneTF.setText(customer.getPhone());
             custIdTF.setText(String.valueOf(customer.getId()));
         }
-
     }
 
     /**

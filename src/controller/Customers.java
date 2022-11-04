@@ -45,7 +45,7 @@ public class Customers implements Initializable {
     private TableColumn<Character, String> stateCol;
 
     @FXML
-    private TableColumn<Date, Timestamp> createdAtCol;
+    private TableColumn<Character, String> createdAtCol;
 
     @FXML
     private TableColumn<Character, String> createdByCol;
