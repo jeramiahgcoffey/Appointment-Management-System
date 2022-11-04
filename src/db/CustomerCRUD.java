@@ -1,6 +1,7 @@
 package db;
 
 import model.Customer;
+import util.TimestampValue;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -34,8 +35,8 @@ public abstract class CustomerCRUD {
                 String address = rs.getString("Address");
                 String postal = rs.getString("Postal_Code");
                 String phone = rs.getString("Phone");
-                Timestamp createdAt = rs.getTimestamp("Create_Date");
-                Timestamp updatedAt = rs.getTimestamp("Last_Update");
+                TimestampValue createdAt = new TimestampValue(rs.getTimestamp("Create_Date"));
+                TimestampValue updatedAt = new TimestampValue(rs.getTimestamp("Last_Update"));
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int divisionId = rs.getInt("Division_ID");

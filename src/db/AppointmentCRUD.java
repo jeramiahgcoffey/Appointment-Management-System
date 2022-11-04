@@ -1,6 +1,7 @@
 package db;
 
 import model.Appointment;
+import util.TimestampValue;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -36,10 +37,10 @@ public abstract class AppointmentCRUD {
                 String location = rs.getString("Location");
                 int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                Timestamp start = rs.getTimestamp("Start");
-                Timestamp end = rs.getTimestamp("End");
-                Timestamp createdAt = rs.getTimestamp("Create_Date");
-                Timestamp updatedAt = rs.getTimestamp("Last_Update");
+                TimestampValue start = new TimestampValue(rs.getTimestamp("Start"));
+                TimestampValue end = new TimestampValue(rs.getTimestamp("End"));
+                TimestampValue createdAt = new TimestampValue(rs.getTimestamp("Create_Date"));
+                TimestampValue updatedAt = new TimestampValue(rs.getTimestamp("Last_Update"));
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int userId = rs.getInt("User_ID");
@@ -85,10 +86,10 @@ public abstract class AppointmentCRUD {
                 String location = rs.getString("Location");
                 int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                Timestamp start = rs.getTimestamp("Start");
-                Timestamp end = rs.getTimestamp("End");
-                Timestamp createdAt = rs.getTimestamp("Create_Date");
-                Timestamp updatedAt = rs.getTimestamp("Last_Update");
+                TimestampValue start = new TimestampValue(rs.getTimestamp("Start"));
+                TimestampValue end = new TimestampValue(rs.getTimestamp("End"));
+                TimestampValue createdAt = new TimestampValue(rs.getTimestamp("Create_Date"));
+                TimestampValue updatedAt = new TimestampValue(rs.getTimestamp("Last_Update"));
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int custId = rs.getInt("Customer_ID");
@@ -135,8 +136,8 @@ public abstract class AppointmentCRUD {
         ps.setString(2, appointment.getDescription());
         ps.setString(3, appointment.getLocation());
         ps.setString(4, appointment.getType());
-//        ps.setTimestamp(5, appointment.getStart());
-//        ps.setTimestamp(6, appointment.getEnd());
+        ps.setTimestamp(5, appointment.getStartTimestamp());
+        ps.setTimestamp(6, appointment.getEndTimestamp());
         ps.setTimestamp(7, appointment.getCreatedAt());
         ps.setString(8, appointment.getCreatedBy());
         ps.setTimestamp(9, appointment.getUpdatedAt());

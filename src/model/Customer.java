@@ -1,7 +1,7 @@
 package model;
 
 import db.DivisionCRUD;
-import util.DateTimeFormat;
+import util.TimestampValue;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -14,8 +14,8 @@ public class Customer {
     private String postal;
     private String state;
     private String phone;
-    private final Timestamp createdAt;
-    private final Timestamp updatedAt;
+    private final TimestampValue createdAt;
+    private final TimestampValue updatedAt;
     private final String createdBy;
     private final String updatedBy;
     private int divisionId;
@@ -28,8 +28,8 @@ public class Customer {
             String address,
             String postal,
             String phone,
-            Timestamp createdAt,
-            Timestamp updatedAt,
+            TimestampValue createdAt,
+            TimestampValue updatedAt,
             String createdBy,
             String updatedBy,
             int divisionId
@@ -80,11 +80,19 @@ public class Customer {
     }
 
     public String getCreatedAt() {
-        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(createdAt));
+        return createdAt.displayFormat();
     }
 
     public String getUpdatedAt() {
-        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(updatedAt));
+        return updatedAt.displayFormat();
+    }
+
+    public Timestamp getCreatedAtTimestamp() {
+        return createdAt.originalValue();
+    }
+
+    public Timestamp getUpdatedAtTimestamp() {
+        return updatedAt.originalValue();
     }
 
     public String getCreatedBy() {

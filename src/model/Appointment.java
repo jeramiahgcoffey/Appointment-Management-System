@@ -1,6 +1,6 @@
 package model;
 
-import util.DateTimeFormat;
+import util.TimestampValue;
 
 import java.sql.Timestamp;
 
@@ -11,10 +11,10 @@ public class Appointment {
     private String location;
     private int contactId;
     private String type;
-    private Timestamp start;
-    private Timestamp end;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private TimestampValue start;
+    private TimestampValue end;
+    private TimestampValue createdAt;
+    private TimestampValue updatedAt;
     private String createdBy;
     private String updatedBy;
     private int custId;
@@ -27,10 +27,10 @@ public class Appointment {
             String location,
             int contactId,
             String type,
-            Timestamp start,
-            Timestamp end,
-            Timestamp createdAt,
-            Timestamp updatedAt,
+            TimestampValue start,
+            TimestampValue end,
+            TimestampValue createdAt,
+            TimestampValue updatedAt,
             String createdBy,
             String updatedBy,
             int custId,
@@ -77,19 +77,27 @@ public class Appointment {
     }
 
     public String getStart() {
-        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(start));
+        return start.displayFormat();
     }
 
     public String getEnd() {
-        return DateTimeFormat.displayFormat(DateTimeFormat.sqlToLocal(end));
+        return end.displayFormat();
+    }
+
+    public Timestamp getStartTimestamp() {
+        return start.originalValue();
+    }
+
+    public Timestamp getEndTimestamp() {
+        return end.originalValue();
     }
 
     public Timestamp getCreatedAt() {
-        return createdAt;
+        return createdAt.originalValue();
     }
 
     public Timestamp getUpdatedAt() {
-        return updatedAt;
+        return updatedAt.originalValue();
     }
 
     public String getCreatedBy() {
@@ -128,28 +136,12 @@ public class Appointment {
         this.type = type;
     }
 
-    public void setStart(Timestamp start) {
+    public void setStart(TimestampValue start) {
         this.start = start;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(TimestampValue end) {
         this.end = end;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public void setCustId(int custId) {

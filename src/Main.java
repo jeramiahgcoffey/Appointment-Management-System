@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+import util.TimestampValue;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -21,7 +22,8 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         DBConnection.openConnection();
-        System.out.println();
+        TimestampValue val = new TimestampValue(null);
+        System.out.println(val.toLocalDateTime());
         launch(args);
         DBConnection.closeConnection();
     }
