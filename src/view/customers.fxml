@@ -7,15 +7,15 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Customers">
     <TableView fx:id="custTable" layoutY="104.0" prefHeight="433.0" prefWidth="1015.0">
         <columns>
-            <TableColumn fx:id="custIdCol" prefWidth="76.0" text="Customer ID"/>
-            <TableColumn fx:id="nameCol" prefWidth="122.0" text="Customer Name"/>
-            <TableColumn fx:id="addressCol" prefWidth="149.0" text="Address"/>
-            <TableColumn fx:id="postalCol" minWidth="18.0" prefWidth="79.0" text="Postal Code"/>
-            <TableColumn fx:id="stateCol" prefWidth="106.0" text="State"/>
-            <TableColumn fx:id="createdAtCol" prefWidth="101.0" text="Created At"/>
-            <TableColumn fx:id="createdByCol" prefWidth="125.0" text="Created By"/>
-            <TableColumn fx:id="updatedAtCol" prefWidth="125.0" text="Updated At"/>
-            <TableColumn fx:id="updatedByCol" prefWidth="131.0" text="Updated By"/>
+            <TableColumn fx:id="custIdCol" prefWidth="50.0" text="Cust. Id"/>
+            <TableColumn fx:id="nameCol" prefWidth="140.0" text="Customer Name"/>
+            <TableColumn fx:id="addressCol" prefWidth="160.0" text="Address"/>
+            <TableColumn fx:id="postalCol" minWidth="18.0" text="Postal"/>
+            <TableColumn fx:id="stateCol" prefWidth="100.0" text="Division"/>
+            <TableColumn fx:id="createdAtCol" prefWidth="135.0" text="Created At"/>
+            <TableColumn fx:id="createdByCol" prefWidth="105.0" text="Created By"/>
+            <TableColumn fx:id="updatedAtCol" prefWidth="135.0" text="Updated At"/>
+            <TableColumn fx:id="updatedByCol" minWidth="0.0" prefWidth="105.0" text="Updated By"/>
         </columns>
     </TableView>
     <Label layoutX="14.0" layoutY="14.0" text="Customers">

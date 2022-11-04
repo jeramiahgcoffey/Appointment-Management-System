@@ -13,7 +13,7 @@ public record TimestampValue(Timestamp originalValue) {
 
     public String displayFormat() {
         if (originalValue == null) return null;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm a");
         return originalValue.toLocalDateTime().format(formatter);
     }
 }
