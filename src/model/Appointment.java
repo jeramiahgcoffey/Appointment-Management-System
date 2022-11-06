@@ -84,12 +84,12 @@ public class Appointment {
         return end.displayFormat();
     }
 
-    public Timestamp getStartTimestamp() {
-        return start.originalValue();
+    public TimestampValue getStartTimestamp() {
+        return start;
     }
 
-    public Timestamp getEndTimestamp() {
-        return end.originalValue();
+    public TimestampValue getEndTimestamp() {
+        return end;
     }
 
     public Timestamp getCreatedAt() {

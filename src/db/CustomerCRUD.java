@@ -91,9 +91,9 @@ public abstract class CustomerCRUD {
         ps.setString(3, customer.getAddress());
         ps.setString(4, customer.getPostal());
         ps.setString(5, customer.getPhone());
-        ps.setTimestamp(6, customer.getCreatedAtTimestamp());
+        ps.setTimestamp(6, customer.getCreatedAtTimestamp().originalValue());
         ps.setString(7, null);
-        ps.setTimestamp(8, customer.getUpdatedAtTimestamp());
+        ps.setTimestamp(8, customer.getUpdatedAtTimestamp().originalValue());
         ps.setString(9, null);
         ps.setInt(10, customer.getDivisionId());
 
@@ -122,7 +122,7 @@ public abstract class CustomerCRUD {
         ps.setString(2, customer.getAddress());
         ps.setString(3, customer.getPostal());
         ps.setString(4, customer.getPhone());
-        ps.setTimestamp(5, customer.getUpdatedAtTimestamp());
+        ps.setTimestamp(5, customer.getUpdatedAtTimestamp().originalValue());
         ps.setInt(6, customer.getDivisionId());
         ps.setInt(7, customer.getId());
 

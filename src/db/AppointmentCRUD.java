@@ -136,15 +136,15 @@ public abstract class AppointmentCRUD {
         ps.setString(2, appointment.getDescription());
         ps.setString(3, appointment.getLocation());
         ps.setString(4, appointment.getType());
-        ps.setTimestamp(5, appointment.getStartTimestamp());
-        ps.setTimestamp(6, appointment.getEndTimestamp());
+        ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
+        ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
         ps.setTimestamp(7, appointment.getCreatedAt());
         ps.setString(8, appointment.getCreatedBy());
         ps.setTimestamp(9, appointment.getUpdatedAt());
         ps.setString(10, appointment.getUpdatedBy());
-        ps.setInt(11, 1);
-        ps.setInt(12, 1);
-        ps.setInt(13, 1);
+        ps.setInt(11, appointment.getCustId());
+        ps.setInt(12, appointment.getUserId());
+        ps.setInt(13, appointment.getContactId());
 
         ps.execute();
     }
@@ -153,10 +153,37 @@ public abstract class AppointmentCRUD {
      * Persist changes to an Appointment's data.
      *
      * @param appointment The Appointment to change
-     * @param params      Values to be changed
      */
-    public static void update(Appointment appointment, String[] params) {
+    public static void update(Appointment appointment) throws SQLException {
+        String sql = "UPDATE appointments " +
+                "SET Title = ?," +
+                "Description = ?," +
+                "Location = ?," +
+                "Type = ?," +
+                "Start = ?," +
+                "End = ?, " +
+                "Last_Update = ?, " +
+                "Customer_ID = ?, " +
+                "User_ID = ?, " +
+                "Contact_ID = ? " +
+                "WHERE Appointment_ID = ?";
 
+        DBConnection.setPreparedStatement(sql);
+        PreparedStatement ps = DBConnection.preparedStatement;
+
+        ps.setString(1, appointment.getTitle());
+        ps.setString(2, appointment.getDescription());
+        ps.setString(3, appointment.getLocation());
+        ps.setString(4, appointment.getType());
+        ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
+        ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
+        ps.setTimestamp(7, appointment.getUpdatedAt());
+        ps.setInt(8, appointment.getCustId());
+        ps.setInt(9, appointment.getUserId());
+        ps.setInt(10, appointment.getContactId());
+        ps.setInt(11, appointment.getId());
+
+        ps.execute();
     }
 
     /**

@@ -3,7 +3,6 @@ package model;
 import db.DivisionCRUD;
 import util.TimestampValue;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,12 +89,12 @@ public class Customer {
         return updatedAt.displayFormat();
     }
 
-    public Timestamp getCreatedAtTimestamp() {
-        return createdAt.originalValue();
+    public TimestampValue getCreatedAtTimestamp() {
+        return createdAt;
     }
 
-    public Timestamp getUpdatedAtTimestamp() {
-        return updatedAt.originalValue();
+    public TimestampValue getUpdatedAtTimestamp() {
+        return updatedAt;
     }
 
     public String getCreatedBy() {

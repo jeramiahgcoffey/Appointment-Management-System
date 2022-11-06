@@ -149,6 +149,7 @@ public class Customers implements Initializable {
     private void handleLogout(ActionEvent event) throws IOException {
 //        TODO: FIX THIS
 //        FXUtils.getInstance().redirect(event, "/view/login.fxml");
+        System.exit(0);
     }
 
     /**
