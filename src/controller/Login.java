@@ -104,6 +104,6 @@ public class Login implements Initializable {
             return;
         }
         currentUser = user;
-        FXUtils.getInstance().redirect(event, "/view/schedule.fxml");
+        FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
 }

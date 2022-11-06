@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="600.0" prefWidth="1015.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Schedule">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Appointments">
     <TableView fx:id="aptTable" layoutY="104.0" prefHeight="433.0" prefWidth="1015.0">
         <columns>
             <TableColumn fx:id="aptIdCol" prefWidth="45.0" text="Apt. ID"/>
@@ -30,10 +30,11 @@
     <Button layoutX="549.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleCustomers" text="Customers"/>
     <DatePicker layoutX="775.0" layoutY="71.0" prefHeight="25.0" prefWidth="219.0"/>
     <Label layoutX="775.0" layoutY="54.0" text="Time Zone: "/>
-    <Label layoutX="846.0" layoutY="54.0" text="America/Chicago"/>
+    <Label fx:id="zoneIdLabel" layoutX="846.0" layoutY="54.0"/>
     <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" text="Reports"/>
-    <Button layoutX="124.0" layoutY="561.0" mnemonicParsing="false" text="Add Appointment"/>
-    <Button layoutX="252.0" layoutY="561.0" mnemonicParsing="false" text="Modify Appointment"/>
+    <Button layoutX="124.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleAddApt" text="Add Appointment"/>
+    <Button layoutX="252.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleModifyApt"
+            text="Modify Appointment"/>
     <Button layoutX="396.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleDeleteAppointment"
             text="Delete Appointment" textFill="#f80000"/>
     <Button layoutX="937.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout"/>

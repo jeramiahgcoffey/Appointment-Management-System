@@ -82,7 +82,7 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleSchedule(ActionEvent event) throws IOException {
-        FXUtils.getInstance().redirect(event, "/view/schedule.fxml");
+        FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
 
     /**

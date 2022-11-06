@@ -1,11 +1,13 @@
 package controller;
 
 import db.AppointmentCRUD;
+import enumerable.FormMode;
 import exception.ItemNotSelectedException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,10 +17,14 @@ import util.FXUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.ZoneId;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class Schedule implements Initializable {
+public class Appointments implements Initializable {
+
+    @FXML
+    private Label zoneIdLabel;
 
     @FXML
     private TableView<Appointment> aptTable;
@@ -53,6 +59,10 @@ public class Schedule implements Initializable {
     @FXML
     private TableColumn<Appointment, Integer> userIdCol;
 
+    public static FormMode formMode;
+    public static Appointment selectedAppointment;
+
+
     /**
      * Initialize the view controller. Display appointments in table view.
      *
@@ -61,6 +71,8 @@ public class Schedule implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        zoneIdLabel.setText(String.valueOf(ZoneId.systemDefault()));
+
         aptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -106,6 +118,25 @@ public class Schedule implements Initializable {
         }
     }
 
+
+    @FXML
+    private void handleAddApt(ActionEvent event) throws IOException {
+        formMode = FormMode.ADD;
+        FXUtils.getInstance().redirect(event, "/view/appointmentForm.fxml");
+    }
+
+    @FXML
+    private void handleModifyApt(ActionEvent event) {
+        try {
+            if (aptTable.getSelectionModel().getSelectedItem() == null) throw new ItemNotSelectedException("NO ITEM");
+            formMode = FormMode.MODIFY;
+            setSelectedAppointment();
+            FXUtils.getInstance().redirect(event, "/view/appointmentForm.fxml");
+        } catch (ItemNotSelectedException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * Handle Logout button clicked.
      *
@@ -115,5 +146,12 @@ public class Schedule implements Initializable {
     private void handleLogout(ActionEvent event) throws IOException {
         //        TODO: FIX THIS
 //        FXUtils.getInstance().redirect(event, "/view/login.fxml");
+    }
+
+    /**
+     * Sets selectedAppointment to the currently selected appointment in the table view.
+     */
+    private void setSelectedAppointment() {
+        selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
     }
 }
