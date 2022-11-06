@@ -1,15 +1,24 @@
 package controller;
 
+import db.ContactCRUD;
+import db.CustomerCRUD;
+import db.UserCRUD;
 import enumerable.FormMode;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Appointment;
+import model.Contact;
+import model.Customer;
+import model.User;
 import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class AppointmentForm implements Initializable {
@@ -36,13 +45,13 @@ public class AppointmentForm implements Initializable {
     private TextField aptTypeTf;
 
     @FXML
-    private ComboBox aptContactCB;
+    private ComboBox<Contact> aptContactCB;
 
     @FXML
-    private ComboBox aptCustCB;
+    private ComboBox<Customer> aptCustCB;
 
     @FXML
-    private ComboBox aptUserCB;
+    private ComboBox<User> aptUserCB;
 
     @FXML
     private DatePicker aptDatePicker;
@@ -88,11 +97,24 @@ public class AppointmentForm implements Initializable {
 
     /**
      * @param url            URL used to resolve paths, null if not known
-     * @param resourceBundle Resources used to localize the root object, null if not localizeda
+     * @param resourceBundle Resources used to localize the root object, null if not localized
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<Contact> contacts = ContactCRUD.getAll();
+        List<Customer> customers = CustomerCRUD.getAll();
+        List<User> users = UserCRUD.getAll();
 
+        assert contacts != null;
+        Map<Integer, Contact> contactMap = Contact.toMap(contacts);
+        assert customers != null;
+        Map<Integer, Customer> customerMap = Customer.toMap(customers);
+        assert users != null;
+        Map<Integer, User> userMap = User.toMap(users);
+
+        aptContactCB.setItems(FXCollections.observableArrayList(contacts));
+        aptCustCB.setItems(FXCollections.observableArrayList(customers));
+        aptUserCB.setItems(FXCollections.observableArrayList(users));
 
         if (Appointments.formMode == FormMode.MODIFY) {
             aptFormTitle.setText("Modify Appointment");
@@ -101,6 +123,14 @@ public class AppointmentForm implements Initializable {
 
             Appointment appointment = Appointments.selectedAppointment;
 
+            aptIdTF.setText(String.valueOf(appointment.getId()));
+            aptTitleTF.setText(appointment.getTitle());
+            aptDescTF.setText(appointment.getDescription());
+            aptLocationTF.setText(appointment.getLocation());
+            aptTypeTf.setText(appointment.getType());
+            aptContactCB.setValue(contactMap.get(appointment.getContactId()));
+            aptCustCB.setValue(customerMap.get(appointment.getCustId()));
+            aptUserCB.setValue(userMap.get(appointment.getUserId()));
         }
     }
 

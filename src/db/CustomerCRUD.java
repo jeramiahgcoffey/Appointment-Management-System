@@ -14,9 +14,21 @@ public abstract class CustomerCRUD {
      * @param id Unique id associated with the Customer
      * @return The Customer associated with the id param
      */
-    public static Customer get(int id) {
-        return null;
-    }
+//    public static Customer get(int id) {
+//        String query = "SELECT * FROM customers WHERE Customer_ID=" + id;
+//        Connection conn = DBConnection.connection;
+//        try (Statement stmt = conn.createStatement()) {
+//            ResultSet rs = stmt.executeQuery(query);
+//            rs.next();
+//            String name = rs.getString("Customer_Name");
+//            String address
+//
+//            return new Customer();
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            return null;
+//        }
+//    }
 
     /**
      * Get all Customers.

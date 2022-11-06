@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class UserCRUD {
     /**
@@ -48,5 +50,32 @@ public abstract class UserCRUD {
             System.out.println(e);
             return null;
         }
+    }
+
+    /**
+     * Get all Users.
+     *
+     * @return A List of all Users
+     */
+    public static List<User> getAll() {
+        ArrayList<User> users = new ArrayList<User>();
+        String query = "SELECT * FROM users";
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("User_ID");
+                String name = rs.getString("User_Name");
+                users.add(new User(
+                        id,
+                        name,
+                        null
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+        return users;
     }
 }

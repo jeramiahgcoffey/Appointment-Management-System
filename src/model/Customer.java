@@ -6,6 +6,9 @@ import util.TimestampValue;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Customer {
     private final int id;
@@ -129,5 +132,14 @@ public class Customer {
 
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
+
+    public static Map<Integer, Customer> toMap(List<Customer> list) {
+        return list.stream().collect(Collectors.toMap(Customer::getId, Function.identity()));
     }
 }
