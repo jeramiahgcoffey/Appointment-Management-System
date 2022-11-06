@@ -5,8 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-import util.TimestampValue;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -20,10 +20,8 @@ public class Main extends Application {
      *
      * @param args Optional arguments passed to the main function.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         DBConnection.openConnection();
-        TimestampValue val = new TimestampValue(null);
-        System.out.println(val.toLocalDateTime());
         launch(args);
         DBConnection.closeConnection();
     }

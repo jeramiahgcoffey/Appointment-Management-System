@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import model.User;
 import org.jetbrains.annotations.NotNull;
 import util.FXUtils;
+import util.Log;
 
 import java.io.IOException;
 import java.net.URL;
@@ -96,13 +97,16 @@ public class Login implements Initializable {
         if (user == null) {
             loginPasswordErrorLabel.setText(bundle.getString("creds.error"));
             loginPasswordTF.setText("");
+            Log.loginAttempt(username, false);
             return;
         }
         if (!comparePassword(user, password)) {
             loginPasswordErrorLabel.setText(bundle.getString("creds.error"));
             loginPasswordTF.setText("");
+            Log.loginAttempt(username, false);
             return;
         }
+        Log.loginAttempt(username, true);
         currentUser = user;
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
