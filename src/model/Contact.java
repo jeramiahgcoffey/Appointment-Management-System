@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public record Contact(int id, String name, String email) {
     @Override
     public String toString() {
-        return String.valueOf(id);
+        return name;
     }
 
     public static Map<Integer, Contact> toMap(List<Contact> list) {

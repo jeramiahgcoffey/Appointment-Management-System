@@ -33,4 +33,24 @@ public abstract class ContactCRUD {
         }
         return contacts;
     }
+
+    /**
+     * Get Contact by id.
+     *
+     * @return The Contact associated with the id passed in.
+     */
+    public static Contact get(int id) {
+        String query = "SELECT * FROM contacts WHERE Contact_ID=" + id;
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            String name = rs.getString("Contact_Name");
+            String email = rs.getString("Email");
+            return new Contact(id, name, email);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }

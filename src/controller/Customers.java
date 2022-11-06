@@ -118,6 +118,7 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleDeleteCustomer() {
+        //        TODO: SHOW Custom Popup
         try {
             Customer selectedCustomer = custTable.getSelectionModel().getSelectedItem();
             if (selectedCustomer == null) throw new ItemNotSelectedException("NO ITEM");

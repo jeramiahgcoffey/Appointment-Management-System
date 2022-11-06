@@ -144,7 +144,7 @@ public abstract class AppointmentCRUD {
         ps.setString(10, appointment.getUpdatedBy());
         ps.setInt(11, appointment.getCustId());
         ps.setInt(12, appointment.getUserId());
-        ps.setInt(13, appointment.getContactId());
+        ps.setInt(13, appointment.getContact().id());
 
         ps.execute();
     }
@@ -180,7 +180,7 @@ public abstract class AppointmentCRUD {
         ps.setTimestamp(7, appointment.getUpdatedAt());
         ps.setInt(8, appointment.getCustId());
         ps.setInt(9, appointment.getUserId());
-        ps.setInt(10, appointment.getContactId());
+        ps.setInt(10, appointment.getContact().id());
         ps.setInt(11, appointment.getId());
 
         ps.execute();

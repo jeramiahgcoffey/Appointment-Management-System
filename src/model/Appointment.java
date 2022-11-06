@@ -1,5 +1,6 @@
 package model;
 
+import db.ContactCRUD;
 import util.TimestampValue;
 
 import java.sql.Timestamp;
@@ -9,7 +10,6 @@ public class Appointment {
     private String title;
     private String description;
     private String location;
-    private int contactId;
     private String type;
     private TimestampValue start;
     private TimestampValue end;
@@ -19,6 +19,8 @@ public class Appointment {
     private String updatedBy;
     private int custId;
     private final int userId;
+
+    private final Contact contact;
 
     public Appointment(
             int id,
@@ -40,7 +42,6 @@ public class Appointment {
         this.title = title;
         this.description = description;
         this.location = location;
-        this.contactId = contactId;
         this.type = type;
         this.start = start;
         this.end = end;
@@ -50,6 +51,8 @@ public class Appointment {
         this.updatedBy = updatedBy;
         this.custId = custId;
         this.userId = userId;
+
+        contact = ContactCRUD.get(contactId);
     }
 
     public int getId() {
@@ -66,10 +69,6 @@ public class Appointment {
 
     public String getLocation() {
         return location;
-    }
-
-    public int getContactId() {
-        return contactId;
     }
 
     public String getType() {
@@ -116,6 +115,10 @@ public class Appointment {
         return userId;
     }
 
+    public Contact getContact() {
+        return contact;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -126,10 +129,6 @@ public class Appointment {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
     }
 
     public void setType(String type) {

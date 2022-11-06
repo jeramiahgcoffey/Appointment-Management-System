@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="473.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentForm">
-    <Label fx:id="aptFormTitle" alignment="CENTER" layoutY="14.0" prefHeight="44.0" prefWidth="530.0" text="Add Appointment">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="473.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentForm">
+    <Label fx:id="aptFormTitle" alignment="CENTER" layoutY="14.0" prefHeight="44.0" prefWidth="530.0"
+           text="Add Appointment">
         <font>
-            <Font size="36.0" />
+            <Font size="36.0"/>
         </font>
     </Label>
-    <Label fx:id="aptIdLabel" disable="true" layoutX="14.0" layoutY="69.0" opacity="0.0" text="Appointment ID" />
-    <TextField fx:id="aptIdTF" disable="true" layoutX="112.0" layoutY="64.0" opacity="0.0" />
-    <TextField fx:id="aptTitleTF" layoutX="112.0" layoutY="97.0" />
-    <TextField fx:id="aptDescTF" layoutX="112.0" layoutY="130.0" />
-    <TextField fx:id="aptLocationTF" layoutX="112.0" layoutY="163.0" />
-    <TextField fx:id="aptTypeTf" layoutX="112.0" layoutY="197.0" />
-    <ComboBox fx:id="aptContactCB" layoutX="112.0" layoutY="231.0" prefHeight="26.0" prefWidth="160.0" />
-    <ComboBox fx:id="aptCustCB" layoutX="112.0" layoutY="263.0" prefHeight="26.0" prefWidth="160.0" />
-    <ComboBox fx:id="aptUserCB" layoutX="112.0" layoutY="295.0" prefHeight="26.0" prefWidth="160.0" />
-    <DatePicker fx:id="aptStartDP" layoutX="112.0" layoutY="326.0" prefHeight="26.0" prefWidth="160.0" />
+    <Label fx:id="aptIdLabel" disable="true" layoutX="14.0" layoutY="69.0" opacity="0.0" text="Appointment ID"/>
+    <TextField fx:id="aptIdTF" disable="true" layoutX="112.0" layoutY="64.0" opacity="0.0"/>
+    <TextField fx:id="aptTitleTF" layoutX="112.0" layoutY="97.0"/>
+    <TextField fx:id="aptDescTF" layoutX="112.0" layoutY="130.0"/>
+    <TextField fx:id="aptLocationTF" layoutX="112.0" layoutY="163.0"/>
+    <TextField fx:id="aptTypeTf" layoutX="112.0" layoutY="197.0"/>
+    <ComboBox fx:id="aptContactCB" layoutX="112.0" layoutY="231.0" prefHeight="26.0" prefWidth="160.0"/>
+    <ComboBox fx:id="aptCustCB" layoutX="112.0" layoutY="263.0" prefHeight="26.0" prefWidth="160.0"/>
+    <ComboBox fx:id="aptUserCB" layoutX="112.0" layoutY="295.0" prefHeight="26.0" prefWidth="160.0"/>
+    <DatePicker fx:id="aptStartDP" layoutX="112.0" layoutY="326.0" prefHeight="26.0" prefWidth="160.0"/>
     <Spinner fx:id="aptStartHour" layoutX="112.0" layoutY="360.0" prefHeight="26.0" prefWidth="76.0">
         <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="0" />
+            <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="0"/>
         </valueFactory>
     </Spinner>
     <Spinner fx:id="aptFinishMin" layoutX="197.0" layoutY="427.0" prefHeight="26.0" prefWidth="76.0">
         <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="0" />
+            <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="0"/>
         </valueFactory>
     </Spinner>
     <Spinner fx:id="aptStartMin" layoutX="196.0" layoutY="360.0" prefHeight="26.0" prefWidth="76.0">
         <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="0" />
+            <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="0"/>
         </valueFactory>
     </Spinner>
     <Spinner fx:id="aptFinishHour" layoutX="113.0" layoutY="427.0" prefHeight="26.0" prefWidth="76.0">
         <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="0" />
+            <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="0"/>
         </valueFactory>
     </Spinner>
-    <Button layoutX="462.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="26.0" prefWidth="54.0" text="Save" />
-    <Button layoutX="393.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
-    <Label layoutX="14.0" layoutY="102.0" text="Title" />
-    <Label layoutX="14.0" layoutY="135.0" text="Description" />
-    <Label layoutX="14.0" layoutY="168.0" text="Location" />
-    <Label layoutX="14.0" layoutY="202.0" text="Type" />
-    <Label layoutX="14.0" layoutY="236.0" text="Contact ID" />
-    <Label layoutX="14.0" layoutY="268.0" text="Customer ID" />
-    <Label layoutX="14.0" layoutY="300.0" text="User ID" />
-    <Label layoutX="17.0" layoutY="331.0" text="Start Date" />
-    <Label layoutX="16.0" layoutY="365.0" text="Start Time" />
-    <Label layoutX="16.0" layoutY="400.0" text="Finish Date" />
-    <Label fx:id="titleError" layoutX="286.0" layoutY="102.0" textFill="RED" />
-    <Label fx:id="descError" layoutX="286.0" layoutY="135.0" textFill="RED" />
-    <Label fx:id="locationError" layoutX="286.0" layoutY="168.0" textFill="RED" />
-    <Label fx:id="typeError" layoutX="286.0" layoutY="202.0" textFill="RED" />
-    <Label fx:id="contactError" layoutX="286.0" layoutY="236.0" textFill="RED" />
-    <Label fx:id="custError" layoutX="286.0" layoutY="268.0" textFill="RED" />
-    <Label fx:id="userError" layoutX="286.0" layoutY="300.0" textFill="RED" />
-    <Label fx:id="dateError" layoutX="286.0" layoutY="331.0" textFill="RED" />
-    <Label fx:id="timeError" layoutX="286.0" layoutY="365.0" textFill="RED" />
-   <DatePicker fx:id="aptFinishDP" layoutX="112.0" layoutY="395.0" prefHeight="26.0" prefWidth="160.0" />
-   <Label layoutX="15.0" layoutY="432.0" text="Finish Time" />
+    <Button layoutX="462.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="26.0"
+            prefWidth="54.0" text="Save"/>
+    <Button layoutX="393.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel"/>
+    <Label layoutX="14.0" layoutY="102.0" text="Title"/>
+    <Label layoutX="14.0" layoutY="135.0" text="Description"/>
+    <Label layoutX="14.0" layoutY="168.0" text="Location"/>
+    <Label layoutX="14.0" layoutY="202.0" text="Type"/>
+    <Label layoutX="14.0" layoutY="236.0" text="Contact"/>
+    <Label layoutX="14.0" layoutY="268.0" text="Customer ID"/>
+    <Label layoutX="14.0" layoutY="300.0" text="User ID"/>
+    <Label layoutX="17.0" layoutY="331.0" text="Start Date"/>
+    <Label layoutX="16.0" layoutY="365.0" text="Start Time"/>
+    <Label layoutX="16.0" layoutY="400.0" text="Finish Date"/>
+    <Label fx:id="titleError" layoutX="286.0" layoutY="102.0" textFill="RED"/>
+    <Label fx:id="descError" layoutX="286.0" layoutY="135.0" textFill="RED"/>
+    <Label fx:id="locationError" layoutX="286.0" layoutY="168.0" textFill="RED"/>
+    <Label fx:id="typeError" layoutX="286.0" layoutY="202.0" textFill="RED"/>
+    <Label fx:id="contactError" layoutX="286.0" layoutY="236.0" textFill="RED"/>
+    <Label fx:id="custError" layoutX="286.0" layoutY="268.0" textFill="RED"/>
+    <Label fx:id="userError" layoutX="286.0" layoutY="300.0" textFill="RED"/>
+    <Label fx:id="dateError" layoutX="286.0" layoutY="331.0" textFill="RED"/>
+    <Label fx:id="timeError" layoutX="286.0" layoutY="365.0" textFill="RED"/>
+    <DatePicker fx:id="aptFinishDP" layoutX="112.0" layoutY="395.0" prefHeight="26.0" prefWidth="160.0"/>
+    <Label layoutX="15.0" layoutY="432.0" text="Finish Time"/>
 </AnchorPane>

@@ -13,13 +13,19 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
 import util.FXUtils;
+import util.TimestampValue;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class Appointments implements Initializable {
 
@@ -77,7 +83,7 @@ public class Appointments implements Initializable {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
@@ -103,6 +109,7 @@ public class Appointments implements Initializable {
      */
     @FXML
     private void handleDeleteAppointment(ActionEvent event) {
+//        TODO: SHOW Custom Popup
         try {
             Appointment selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
 
@@ -154,5 +161,51 @@ public class Appointments implements Initializable {
      */
     private void setSelectedAppointment() {
         selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    private void handleViewAll() {
+        aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
+    }
+
+    @FXML
+    private void handleViewMonth() {
+        int month = Objects.requireNonNull(TimestampValue.now().toLocalDateTime()).getMonthValue();
+        int year = Objects.requireNonNull(TimestampValue.now().toLocalDateTime()).getYear();
+
+        List<Appointment> apts = AppointmentCRUD.getAll();
+
+        assert apts != null;
+        aptTable.setItems(FXCollections.observableArrayList(
+                apts.stream()
+                        .filter(apt -> {
+                            LocalDateTime dt = Objects.requireNonNull(apt
+                                    .getStartTimestamp()
+                                    .toLocalDateTime());
+                            return dt.getMonthValue() == month && dt.getYear() == year;
+                        })
+                        .collect(Collectors.toList())
+        ));
+    }
+
+    @FXML
+    private void handleViewWeek() {
+        Calendar cal = Calendar.getInstance();
+        int week = cal.get(Calendar.WEEK_OF_YEAR);
+
+        List<Appointment> apts = AppointmentCRUD.getAll();
+
+        assert apts != null;
+        aptTable.setItems(FXCollections.observableArrayList(
+                apts.stream()
+                        .filter(apt -> {
+                            Timestamp t = Objects.requireNonNull(apt.getStartTimestamp().originalValue());
+                            Calendar c = Calendar.getInstance();
+                            c.setTimeInMillis(t.getTime());
+                            int w = c.get(Calendar.WEEK_OF_YEAR);
+                            return week == w;
+                        })
+                        .collect(Collectors.toList())
+        ));
     }
 }

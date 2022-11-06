@@ -135,7 +135,7 @@ public class AppointmentForm implements Initializable {
             aptDescTF.setText(appointment.getDescription());
             aptLocationTF.setText(appointment.getLocation());
             aptTypeTf.setText(appointment.getType());
-            aptContactCB.setValue(contactMap.get(appointment.getContactId()));
+            aptContactCB.setValue(contactMap.get(appointment.getContact().id()));
             aptCustCB.setValue(customerMap.get(appointment.getCustId()));
             aptUserCB.setValue(userMap.get(appointment.getUserId()));
             aptStartDP.setValue(appointment.getStartTimestamp().originalValue().toLocalDateTime().toLocalDate());
@@ -170,6 +170,7 @@ public class AppointmentForm implements Initializable {
         }
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
+
 
     @FXML
     private void handleCancel(ActionEvent event) throws IOException {
