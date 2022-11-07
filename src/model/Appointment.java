@@ -5,21 +5,25 @@ import util.TimestampValue;
 
 import java.sql.Timestamp;
 
+/**
+ * Class for modeling Appointment objects.
+ *
+ * @author Jeramiah Coffey
+ */
 public class Appointment {
     private final int id;
-    private String title;
-    private String description;
-    private String location;
-    private String type;
-    private TimestampValue start;
-    private TimestampValue end;
-    private TimestampValue createdAt;
-    private TimestampValue updatedAt;
-    private String createdBy;
-    private String updatedBy;
-    private int custId;
+    private final String title;
+    private final String description;
+    private final String location;
+    private final String type;
+    private final TimestampValue start;
+    private final TimestampValue end;
+    private final TimestampValue createdAt;
+    private final TimestampValue updatedAt;
+    private final String createdBy;
+    private final String updatedBy;
+    private final int custId;
     private final int userId;
-
     private final Contact contact;
 
     public Appointment(
@@ -75,14 +79,6 @@ public class Appointment {
         return type;
     }
 
-    public String getStart() {
-        return start.displayFormat();
-    }
-
-    public String getEnd() {
-        return end.displayFormat();
-    }
-
     public TimestampValue getStartTimestamp() {
         return start;
     }
@@ -117,33 +113,5 @@ public class Appointment {
 
     public Contact getContact() {
         return contact;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setStart(TimestampValue start) {
-        this.start = start;
-    }
-
-    public void setEnd(TimestampValue end) {
-        this.end = end;
-    }
-
-    public void setCustId(int custId) {
-        this.custId = custId;
     }
 }

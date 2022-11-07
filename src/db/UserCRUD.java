@@ -9,14 +9,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods for performing CRUD operations on Users stored in the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class UserCRUD {
     /**
      * Get User by id.
      *
-     * @param username Unique username associated with the User
-     * @return The User associated with the id param
+     * @param username Unique username associated with the User.
+     * @return The User associated with the id param.
      */
-    public static User getByUsername(String username) throws SQLException {
+    public static User getByUsername(String username) {
         String query = "SELECT * FROM users WHERE User_Name = '" + username + "'";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {
@@ -34,8 +39,8 @@ public abstract class UserCRUD {
     /**
      * Get User by id.
      *
-     * @param id Unique id associated with the User
-     * @return The User associated with the id param
+     * @param id Unique id associated with the User.
+     * @return The User associated with the id param.
      */
     public static User get(int id) {
         String query = "SELECT * FROM users WHERE User_ID = '" + id + "'";
@@ -55,10 +60,10 @@ public abstract class UserCRUD {
     /**
      * Get all Users.
      *
-     * @return A List of all Users
+     * @return A List of all Users.
      */
     public static List<User> getAll() {
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         String query = "SELECT * FROM users";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {

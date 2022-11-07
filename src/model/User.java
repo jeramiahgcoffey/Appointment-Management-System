@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Models a User
+ * Class for modeling User objects.
  *
  * @author Jeramiah Coffey
  */

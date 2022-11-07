@@ -22,6 +22,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * JavaFX controller for the Customers view.
+ *
+ * @author Jeramiah Coffey
+ */
 public class Customers implements Initializable {
 
     @FXML
@@ -58,8 +63,10 @@ public class Customers implements Initializable {
     public static Customer selectedCustomer;
 
     /**
-     * @param url            URL used to resolve paths, null if not known
-     * @param resourceBundle Resources used to localize the root object, null if not localized
+     * Initialize the view. Display Customers in TableView.
+     *
+     * @param url            URL used to resolve paths, null if not known.
+     * @param resourceBundle Resources used to localize the root object, null if not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

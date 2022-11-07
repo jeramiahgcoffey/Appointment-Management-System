@@ -15,6 +15,7 @@ import model.Contact;
 import model.Customer;
 import model.User;
 import util.FXUtils;
+import util.ListUtils;
 import util.TimestampValue;
 
 import java.io.IOException;
@@ -25,6 +26,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ * JavaFX controller for the appointmentForm view.
+ *
+ * @author Jeramiah Coffey
+ */
 public class AppointmentForm implements Initializable {
 
     @FXML
@@ -103,6 +109,8 @@ public class AppointmentForm implements Initializable {
     private Label timeError;
 
     /**
+     * Initialize the view. Populate fields with Appointment data if form mode is MODIFY.
+     *
      * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
      */
@@ -113,9 +121,9 @@ public class AppointmentForm implements Initializable {
         List<User> users = UserCRUD.getAll();
 
         assert contacts != null;
-        Map<Integer, Contact> contactMap = Contact.toMap(contacts);
+        Map<Integer, Contact> contactMap = ListUtils.toContactMap(contacts);
         assert customers != null;
-        Map<Integer, Customer> customerMap = Customer.toMap(customers);
+        Map<Integer, Customer> customerMap = ListUtils.toCustomerMap(customers);
         assert users != null;
         Map<Integer, User> userMap = User.toMap(users);
 
@@ -147,6 +155,11 @@ public class AppointmentForm implements Initializable {
         }
     }
 
+    /**
+     * Event handler for Save button.
+     *
+     * @param event The event which was fired from the appointmentForm page.
+     */
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, IOException {
         // TODO: Validation
@@ -171,7 +184,11 @@ public class AppointmentForm implements Initializable {
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
 
-
+    /**
+     * Event handler for the Cancel button.
+     *
+     * @param event The event which was fired from the appointmentForm page.
+     */
     @FXML
     private void handleCancel(ActionEvent event) throws IOException {
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");

@@ -20,6 +20,11 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * JavaFX controller for the Login view.
+ *
+ * @author Jeramiah Coffey
+ */
 public class Login implements Initializable {
     @FXML
     private Label loginPasswordErrorLabel;
@@ -39,10 +44,10 @@ public class Login implements Initializable {
     public static User currentUser;
 
     /**
-     * Initializes FXML controller. Sets userDAO to the singleton instance of the UserDAO class.
+     * Initializes the view. Set ZoneID Label to the host system default.
      *
-     * @param url            URL used to resolve paths, null if not known
-     * @param resourceBundle Resources used to localize the root object, null if not localized
+     * @param url            URL used to resolve paths, null if not known.
+     * @param resourceBundle Resources used to localize the root object, null if not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -9,11 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods for performing CRUD operations on Contacts stored in the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class ContactCRUD {
     /**
      * Get all Contacts.
      *
-     * @return A List of all Contacts
+     * @return A List of all Contacts.
      */
     public static List<Contact> getAll() {
         ArrayList<Contact> contacts = new ArrayList<Contact>();

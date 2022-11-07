@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * This class contains static methods for connecting to the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class DBConnection {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -17,6 +22,9 @@ public abstract class DBConnection {
     public static Connection connection;  // Connection Interface
     public static PreparedStatement preparedStatement;
 
+    /**
+     * Open a connection to the database and store it in the static connection member.
+     */
     public static void openConnection() {
         try {
             Class.forName(driver); // Locate Driver
@@ -27,15 +35,22 @@ public abstract class DBConnection {
         }
     }
 
+    /**
+     * Close the database connection.
+     */
     public static void closeConnection() {
         try {
             connection.close();
+            connection = null;
             System.out.println("Connection closed!");
         } catch (Exception e) {
             System.out.println("Error:" + e.getMessage());
         }
     }
 
+    /**
+     * Set the static preparedStatement member to be used for complex queries.
+     */
     public static void setPreparedStatement(String sqlStatement) throws SQLException {
         preparedStatement = connection.prepareStatement(sqlStatement);
     }

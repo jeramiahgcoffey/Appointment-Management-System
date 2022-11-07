@@ -7,25 +7,30 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods for performing CRUD operations on Appointments stored in the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class AppointmentCRUD {
     /**
      * Get Appointment by id.
      *
-     * @param id Unique id associated with the Appointment
-     * @return The Appointment associated with the id param
+     * @param id Unique id associated with the Appointment.
+     * @return The Appointment associated with the id passed in.
      */
     public static Appointment get(int id) {
         return null;
     }
 
     /**
-     * Get Appointment by customer id.
+     * Get Appointments by customer id.
      *
-     * @param custId Unique customer id associated with the Appointment
-     * @return The Appointment associated with the id param
+     * @param custId Unique customer id associated with the Appointment.
+     * @return A List of the customer's appointments.
      */
     public static List<Appointment> getByCustomerId(int custId) {
-        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        ArrayList<Appointment> appointments = new ArrayList<>();
         String query = "SELECT * FROM appointments WHERE Customer_ID=" + custId;
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {
@@ -71,7 +76,7 @@ public abstract class AppointmentCRUD {
     /**
      * Get all Appointments.
      *
-     * @return A List of all Appointments
+     * @return A List of all Appointments.
      */
     public static List<Appointment> getAll() {
         ArrayList<Appointment> appointments = new ArrayList<Appointment>();
@@ -121,7 +126,7 @@ public abstract class AppointmentCRUD {
     /**
      * Persist new Appointment.
      *
-     * @param appointment The Appointment to save
+     * @param appointment The Appointment to save.
      */
     public static void save(Appointment appointment) throws SQLException {
         String sql = "INSERT INTO appointments" +
@@ -152,7 +157,7 @@ public abstract class AppointmentCRUD {
     /**
      * Persist changes to an Appointment's data.
      *
-     * @param appointment The Appointment to change
+     * @param appointment The Appointment to change.
      */
     public static void update(Appointment appointment) throws SQLException {
         String sql = "UPDATE appointments " +
@@ -187,9 +192,9 @@ public abstract class AppointmentCRUD {
     }
 
     /**
-     * Delete the Appointment.
+     * Delete an Appointment.
      *
-     * @param appointment The Appointment to delete
+     * @param appointment The Appointment to delete.
      */
     public static void delete(Appointment appointment) throws SQLException {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";

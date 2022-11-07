@@ -23,6 +23,11 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * JavaFX controller for the CustomerForm view.
+ *
+ * @author Jeramiah Coffey
+ */
 public class CustomerForm implements Initializable {
 
     @FXML
@@ -53,7 +58,7 @@ public class CustomerForm implements Initializable {
     private Label custIdLabel;
 
     /**
-     * s
+     * Initialize the view. Populate fields with Appointment data if form mode is MODIFY.
      *
      * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
@@ -93,7 +98,7 @@ public class CustomerForm implements Initializable {
     }
 
     /**
-     * Handle Country CB change
+     * Handle Country ComboBox change.
      *
      * @param event The event that was fired from the CustomerForm
      */
@@ -105,7 +110,7 @@ public class CustomerForm implements Initializable {
     }
 
     /**
-     * Handle Save clicked
+     * Handle Save button clicked.
      *
      * @param event The event that was fired from the CustomerForm.
      */
@@ -121,10 +126,10 @@ public class CustomerForm implements Initializable {
         String phone = custPhoneTF.getText();
 
         if (Customers.formMode.equals(FormMode.ADD)) {
-            Customer newCustomer = new Customer(0, name, address, postal, phone, TimestampValue.now(), TimestampValue.now(), null, null, division.id());
+            Customer newCustomer = new Customer(0, name, address, postal, phone, TimestampValue.now(), TimestampValue.now(), division.id());
             CustomerCRUD.save(newCustomer);
         } else if (Customers.formMode.equals(FormMode.MODIFY)) {
-            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, TimestampValue.now(), null, null, division.id());
+            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, TimestampValue.now(), division.id());
             CustomerCRUD.update(updatedCustomer);
         }
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");

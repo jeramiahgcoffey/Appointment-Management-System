@@ -7,29 +7,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods for performing CRUD operations on Customers stored in the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class CustomerCRUD {
-    /**
-     * Get Customer by id.
-     *
-     * @param id Unique id associated with the Customer
-     * @return The Customer associated with the id param
-     */
-//    public static Customer get(int id) {
-//        String query = "SELECT * FROM customers WHERE Customer_ID=" + id;
-//        Connection conn = DBConnection.connection;
-//        try (Statement stmt = conn.createStatement()) {
-//            ResultSet rs = stmt.executeQuery(query);
-//            rs.next();
-//            String name = rs.getString("Customer_Name");
-//            String address
-//
-//            return new Customer();
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//            return null;
-//        }
-//    }
-
     /**
      * Get all Customers.
      *
@@ -60,8 +43,6 @@ public abstract class CustomerCRUD {
                         phone,
                         createdAt,
                         updatedAt,
-                        createdBy,
-                        updatedBy,
                         divisionId
                 ));
             }
@@ -75,7 +56,7 @@ public abstract class CustomerCRUD {
     /**
      * Persist new Customer.
      *
-     * @param customer The Customer to save
+     * @param customer The Customer to save.
      */
     public static void save(Customer customer) throws SQLException {
         String sql = "INSERT INTO customers (" +
@@ -103,7 +84,7 @@ public abstract class CustomerCRUD {
     /**
      * Persist changes to the Customer's data.
      *
-     * @param customer The Customer to change
+     * @param customer The Customer to change.
      */
     public static void update(Customer customer) throws SQLException {
         String sql = "UPDATE customers " +
@@ -132,7 +113,7 @@ public abstract class CustomerCRUD {
     /**
      * Delete the Customer.
      *
-     * @param customer The Customer to delete
+     * @param customer The Customer to delete.
      */
     public static void delete(Customer customer) throws SQLException {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";

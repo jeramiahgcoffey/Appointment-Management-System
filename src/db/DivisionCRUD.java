@@ -9,6 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods for performing CRUD operations on Divisions stored in the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class DivisionCRUD {
     /**
      * Get Divisions by Country ID.
@@ -60,6 +65,12 @@ public abstract class DivisionCRUD {
         }
     }
 
+    /**
+     * Get Division by ID.
+     *
+     * @param id The ID of the Division being queried for.
+     * @return The Division associated with the ID passed in.
+     */
     public static Division get(int id) {
         String query = "SELECT * FROM first_level_divisions WHERE Division_ID=" + id;
         Connection conn = DBConnection.connection;

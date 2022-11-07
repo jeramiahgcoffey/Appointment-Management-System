@@ -10,6 +10,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Singleton class of JavaFX utility methods.
+ *
+ * @author Jeramiah Coffey
+ */
 public class FXUtils {
     /**
      * Stores single instance of this class.

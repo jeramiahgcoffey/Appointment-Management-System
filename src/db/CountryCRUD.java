@@ -9,11 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains methods for performing CRUD operations on Countries stored in the MySQL database.
+ *
+ * @author Jeramiah Coffey
+ */
 public abstract class CountryCRUD {
     /**
      * Get all Countries.
      *
-     * @return A List of all Countries
+     * @return A List of all Countries.
      */
     public static List<Country> getAll() {
         ArrayList<Country> countries = new ArrayList<Country>();
@@ -34,6 +39,11 @@ public abstract class CountryCRUD {
         return countries;
     }
 
+    /**
+     * Get the country associated with a Division ID.
+     *
+     * @param divisionId The ID of the division associated with the state being queried for.
+     */
     public static Country getByDivision(int divisionId) {
         String query = "SELECT first_level_divisions.Division_ID, countries.Country, countries.Country_ID\n" +
                 "FROM first_level_divisions\n" +

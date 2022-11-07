@@ -5,22 +5,21 @@ import util.TimestampValue;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
+/**
+ * Class for modeling Customer objects.
+ *
+ * @author Jeramiah Coffey
+ */
 public class Customer {
     private final int id;
     private String name;
-    private String address;
-    private String postal;
-    private String state;
-    private String phone;
+    private final String address;
+    private final String postal;
+    private final String phone;
     private final TimestampValue createdAt;
     private final TimestampValue updatedAt;
-    private final String createdBy;
-    private final String updatedBy;
-    private int divisionId;
+    private final int divisionId;
 
     private static final HashMap<Integer, String> divisionMap = new HashMap<Integer, String>();
 
@@ -32,8 +31,6 @@ public class Customer {
             String phone,
             TimestampValue createdAt,
             TimestampValue updatedAt,
-            String createdBy,
-            String updatedBy,
             int divisionId
     ) {
         if (divisionMap.isEmpty()) {
@@ -48,13 +45,15 @@ public class Customer {
         this.name = name;
         this.address = address;
         this.postal = postal;
-        this.state = divisionMap.get(divisionId);
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
         this.divisionId = divisionId;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
 
     public int getId() {
@@ -73,20 +72,8 @@ public class Customer {
         return postal;
     }
 
-    public String getState() {
-        return state;
-    }
-
     public String getPhone() {
         return phone;
-    }
-
-    public String getCreatedAt() {
-        return createdAt.displayFormat();
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt.displayFormat();
     }
 
     public TimestampValue getCreatedAtTimestamp() {
@@ -97,48 +84,11 @@ public class Customer {
         return updatedAt;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
     public int getDivisionId() {
         return divisionId;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPostal(String postal) {
-        this.postal = postal;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setDivisionId(int divisionId) {
-        this.divisionId = divisionId;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(id);
-    }
-
-    public static Map<Integer, Customer> toMap(List<Customer> list) {
-        return list.stream().collect(Collectors.toMap(Customer::getId, Function.identity()));
     }
 }

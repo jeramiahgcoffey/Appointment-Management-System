@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
 import util.FXUtils;
@@ -27,7 +28,14 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+/**
+ * JavaFX controller for the Appointments view.
+ *
+ * @author Jeramiah Coffey
+ */
 public class Appointments implements Initializable {
+    @FXML
+    private ToggleGroup view;
 
     @FXML
     private Label zoneIdLabel;
@@ -70,7 +78,7 @@ public class Appointments implements Initializable {
 
 
     /**
-     * Initialize the view controller. Display appointments in table view.
+     * Initialize the view. Display appointments in table view.
      *
      * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized
@@ -95,7 +103,7 @@ public class Appointments implements Initializable {
     /**
      * Handle Customers button clicked.
      *
-     * @param event The event that was fired from the Schedule page.
+     * @param event The event that was fired from the Appointments page.
      */
     @FXML
     private void handleCustomers(ActionEvent event) throws IOException {
@@ -103,9 +111,9 @@ public class Appointments implements Initializable {
     }
 
     /**
-     * Handle Delete Appointment button clicked
+     * Handle Delete Appointment button clicked.
      *
-     * @param event The event that was fired from the Schedule page.
+     * @param event The event that was fired from the Appointments page.
      */
     @FXML
     private void handleDeleteAppointment(ActionEvent event) {
@@ -125,13 +133,22 @@ public class Appointments implements Initializable {
         }
     }
 
-
+    /**
+     * Handle Add Appointment button clicked.
+     *
+     * @param event The event that was fired from the Appointments page.
+     */
     @FXML
     private void handleAddApt(ActionEvent event) throws IOException {
         formMode = FormMode.ADD;
         FXUtils.getInstance().redirect(event, "/view/appointmentForm.fxml");
     }
 
+    /**
+     * Handle Modify Appointment button clicked.
+     *
+     * @param event The event that was fired from the Appointments page.
+     */
     @FXML
     private void handleModifyApt(ActionEvent event) {
         try {
@@ -147,7 +164,7 @@ public class Appointments implements Initializable {
     /**
      * Handle Logout button clicked.
      *
-     * @param event The event that was fired from the Schedule page.
+     * @param event The event that was fired from the Appointments page.
      */
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {
@@ -163,11 +180,17 @@ public class Appointments implements Initializable {
         selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Handles View All radio button selected. This is the default value.
+     */
     @FXML
     private void handleViewAll() {
         aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
     }
 
+    /**
+     * Handle View by Month radio button selected. Appointments are listed if the start date belongs to the current month.
+     */
     @FXML
     private void handleViewMonth() {
         int month = Objects.requireNonNull(TimestampValue.now().toLocalDateTime()).getMonthValue();
@@ -188,6 +211,9 @@ public class Appointments implements Initializable {
         ));
     }
 
+    /**
+     * Handle View by Week radio button selected. Appointments are listed if the start date belongs to the current week.
+     */
     @FXML
     private void handleViewWeek() {
         Calendar cal = Calendar.getInstance();
