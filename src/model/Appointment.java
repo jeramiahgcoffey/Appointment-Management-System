@@ -1,6 +1,6 @@
 package model;
 
-import db.ContactCRUD;
+import dataAccess.ContactCRUD;
 import util.TimestampValue;
 
 import java.sql.Timestamp;

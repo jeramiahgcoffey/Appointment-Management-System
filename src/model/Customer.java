@@ -1,6 +1,6 @@
 package model;
 
-import db.DivisionCRUD;
+import dataAccess.DivisionCRUD;
 import util.TimestampValue;
 
 import java.util.HashMap;

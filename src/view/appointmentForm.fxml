@@ -34,12 +34,12 @@
     </Spinner>
     <Spinner fx:id="aptStartMin" layoutX="196.0" layoutY="360.0" prefHeight="26.0" prefWidth="76.0">
         <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="0"/>
+            <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="0"/>
         </valueFactory>
     </Spinner>
     <Spinner fx:id="aptFinishHour" layoutX="113.0" layoutY="427.0" prefHeight="26.0" prefWidth="76.0">
         <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="59" min="0"/>
+            <SpinnerValueFactory.IntegerSpinnerValueFactory max="23" min="0"/>
         </valueFactory>
     </Spinner>
     <Button layoutX="462.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="26.0"

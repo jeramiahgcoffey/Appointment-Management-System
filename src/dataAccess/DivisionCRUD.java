@@ -1,5 +1,6 @@
-package db;
+package dataAccess;
 
+import db.DBConnection;
 import model.Division;
 
 import java.sql.Connection;

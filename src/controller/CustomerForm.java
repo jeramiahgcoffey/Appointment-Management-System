@@ -1,8 +1,8 @@
 package controller;
 
-import db.CountryCRUD;
-import db.CustomerCRUD;
-import db.DivisionCRUD;
+import dataAccess.CountryCRUD;
+import dataAccess.CustomerCRUD;
+import dataAccess.DivisionCRUD;
 import enumerable.FormMode;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;

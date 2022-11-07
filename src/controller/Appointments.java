@@ -1,6 +1,6 @@
 package controller;
 
-import db.AppointmentCRUD;
+import dataAccess.AppointmentCRUD;
 import enumerable.FormMode;
 import exception.ItemNotSelectedException;
 import javafx.collections.FXCollections;
@@ -22,11 +22,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * JavaFX controller for the Appointments view.
@@ -85,6 +87,8 @@ public class Appointments implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        checkForUpcoming(Login.currentUser.getUserId());
+
         zoneIdLabel.setText(String.valueOf(ZoneId.systemDefault()));
 
         aptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -98,6 +102,28 @@ public class Appointments implements Initializable {
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("custId"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
         aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
+    }
+
+    /**
+     * Check if a user has upcoming appointments that begin within 15 minutes of the time of logging in.
+     *
+     * @param userId The logged-in User's ID.
+     */
+    private void checkForUpcoming(int userId) {
+        Stream<Appointment> usersApts = Objects.requireNonNull(AppointmentCRUD.getAll())
+                .stream()
+                .filter(apt -> apt.getUserId() == userId);
+
+        List<Appointment> upcomingApts = usersApts
+                .filter(apt -> ChronoUnit.MINUTES
+                        .between(LocalDateTime.now(), apt.getStartTimestamp().toLocalDateTime()) <= 15)
+                .toList();
+
+        if (!upcomingApts.isEmpty()) {
+            System.out.println("Upcoming apts!");
+        } else {
+            System.out.println("No upcoming apts!");
+        }
     }
 
     /**

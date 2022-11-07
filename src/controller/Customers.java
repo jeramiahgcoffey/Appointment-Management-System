@@ -1,7 +1,7 @@
 package controller;
 
-import db.AppointmentCRUD;
-import db.CustomerCRUD;
+import dataAccess.AppointmentCRUD;
+import dataAccess.CustomerCRUD;
 import enumerable.FormMode;
 import exception.ItemNotSelectedException;
 import javafx.collections.FXCollections;

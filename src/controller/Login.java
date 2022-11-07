@@ -1,6 +1,6 @@
 package controller;
 
-import db.UserCRUD;
+import dataAccess.UserCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
