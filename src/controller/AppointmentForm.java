@@ -165,6 +165,7 @@ public class AppointmentForm implements Initializable {
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, IOException {
         // TODO: Validation
+        // TODO: Business hours
 
         String title = aptTitleTF.getText();
         String desc = aptDescTF.getText();
