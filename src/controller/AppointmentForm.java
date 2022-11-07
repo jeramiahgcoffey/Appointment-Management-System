@@ -24,7 +24,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * JavaFX controller for the appointmentForm view.
@@ -174,6 +176,25 @@ public class AppointmentForm implements Initializable {
         int custId = aptCustCB.getValue().getId();
         int userId = aptUserCB.getValue().getUserId();
 
+        List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
+        AtomicBoolean hasOverlap = new AtomicBoolean(false);
+        if (customersApts != null && !customersApts.isEmpty()) {
+            customersApts.forEach(apt -> {
+                if (Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).toLocalDate()
+                        .equals(Objects.requireNonNull(start.toLocalDateTime()).toLocalDate())) {
+                    if (Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).getHour() <= Objects.requireNonNull(start.toLocalDateTime()).getHour()
+                            && Objects.requireNonNull(apt.getEndTimestamp().toLocalDateTime()).getHour() >= Objects.requireNonNull(start.toLocalDateTime()).getHour()) {
+                        hasOverlap.set(true);
+                    }
+                }
+            });
+        }
+        if (hasOverlap.get()) {
+            // TODO: Show POPUP
+            System.out.println("NO");
+            return;
+        }
+
         if (Appointments.formMode == FormMode.ADD) {
             Appointment apt = new Appointment(0, title, desc, location, contactId, type, start, end, TimestampValue.now(), TimestampValue.now(), null, null, custId, userId);
             AppointmentCRUD.save(apt);
@@ -199,7 +220,6 @@ public class AppointmentForm implements Initializable {
      */
     @FXML
     private void handleAptDP() {
-        System.out.println("here");
         aptFinishDP.setValue(aptStartDP.getValue());
     }
 }
