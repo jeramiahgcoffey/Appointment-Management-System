@@ -43,6 +43,8 @@ public abstract class CustomerCRUD {
                         phone,
                         createdAt,
                         updatedAt,
+                        null,
+                        null,
                         divisionId
                 ));
             }

@@ -117,7 +117,7 @@ public class Appointments implements Initializable {
      */
     @FXML
     private void handleDeleteAppointment(ActionEvent event) {
-//        TODO: SHOW Custom Popup
+        // TODO: SHOW Custom Popup
         try {
             Appointment selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
 
@@ -125,7 +125,7 @@ public class Appointments implements Initializable {
             AppointmentCRUD.delete(selectedAppointment);
             aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
         } catch (ItemNotSelectedException e) {
-//            TODO: Show error popup here
+            // TODO: Show error popup here
             System.out.println(e);
             throw new RuntimeException(e);
         } catch (SQLException e) {

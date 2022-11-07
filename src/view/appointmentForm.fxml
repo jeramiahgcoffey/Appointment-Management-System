@@ -63,6 +63,7 @@
     <Label fx:id="userError" layoutX="286.0" layoutY="300.0" textFill="RED"/>
     <Label fx:id="dateError" layoutX="286.0" layoutY="331.0" textFill="RED"/>
     <Label fx:id="timeError" layoutX="286.0" layoutY="365.0" textFill="RED"/>
-    <DatePicker fx:id="aptFinishDP" layoutX="112.0" layoutY="395.0" prefHeight="26.0" prefWidth="160.0"/>
+    <DatePicker fx:id="aptFinishDP" layoutX="112.0" layoutY="395.0" prefHeight="26.0" onAction="#handleAptDP"
+                prefWidth="160.0"/>
     <Label layoutX="15.0" layoutY="432.0" text="Finish Time"/>
 </AnchorPane>

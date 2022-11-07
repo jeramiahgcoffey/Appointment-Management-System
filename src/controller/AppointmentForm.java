@@ -193,4 +193,13 @@ public class AppointmentForm implements Initializable {
     private void handleCancel(ActionEvent event) throws IOException {
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
+
+    /**
+     * Event handler for the Start Date Picker
+     */
+    @FXML
+    private void handleAptDP() {
+        System.out.println("here");
+        aptFinishDP.setValue(aptStartDP.getValue());
+    }
 }

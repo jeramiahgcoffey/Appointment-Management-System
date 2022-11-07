@@ -116,7 +116,7 @@ public class CustomerForm implements Initializable {
      */
     @FXML
     private void handleSaveCustomer(ActionEvent event) throws IOException, SQLException {
-//        TODO: Show Popup here
+        // TODO: Show Popup here
         if (Objects.equals(custNameTF.getText(), "") || custDivisionCB.getValue() == null) return;
 
         String name = custNameTF.getText();
@@ -126,10 +126,10 @@ public class CustomerForm implements Initializable {
         String phone = custPhoneTF.getText();
 
         if (Customers.formMode.equals(FormMode.ADD)) {
-            Customer newCustomer = new Customer(0, name, address, postal, phone, TimestampValue.now(), TimestampValue.now(), division.id());
+            Customer newCustomer = new Customer(0, name, address, postal, phone, TimestampValue.now(), TimestampValue.now(), null, null, division.id());
             CustomerCRUD.save(newCustomer);
         } else if (Customers.formMode.equals(FormMode.MODIFY)) {
-            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, TimestampValue.now(), division.id());
+            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, TimestampValue.now(), null, null, division.id());
             CustomerCRUD.update(updatedCustomer);
         }
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");

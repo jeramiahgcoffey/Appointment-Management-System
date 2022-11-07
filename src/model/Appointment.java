@@ -114,4 +114,12 @@ public class Appointment {
     public Contact getContact() {
         return contact;
     }
+
+    public String getStart() {
+        return start.displayFormat();
+    }
+
+    public String getEnd() {
+        return end.displayFormat();
+    }
 }

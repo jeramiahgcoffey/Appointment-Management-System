@@ -125,7 +125,7 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleDeleteCustomer() {
-        //        TODO: SHOW Custom Popup
+        //  TODO: SHOW Custom Popup
         try {
             Customer selectedCustomer = custTable.getSelectionModel().getSelectedItem();
             if (selectedCustomer == null) throw new ItemNotSelectedException("NO ITEM");
@@ -133,14 +133,14 @@ public class Customers implements Initializable {
             List<Appointment> customerAppointments = AppointmentCRUD.getByCustomerId(selectedCustomer.getId());
             assert customerAppointments != null;
             if (!customerAppointments.isEmpty()) {
-                // TODO: SHOW POPUP
+                //  TODO: SHOW POPUP
                 System.out.print("NO");
                 return;
             }
             CustomerCRUD.delete(selectedCustomer);
             custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
         } catch (ItemNotSelectedException e) {
-//            TODO: Show error popup here
+//            TODO:  Show error popup here
             System.out.println(e);
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -155,7 +155,7 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {
-//        TODO: FIX THIS
+//        TODO:  FIX THIS
 //        FXUtils.getInstance().redirect(event, "/view/login.fxml");
         System.exit(0);
     }
