@@ -137,6 +137,10 @@ public class Customers implements Initializable {
                 System.out.print("NO");
                 return;
             }
+
+            if (!FXUtils.getInstance().confirm("Are you sure you want to delete Customer " + selectedCustomer.getId() + " ?"))
+                return;
+
             CustomerCRUD.delete(selectedCustomer);
             custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
         } catch (ItemNotSelectedException e) {

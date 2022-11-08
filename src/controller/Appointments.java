@@ -138,16 +138,15 @@ public class Appointments implements Initializable {
 
     /**
      * Handle Delete Appointment button clicked.
-     *
-     * @param event The event that was fired from the Appointments page.
      */
     @FXML
-    private void handleDeleteAppointment(ActionEvent event) {
-        // TODO: SHOW Custom Popup
+    private void handleDeleteAppointment() {
         try {
             Appointment selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
 
             if (selectedAppointment == null) throw new ItemNotSelectedException("NO ITEM");
+            if (!FXUtils.getInstance().confirm("Are you sure you want to delete " + selectedAppointment.getTitle() + " ?"))
+                return;
             AppointmentCRUD.delete(selectedAppointment);
             aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
         } catch (ItemNotSelectedException e) {
