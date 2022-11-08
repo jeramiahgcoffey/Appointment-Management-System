@@ -135,6 +135,7 @@ public class AppointmentForm implements Initializable {
         aptUserCB.setItems(FXCollections.observableArrayList(users));
 
         if (Appointments.formMode == FormMode.MODIFY) {
+            // TODO: PM times are loaded as AM
             aptFormTitle.setText("Modify Appointment");
             aptIdTF.setOpacity(1);
             aptIdLabel.setOpacity(1);
@@ -251,10 +252,10 @@ public class AppointmentForm implements Initializable {
         int userId = user.getUserId();
         TimestampValue start = new TimestampValue(Timestamp.valueOf(startDate.atTime(startHour, startMin)));
         TimestampValue end = new TimestampValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(endHour, endMin)));
-
+        // TODO: FIX MODIFY MODE OVERLAP CHECK
         List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
         AtomicBoolean hasOverlap = new AtomicBoolean(false);
-        if (customersApts != null && !customersApts.isEmpty()) {
+        if (customersApts != null && !customersApts.isEmpty() && Appointments.formMode == FormMode.ADD) {
             customersApts.forEach(apt -> {
                 if (Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).toLocalDate()
                         .equals(Objects.requireNonNull(start.toLocalDateTime()).toLocalDate())) {

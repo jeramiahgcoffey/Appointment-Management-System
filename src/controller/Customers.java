@@ -138,7 +138,7 @@ public class Customers implements Initializable {
                 return;
             }
 
-            if (!FXUtils.getInstance().confirm("Are you sure you want to delete Customer " + selectedCustomer.getId() + " ?"))
+            if (!FXUtils.getInstance().confirm("Are you sure you want to delete Customer " + selectedCustomer.getId() + "?"))
                 return;
 
             CustomerCRUD.delete(selectedCustomer);
@@ -158,9 +158,7 @@ public class Customers implements Initializable {
      * @param event The event that was fired from the Customers page.
      */
     @FXML
-    private void handleLogout(ActionEvent event) throws IOException {
-//        TODO:  FIX THIS
-//        FXUtils.getInstance().redirect(event, "/view/login.fxml");
+    private void handleLogout(ActionEvent event) {
         System.exit(0);
     }
 

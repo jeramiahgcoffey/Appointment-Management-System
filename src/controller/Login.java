@@ -1,12 +1,12 @@
 package controller;
 
+import dataAccess.AppointmentCRUD;
 import dataAccess.UserCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import model.Appointment;
 import model.User;
 import org.jetbrains.annotations.NotNull;
 import util.FXUtils;
@@ -15,10 +15,14 @@ import util.Log;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 /**
  * JavaFX controller for the Login view.
@@ -114,5 +118,37 @@ public class Login implements Initializable {
         Log.loginAttempt(username, true);
         currentUser = user;
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
+        checkForUpcoming(currentUser.getUserId());
+    }
+
+    /**
+     * Check if a user has upcoming appointments that begin within 15 minutes of the time of logging in.
+     *
+     * @param userId The logged-in User's ID.
+     */
+    private void checkForUpcoming(int userId) {
+        Stream<Appointment> usersApts = Objects.requireNonNull(AppointmentCRUD.getAll())
+                .stream()
+                .filter(apt -> apt.getUserId() == userId);
+
+        List<Appointment> upcomingApts = usersApts
+                .filter(apt -> {
+                    long minRemaining = ChronoUnit.MINUTES
+                            .between(LocalDateTime.now(), apt.getStartTimestamp().toLocalDateTime());
+                    return minRemaining >= 0 && minRemaining <= 15;
+                })
+                .toList();
+
+        if (!upcomingApts.isEmpty()) {
+            String msg = "";
+            // TODO: Fix message
+            for (Appointment apt : upcomingApts) {
+                msg += apt.toString() + "\n";
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.CLOSE);
+            alert.setTitle("Upcoming Appointments");
+            alert.setHeaderText("The following appointments begin in 15 minutes or less.");
+            alert.showAndWait();
+        }
     }
 }
