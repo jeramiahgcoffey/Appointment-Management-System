@@ -118,17 +118,13 @@ public class Appointments implements Initializable {
         try {
             Appointment selectedAppointment = aptTable.getSelectionModel().getSelectedItem();
 
-            if (selectedAppointment == null) throw new ItemNotSelectedException("NO ITEM");
+            if (selectedAppointment == null) throw new ItemNotSelectedException("Please select an appointment.");
             if (!FXUtils.getInstance().confirm("Are you sure you want to delete " + selectedAppointment.getTitle() + "?"))
                 return;
             AppointmentCRUD.delete(selectedAppointment);
             aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
-        } catch (ItemNotSelectedException e) {
-            // TODO: Show error popup here
-            System.out.println(e);
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (ItemNotSelectedException | SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
         }
     }
 
@@ -151,12 +147,13 @@ public class Appointments implements Initializable {
     @FXML
     private void handleModifyApt(ActionEvent event) {
         try {
-            if (aptTable.getSelectionModel().getSelectedItem() == null) throw new ItemNotSelectedException("NO ITEM");
+            if (aptTable.getSelectionModel().getSelectedItem() == null)
+                throw new ItemNotSelectedException("Please select an appointment.");
             formMode = FormMode.MODIFY;
             setSelectedAppointment();
             FXUtils.getInstance().redirect(event, "/view/appointmentForm.fxml");
         } catch (ItemNotSelectedException | IOException e) {
-            throw new RuntimeException(e);
+            FXUtils.getInstance().error(e.getMessage());
         }
     }
 

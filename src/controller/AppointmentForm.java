@@ -5,6 +5,7 @@ import dataAccess.ContactCRUD;
 import dataAccess.CustomerCRUD;
 import dataAccess.UserCRUD;
 import enumerable.FormMode;
+import exception.AppointmentOverlapException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -290,11 +291,7 @@ public class AppointmentForm implements Initializable {
                     }
                 });
             }
-            if (hasOverlap.get()) {
-                // TODO: Show POPUP
-                System.out.println("NO");
-                return;
-            }
+            if (hasOverlap.get()) throw new AppointmentOverlapException();
 
             if (Appointments.formMode == FormMode.ADD) {
                 Appointment apt = new Appointment(0, title, desc, location, contactId, type, start, end, TimestampValue.now(), TimestampValue.now(), null, null, custId, userId);
@@ -306,6 +303,8 @@ public class AppointmentForm implements Initializable {
             FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
         } catch (NumberFormatException e) {
             timeError.setText("Time values must be valid integers.");
+        } catch (AppointmentOverlapException e) {
+            FXUtils.getInstance().error(e.getMessage());
         }
     }
 

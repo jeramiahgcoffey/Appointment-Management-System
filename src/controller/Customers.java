@@ -3,6 +3,7 @@ package controller;
 import dataAccess.AppointmentCRUD;
 import dataAccess.CustomerCRUD;
 import enumerable.FormMode;
+import exception.CannotDeleteCustomerException;
 import exception.ItemNotSelectedException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -111,12 +112,13 @@ public class Customers implements Initializable {
     @FXML
     private void handleModifyCustomer(ActionEvent event) throws IOException {
         try {
-            if (custTable.getSelectionModel().getSelectedItem() == null) throw new ItemNotSelectedException("NO ITEM");
+            if (custTable.getSelectionModel().getSelectedItem() == null)
+                throw new ItemNotSelectedException("Please select a customer.");
             formMode = FormMode.MODIFY;
             setSelectedCustomer();
             FXUtils.getInstance().redirect(event, "/view/customerForm.fxml");
         } catch (ItemNotSelectedException e) {
-            throw new RuntimeException(e);
+            FXUtils.getInstance().error(e.getMessage());
         }
     }
 
@@ -125,30 +127,23 @@ public class Customers implements Initializable {
      */
     @FXML
     private void handleDeleteCustomer() {
-        //  TODO: SHOW Custom Popup
         try {
             Customer selectedCustomer = custTable.getSelectionModel().getSelectedItem();
-            if (selectedCustomer == null) throw new ItemNotSelectedException("NO ITEM");
+            if (selectedCustomer == null) throw new ItemNotSelectedException("Please select a customer.");
 
             List<Appointment> customerAppointments = AppointmentCRUD.getByCustomerId(selectedCustomer.getId());
             assert customerAppointments != null;
-            if (!customerAppointments.isEmpty()) {
-                //  TODO: SHOW POPUP
-                System.out.print("NO");
-                return;
-            }
+            if (!customerAppointments.isEmpty())
+                throw new CannotDeleteCustomerException();
 
             if (!FXUtils.getInstance().confirm("Are you sure you want to delete Customer " + selectedCustomer.getId() + "?"))
                 return;
 
             CustomerCRUD.delete(selectedCustomer);
+            FXUtils.getInstance().inform(selectedCustomer.getId() + " - " + selectedCustomer.getName() + " has been deleted.", "Customer deleted successfully.", "Success");
             custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
-        } catch (ItemNotSelectedException e) {
-//            TODO:  Show error popup here
-            System.out.println(e);
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (ItemNotSelectedException | SQLException | CannotDeleteCustomerException e) {
+            FXUtils.getInstance().error(e.getMessage());
         }
     }
 

@@ -116,7 +116,6 @@ public class CustomerForm implements Initializable {
      */
     @FXML
     private void handleSaveCustomer(ActionEvent event) throws IOException, SQLException {
-        // TODO: Show Popup here
         if (Objects.equals(custNameTF.getText(), "") || custDivisionCB.getValue() == null) return;
 
         String name = custNameTF.getText();

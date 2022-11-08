@@ -56,9 +56,28 @@ public class FXUtils {
         stage.show();
     }
 
+    /**
+     * Display a confirmation dialog.
+     *
+     * @param message The message to display in the dialog.
+     * @return Whether the user confirmed or denied the dialog.
+     */
     public boolean confirm(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
         return alert.getResult() == ButtonType.YES;
+    }
+
+    public void error(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.CLOSE);
+        alert.setHeaderText("An issue was encountered.");
+        alert.showAndWait();
+    }
+
+    public void inform(String message, String header, String title) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.CLOSE);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.showAndWait();
     }
 }

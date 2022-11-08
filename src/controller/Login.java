@@ -5,7 +5,9 @@ import dataAccess.UserCRUD;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import model.Appointment;
 import model.User;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +16,6 @@ import util.Log;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -74,7 +75,7 @@ public class Login implements Initializable {
      * @param username Unique username
      * @return User object associated with the username
      */
-    public User fetchUser(String username) throws SQLException {
+    public User fetchUser(String username) {
         return UserCRUD.getByUsername(username);
     }
 
@@ -84,7 +85,7 @@ public class Login implements Initializable {
      * @param event The event that was fired from the login page.
      */
     @FXML
-    private void handleLogin(ActionEvent event) throws IOException, SQLException {
+    private void handleLogin(ActionEvent event) throws IOException {
         ResourceBundle bundle = ResourceBundle.getBundle("strings", Locale.getDefault());
 
         loginUsernameErrorLabel.setText("");
@@ -140,15 +141,14 @@ public class Login implements Initializable {
                 .toList();
 
         if (!upcomingApts.isEmpty()) {
-            String msg = "";
+            StringBuilder msg = new StringBuilder();
             // TODO: Fix message
             for (Appointment apt : upcomingApts) {
-                msg += apt.toString() + "\n";
+                msg.append(apt.toString()).append("\n");
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, msg, ButtonType.CLOSE);
-            alert.setTitle("Upcoming Appointments");
-            alert.setHeaderText("The following appointments begin in 15 minutes or less.");
-            alert.showAndWait();
+            String title = "Upcoming Appointments";
+            String header = "The following appointments begin in 15 minutes or less.";
+            FXUtils.getInstance().inform(msg.toString(), header, title);
         }
     }
 }
