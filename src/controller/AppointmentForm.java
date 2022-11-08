@@ -135,7 +135,6 @@ public class AppointmentForm implements Initializable {
         aptUserCB.setItems(FXCollections.observableArrayList(users));
 
         if (Appointments.formMode == FormMode.MODIFY) {
-            // TODO: PM times are loaded as AM
             aptFormTitle.setText("Modify Appointment");
             aptIdTF.setOpacity(1);
             aptIdLabel.setOpacity(1);

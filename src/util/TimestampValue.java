@@ -42,8 +42,9 @@ public record TimestampValue(Timestamp originalValue) {
      */
     public int getHour() {
         Calendar cal = Calendar.getInstance();
+        System.out.println(originalValue.getTime());
         cal.setTimeInMillis(originalValue.getTime());
-        return cal.get(Calendar.HOUR);
+        return cal.get(Calendar.HOUR_OF_DAY);
     }
 
     /**
