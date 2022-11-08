@@ -23,9 +23,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -165,7 +165,7 @@ public class AppointmentForm implements Initializable {
      */
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, IOException {
-        // TODO: Business hours validation
+        // TODO: Business hours validation, End less than start, FIX END DP
         boolean hasErrors = false;
 
         String title = aptTitleTF.getText();
@@ -254,14 +254,24 @@ public class AppointmentForm implements Initializable {
         // TODO: FIX MODIFY MODE OVERLAP CHECK
         List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
         AtomicBoolean hasOverlap = new AtomicBoolean(false);
-        if (customersApts != null && !customersApts.isEmpty() && Appointments.formMode == FormMode.ADD) {
+        if (customersApts != null && !customersApts.isEmpty()) {
             customersApts.forEach(apt -> {
-                if (Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).toLocalDate()
-                        .equals(Objects.requireNonNull(start.toLocalDateTime()).toLocalDate())) {
-                    if (Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).getHour() <= Objects.requireNonNull(start.toLocalDateTime()).getHour()
-                            && Objects.requireNonNull(apt.getEndTimestamp().toLocalDateTime()).getHour() >= Objects.requireNonNull(start.toLocalDateTime()).getHour()) {
-                        hasOverlap.set(true);
-                    }
+                if (Appointments.formMode == FormMode.MODIFY && apt.getId() == Appointments.selectedAppointment.getId())
+                    return;
+
+                LocalDateTime selectedAptStartDate = start.toLocalDateTime();
+                LocalDateTime currAptStartDate = apt.getStartTimestamp().toLocalDateTime();
+
+                assert selectedAptStartDate != null;
+                assert currAptStartDate != null;
+
+                if (selectedAptStartDate.toLocalDate().equals(currAptStartDate.toLocalDate())) {
+                    long selectedAptStart = start.originalValue().getTime();
+                    long selectedAptEnd = end.originalValue().getTime();
+                    long currAptStart = apt.getStartTimestamp().originalValue().getTime();
+                    long currAptEnd = apt.getEndTimestamp().originalValue().getTime();
+
+                    if (selectedAptEnd > currAptStart && selectedAptStart < currAptEnd) hasOverlap.set(true);
                 }
             });
         }
