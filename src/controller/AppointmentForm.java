@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -164,18 +165,92 @@ public class AppointmentForm implements Initializable {
      */
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, IOException {
-        // TODO: Validation
-        // TODO: Business hours
+        // TODO: Business hours validation
+        boolean hasErrors = false;
 
         String title = aptTitleTF.getText();
         String desc = aptDescTF.getText();
         String location = aptLocationTF.getText();
-        int contactId = aptContactCB.getValue().id();
+        Contact contact = aptContactCB.getValue();
         String type = aptTypeTf.getText();
-        TimestampValue start = new TimestampValue(Timestamp.valueOf(aptStartDP.getValue().atTime(aptStartHour.getValue(), aptStartMin.getValue())));
-        TimestampValue end = new TimestampValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(aptFinishHour.getValue(), aptFinishMin.getValue())));
-        int custId = aptCustCB.getValue().getId();
-        int userId = aptUserCB.getValue().getUserId();
+        LocalDate startDate = aptStartDP.getValue();
+        int startHour = aptStartHour.getValue();
+        int startMin = aptStartMin.getValue();
+        int endHour = aptFinishHour.getValue();
+        int endMin = aptFinishMin.getValue();
+        Customer customer = aptCustCB.getValue();
+        User user = aptUserCB.getValue();
+
+        if (title.isEmpty()) {
+            hasErrors = true;
+            titleError.setText("Please provide a title.");
+        } else {
+            titleError.setText("");
+        }
+
+        if (desc.isEmpty()) {
+            hasErrors = true;
+            descError.setText("Please provide a description.");
+        } else {
+            descError.setText("");
+        }
+
+        if (location.isEmpty()) {
+            hasErrors = true;
+            locationError.setText("Please provide a location.");
+        } else {
+            locationError.setText("");
+        }
+
+        if (type.isEmpty()) {
+            hasErrors = true;
+            typeError.setText("Please provide a type.");
+        } else {
+            typeError.setText("");
+        }
+
+        if (contact == null) {
+            hasErrors = true;
+            contactError.setText("Please select a contact.");
+        } else {
+            contactError.setText("");
+        }
+
+        if (customer == null) {
+            hasErrors = true;
+            custError.setText("Please select a customer.");
+        } else {
+            custError.setText("");
+        }
+
+        if (user == null) {
+            hasErrors = true;
+            userError.setText("Please select a user.");
+        } else {
+            userError.setText("");
+        }
+
+        if (startDate == null) {
+            hasErrors = true;
+            dateError.setText("Please select a date.");
+        } else {
+            dateError.setText("");
+        }
+
+        if (startHour == endHour && startMin == endMin) {
+            hasErrors = true;
+            timeError.setText("Please provide a duration.");
+        } else {
+            timeError.setText("");
+        }
+
+        if (hasErrors) return;
+
+        int custId = customer.getId();
+        int contactId = contact.id();
+        int userId = user.getUserId();
+        TimestampValue start = new TimestampValue(Timestamp.valueOf(startDate.atTime(startHour, startMin)));
+        TimestampValue end = new TimestampValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(endHour, endMin)));
 
         List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
         AtomicBoolean hasOverlap = new AtomicBoolean(false);
