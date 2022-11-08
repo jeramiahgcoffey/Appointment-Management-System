@@ -9,7 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import model.Appointment;
 import model.Contact;
 import model.Customer;
@@ -73,16 +76,16 @@ public class AppointmentForm implements Initializable {
     private DatePicker aptStartDP;
 
     @FXML
-    private Spinner<Integer> aptStartHour;
+    private TextField aptStartHour;
 
     @FXML
-    private Spinner<Integer> aptFinishMin;
+    private TextField aptFinishMin;
 
     @FXML
-    private Spinner<Integer> aptStartMin;
+    private TextField aptStartMin;
 
     @FXML
-    private Spinner<Integer> aptFinishHour;
+    private TextField aptFinishHour;
 
     @FXML
     private Label titleError;
@@ -150,11 +153,11 @@ public class AppointmentForm implements Initializable {
             aptCustCB.setValue(customerMap.get(appointment.getCustId()));
             aptUserCB.setValue(userMap.get(appointment.getUserId()));
             aptStartDP.setValue(appointment.getStartTimestamp().originalValue().toLocalDateTime().toLocalDate());
-            aptStartHour.getValueFactory().setValue(appointment.getStartTimestamp().getHour());
-            aptStartMin.getValueFactory().setValue(appointment.getStartTimestamp().getMinute());
+            aptStartHour.setText(String.valueOf(appointment.getStartTimestamp().getHour()));
+            aptStartMin.setText(String.valueOf(appointment.getStartTimestamp().getMinute()));
             aptFinishDP.setValue(appointment.getEndTimestamp().originalValue().toLocalDateTime().toLocalDate());
-            aptFinishHour.getValueFactory().setValue(appointment.getEndTimestamp().getHour());
-            aptFinishMin.getValueFactory().setValue(appointment.getEndTimestamp().getMinute());
+            aptFinishHour.setText(String.valueOf(appointment.getEndTimestamp().getHour()));
+            aptFinishMin.setText(String.valueOf(appointment.getEndTimestamp().getMinute()));
         }
     }
 
@@ -165,130 +168,145 @@ public class AppointmentForm implements Initializable {
      */
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, IOException {
-        // TODO: Business hours validation, End less than start, FIX END DP
-        boolean hasErrors = false;
+        try {
+            // TODO: Business hours validation
+            boolean hasErrors = false;
 
-        String title = aptTitleTF.getText();
-        String desc = aptDescTF.getText();
-        String location = aptLocationTF.getText();
-        Contact contact = aptContactCB.getValue();
-        String type = aptTypeTf.getText();
-        LocalDate startDate = aptStartDP.getValue();
-        int startHour = aptStartHour.getValue();
-        int startMin = aptStartMin.getValue();
-        int endHour = aptFinishHour.getValue();
-        int endMin = aptFinishMin.getValue();
-        Customer customer = aptCustCB.getValue();
-        User user = aptUserCB.getValue();
+            String title = aptTitleTF.getText();
+            String desc = aptDescTF.getText();
+            String location = aptLocationTF.getText();
+            Contact contact = aptContactCB.getValue();
+            String type = aptTypeTf.getText();
+            LocalDate startDate = aptStartDP.getValue();
+            int startHour = Integer.parseInt(aptStartHour.getText());
+            int startMin = Integer.parseInt(aptStartMin.getText());
+            int endHour = Integer.parseInt(aptFinishHour.getText());
+            int endMin = Integer.parseInt(aptFinishMin.getText());
+            Customer customer = aptCustCB.getValue();
+            User user = aptUserCB.getValue();
 
-        if (title.isEmpty()) {
-            hasErrors = true;
-            titleError.setText("Please provide a title.");
-        } else {
-            titleError.setText("");
+            if (title.isEmpty()) {
+                hasErrors = true;
+                titleError.setText("Please provide a title.");
+            } else {
+                titleError.setText("");
+            }
+
+            if (desc.isEmpty()) {
+                hasErrors = true;
+                descError.setText("Please provide a description.");
+            } else {
+                descError.setText("");
+            }
+
+            if (location.isEmpty()) {
+                hasErrors = true;
+                locationError.setText("Please provide a location.");
+            } else {
+                locationError.setText("");
+            }
+
+            if (type.isEmpty()) {
+                hasErrors = true;
+                typeError.setText("Please provide a type.");
+            } else {
+                typeError.setText("");
+            }
+
+            if (contact == null) {
+                hasErrors = true;
+                contactError.setText("Please select a contact.");
+            } else {
+                contactError.setText("");
+            }
+
+            if (customer == null) {
+                hasErrors = true;
+                custError.setText("Please select a customer.");
+            } else {
+                custError.setText("");
+            }
+
+            if (user == null) {
+                hasErrors = true;
+                userError.setText("Please select a user.");
+            } else {
+                userError.setText("");
+            }
+
+            if (startDate == null) {
+                hasErrors = true;
+                dateError.setText("Please select a date.");
+            } else {
+                dateError.setText("");
+            }
+
+            if (startHour == endHour && startMin == endMin) {
+                hasErrors = true;
+                timeError.setText("Please provide a duration.");
+            } else if (
+                    startHour < 0
+                            || startHour > 23
+                            || endHour < 0
+                            || endHour > 23
+                            || startMin < 0
+                            || startMin > 59
+                            || endMin < 0
+                            || endMin > 59
+            ) {
+                hasErrors = true;
+                timeError.setText("Time values must be valid integers.");
+            } else {
+                timeError.setText("");
+            }
+
+            if (hasErrors) return;
+
+            int custId = customer.getId();
+            int contactId = contact.id();
+            int userId = user.getUserId();
+            TimestampValue start = new TimestampValue(Timestamp.valueOf(startDate.atTime(startHour, startMin)));
+            TimestampValue end = new TimestampValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(endHour, endMin)));
+            List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
+            AtomicBoolean hasOverlap = new AtomicBoolean(false);
+            if (customersApts != null && !customersApts.isEmpty()) {
+                customersApts.forEach(apt -> {
+                    if (Appointments.formMode == FormMode.MODIFY && apt.getId() == Appointments.selectedAppointment.getId())
+                        return;
+
+                    LocalDateTime selectedAptStartDate = start.toLocalDateTime();
+                    LocalDateTime currAptStartDate = apt.getStartTimestamp().toLocalDateTime();
+
+                    assert selectedAptStartDate != null;
+                    assert currAptStartDate != null;
+
+                    if (selectedAptStartDate.toLocalDate().equals(currAptStartDate.toLocalDate())) {
+                        long selectedAptStart = start.originalValue().getTime();
+                        long selectedAptEnd = end.originalValue().getTime();
+                        long currAptStart = apt.getStartTimestamp().originalValue().getTime();
+                        long currAptEnd = apt.getEndTimestamp().originalValue().getTime();
+
+                        if (selectedAptEnd > currAptStart && selectedAptStart < currAptEnd) hasOverlap.set(true);
+                    }
+                });
+            }
+            if (hasOverlap.get()) {
+                // TODO: Show POPUP
+                System.out.println("NO");
+                return;
+            }
+
+            if (Appointments.formMode == FormMode.ADD) {
+                Appointment apt = new Appointment(0, title, desc, location, contactId, type, start, end, TimestampValue.now(), TimestampValue.now(), null, null, custId, userId);
+                AppointmentCRUD.save(apt);
+            } else if (Appointments.formMode == FormMode.MODIFY) {
+                Appointment apt = new Appointment(Appointments.selectedAppointment.getId(), title, desc, location, contactId, type, start, end, null, TimestampValue.now(), null, null, custId, userId);
+                AppointmentCRUD.update(apt);
+            }
+            FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
+        } catch (NumberFormatException e) {
+            timeError.setText("Time values must be valid integers.");
         }
-
-        if (desc.isEmpty()) {
-            hasErrors = true;
-            descError.setText("Please provide a description.");
-        } else {
-            descError.setText("");
-        }
-
-        if (location.isEmpty()) {
-            hasErrors = true;
-            locationError.setText("Please provide a location.");
-        } else {
-            locationError.setText("");
-        }
-
-        if (type.isEmpty()) {
-            hasErrors = true;
-            typeError.setText("Please provide a type.");
-        } else {
-            typeError.setText("");
-        }
-
-        if (contact == null) {
-            hasErrors = true;
-            contactError.setText("Please select a contact.");
-        } else {
-            contactError.setText("");
-        }
-
-        if (customer == null) {
-            hasErrors = true;
-            custError.setText("Please select a customer.");
-        } else {
-            custError.setText("");
-        }
-
-        if (user == null) {
-            hasErrors = true;
-            userError.setText("Please select a user.");
-        } else {
-            userError.setText("");
-        }
-
-        if (startDate == null) {
-            hasErrors = true;
-            dateError.setText("Please select a date.");
-        } else {
-            dateError.setText("");
-        }
-
-        if (startHour == endHour && startMin == endMin) {
-            hasErrors = true;
-            timeError.setText("Please provide a duration.");
-        } else {
-            timeError.setText("");
-        }
-
-        if (hasErrors) return;
-
-        int custId = customer.getId();
-        int contactId = contact.id();
-        int userId = user.getUserId();
-        TimestampValue start = new TimestampValue(Timestamp.valueOf(startDate.atTime(startHour, startMin)));
-        TimestampValue end = new TimestampValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(endHour, endMin)));
-        // TODO: FIX MODIFY MODE OVERLAP CHECK
-        List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
-        AtomicBoolean hasOverlap = new AtomicBoolean(false);
-        if (customersApts != null && !customersApts.isEmpty()) {
-            customersApts.forEach(apt -> {
-                if (Appointments.formMode == FormMode.MODIFY && apt.getId() == Appointments.selectedAppointment.getId())
-                    return;
-
-                LocalDateTime selectedAptStartDate = start.toLocalDateTime();
-                LocalDateTime currAptStartDate = apt.getStartTimestamp().toLocalDateTime();
-
-                assert selectedAptStartDate != null;
-                assert currAptStartDate != null;
-
-                if (selectedAptStartDate.toLocalDate().equals(currAptStartDate.toLocalDate())) {
-                    long selectedAptStart = start.originalValue().getTime();
-                    long selectedAptEnd = end.originalValue().getTime();
-                    long currAptStart = apt.getStartTimestamp().originalValue().getTime();
-                    long currAptEnd = apt.getEndTimestamp().originalValue().getTime();
-
-                    if (selectedAptEnd > currAptStart && selectedAptStart < currAptEnd) hasOverlap.set(true);
-                }
-            });
-        }
-        if (hasOverlap.get()) {
-            // TODO: Show POPUP
-            System.out.println("NO");
-            return;
-        }
-
-        if (Appointments.formMode == FormMode.ADD) {
-            Appointment apt = new Appointment(0, title, desc, location, contactId, type, start, end, TimestampValue.now(), TimestampValue.now(), null, null, custId, userId);
-            AppointmentCRUD.save(apt);
-        } else if (Appointments.formMode == FormMode.MODIFY) {
-            Appointment apt = new Appointment(Appointments.selectedAppointment.getId(), title, desc, location, contactId, type, start, end, null, TimestampValue.now(), null, null, custId, userId);
-            AppointmentCRUD.update(apt);
-        }
-        FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
 
     /**
@@ -302,10 +320,29 @@ public class AppointmentForm implements Initializable {
     }
 
     /**
-     * Event handler for the Start Date Picker
+     * Event handler for the Start Date Picker.
      */
     @FXML
     private void handleAptDP() {
         aptFinishDP.setValue(aptStartDP.getValue());
+    }
+
+    /**
+     * Event handler for Appointment end time Text Fields.
+     */
+    @FXML
+    private void handleEndTimeInput() {
+        try {
+            int startHour = Integer.parseInt(aptStartHour.getText());
+            int startMin = Integer.parseInt(aptStartMin.getText());
+            int finishHour = Integer.parseInt(aptFinishHour.getText());
+            int finishMin = Integer.parseInt(aptFinishMin.getText());
+            if (finishHour < startHour || (finishHour == startHour && finishMin < startMin)) {
+                aptFinishDP.setValue(aptStartDP.getValue().plusDays(1));
+            } else {
+                aptFinishDP.setValue(aptStartDP.getValue());
+            }
+        } catch (NumberFormatException ignored) {
+        }
     }
 }
