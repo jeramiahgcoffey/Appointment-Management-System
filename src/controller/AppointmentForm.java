@@ -164,6 +164,7 @@ public class AppointmentForm implements Initializable {
 
     /**
      * Event handler for Save button.
+     * A lambda expression is used as the Predicate argument for the forEach method, helping to increase code readability and concision.
      *
      * @param event The event which was fired from the appointmentForm page.
      */

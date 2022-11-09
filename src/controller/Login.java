@@ -124,6 +124,7 @@ public class Login implements Initializable {
 
     /**
      * Check if a user has upcoming appointments that begin within 15 minutes of the time of logging in.
+     * Lambda expressions are used as the Predicate arguments for the filter methods, helping to increase code readability and concision.
      *
      * @param userId The logged-in User's ID.
      */
@@ -142,7 +143,6 @@ public class Login implements Initializable {
 
         if (!upcomingApts.isEmpty()) {
             StringBuilder msg = new StringBuilder();
-            // TODO: Fix message
             for (Appointment apt : upcomingApts) {
                 msg.append(apt.toString()).append("\n");
             }

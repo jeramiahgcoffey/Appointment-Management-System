@@ -184,6 +184,7 @@ public class Appointments implements Initializable {
 
     /**
      * Handle View by Month radio button selected. Appointments are listed if the start date belongs to the current month.
+     * A lambda expression is used as the Predicate argument for the filter method, helping to increase code readability and concision.
      */
     @FXML
     private void handleViewMonth() {
@@ -207,6 +208,7 @@ public class Appointments implements Initializable {
 
     /**
      * Handle View by Week radio button selected. Appointments are listed if the start date belongs to the current week.
+     * A lambda expression is used as the Predicate argument for the filter method, helping to increase code readability and concision.
      */
     @FXML
     private void handleViewWeek() {

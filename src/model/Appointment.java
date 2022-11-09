@@ -59,6 +59,11 @@ public class Appointment {
         contact = ContactCRUD.get(contactId);
     }
 
+    @Override
+    public String toString() {
+        return "Apt ID " + id + " - " + title + " at " + start.displayFormat();
+    }
+
     public int getId() {
         return id;
     }
