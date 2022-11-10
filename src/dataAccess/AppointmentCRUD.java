@@ -2,9 +2,12 @@ package dataAccess;
 
 import db.DBConnection;
 import model.Appointment;
+import model.Customer;
 import util.TimestampValue;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -205,5 +208,51 @@ public abstract class AppointmentCRUD {
         ps.setInt(1, appointment.getId());
 
         ps.execute();
+    }
+
+    public static int getTotals(Month selectedMonth, String selectedType, Customer selectedCustomer) {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT COUNT(Appointment_ID) FROM appointments");
+        List<String> conditions = new ArrayList<>();
+
+        if (selectedMonth != null || selectedType != null || selectedCustomer != null) {
+            query.append(" WHERE");
+
+            if (selectedMonth != null) {
+                int year = LocalDate.now().getYear();
+                int month = selectedMonth.getValue();
+
+                LocalDate monthLD = LocalDate.of(year, month, 1);
+                Timestamp startOfMonth = Timestamp.valueOf(monthLD.atStartOfDay());
+                Timestamp endOfMonth = Timestamp.valueOf(monthLD.plusMonths(1).atStartOfDay());
+
+                conditions.add(" Start BETWEEN '" + startOfMonth + "' AND '" + endOfMonth + "'");
+            }
+
+            if (selectedType != null) {
+                conditions.add(" Type='" + selectedType + "'");
+            }
+
+            if (selectedCustomer != null) {
+                conditions.add(" Customer_ID='" + selectedCustomer.getId() + "'");
+            }
+        }
+
+        for (int i = 0; i < conditions.toArray().length; i++) {
+            query.append(conditions.get(i));
+            if (i < conditions.toArray().length - 1) {
+                query.append(" AND");
+            }
+        }
+
+        Connection conn = DBConnection.connection;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query.toString());
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e);
+            return 0;
+        }
     }
 }

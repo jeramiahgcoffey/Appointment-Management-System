@@ -22,6 +22,7 @@ public class Main extends Application {
      */
     public static void main(String[] args) throws IOException {
         DBConnection.openConnection();
+//        Objects.requireNonNull(AppointmentCRUD.getAll()).stream().filter(apt -> Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).getMonth().getValue() == 11).forEach(System.out::println);
         launch(args);
         DBConnection.closeConnection();
     }
