@@ -23,14 +23,14 @@
     <DatePicker fx:id="aptStartDP" layoutX="112.0" layoutY="326.0" onAction="#handleAptDP" prefHeight="26.0"
                 prefWidth="160.0"/>
     <TextField fx:id="aptStartHour" layoutX="154.0" layoutY="361.0" prefHeight="26.0" prefWidth="41.0"/>
-    <TextField fx:id="aptFinishMin" layoutX="203.0" layoutY="429.0" onAction="#handleEndTimeInput"
-               onKeyPressed="#handleEndTimeInput" onKeyTyped="#handleEndTimeInput" prefHeight="26.0" prefWidth="41.0"/>
     <TextField fx:id="aptStartMin" layoutX="204.0" layoutY="361.0" prefHeight="26.0" prefWidth="41.0"/>
     <TextField fx:id="aptFinishHour" layoutX="154.0" layoutY="429.0" onAction="#handleEndTimeInput"
                onKeyPressed="#handleEndTimeInput" onKeyTyped="#handleEndTimeInput" prefHeight="26.0" prefWidth="41.0"/>
+    <TextField fx:id="aptFinishMin" layoutX="203.0" layoutY="429.0" onAction="#handleEndTimeInput"
+               onKeyPressed="#handleEndTimeInput" onKeyTyped="#handleEndTimeInput" prefHeight="26.0" prefWidth="41.0"/>
+    <Button layoutX="393.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel"/>
     <Button layoutX="462.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleSave" prefHeight="26.0"
             prefWidth="54.0" text="Save"/>
-    <Button layoutX="393.0" layoutY="428.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel"/>
     <Label layoutX="14.0" layoutY="102.0" text="Title"/>
     <Label layoutX="14.0" layoutY="135.0" text="Description"/>
     <Label layoutX="14.0" layoutY="168.0" text="Location"/>
