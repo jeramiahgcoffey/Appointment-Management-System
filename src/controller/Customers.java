@@ -163,4 +163,8 @@ public class Customers implements Initializable {
     private void setSelectedCustomer() {
         selectedCustomer = custTable.getSelectionModel().getSelectedItem();
     }
+
+    public void handleReports(ActionEvent event) throws IOException {
+        FXUtils.getInstance().redirect(event, "/view/reports.fxml");
+    }
 }

@@ -42,7 +42,8 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <ComboBox fx:id="contactCB" layoutX="14.0" layoutY="25.0" prefWidth="150.0"/>
+                                <ComboBox fx:id="contactCB" layoutX="14.0" layoutY="25.0"
+                                          onAction="#handleContactSelected" prefWidth="150.0"/>
                                 <Label layoutX="14.0" layoutY="6.0" text="Contact"/>
                                 <TableView fx:id="contactScheduleTable" layoutY="58.0" prefHeight="315.0"
                                            prefWidth="613.0">

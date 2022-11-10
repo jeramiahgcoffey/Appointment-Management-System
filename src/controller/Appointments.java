@@ -230,4 +230,8 @@ public class Appointments implements Initializable {
                         .collect(Collectors.toList())
         ));
     }
+
+    public void handleReports(ActionEvent event) throws IOException {
+        FXUtils.getInstance().redirect(event, "/view/reports.fxml");
+    }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import dataAccess.AppointmentCRUD;
+import dataAccess.ContactCRUD;
 import dataAccess.CustomerCRUD;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -10,7 +11,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
+import model.Contact;
 import model.Customer;
 import util.FXUtils;
 
@@ -19,6 +22,7 @@ import java.net.URL;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Reports implements Initializable {
@@ -36,31 +40,31 @@ public class Reports implements Initializable {
     private Label totalLabel;
 
     @FXML
-    private ComboBox contactCB;
+    private ComboBox<Contact> contactCB;
 
     @FXML
-    private TableView contactScheduleTable;
+    private TableView<Appointment> contactScheduleTable;
 
     @FXML
-    private TableColumn aptIdCol;
+    private TableColumn<Appointment, String> aptIdCol;
 
     @FXML
-    private TableColumn titleCol;
+    private TableColumn<Appointment, String> titleCol;
 
     @FXML
-    private TableColumn descCol;
+    private TableColumn<Appointment, String> descCol;
 
     @FXML
-    private TableColumn typeCol;
+    private TableColumn<Appointment, String> typeCol;
 
     @FXML
-    private TableColumn custIdCol;
+    private TableColumn<Appointment, String> custIdCol;
 
     @FXML
-    private TableColumn startCol;
+    private TableColumn<Appointment, String> startCol;
 
     @FXML
-    private TableColumn endCol;
+    private TableColumn<Appointment, String> endCol;
 
 
     /**
@@ -80,14 +84,24 @@ public class Reports implements Initializable {
                 }
             });
         }
-
         typeCB.setItems(FXCollections.observableArrayList(types));
 
         List<Customer> customers = CustomerCRUD.getAll();
-
         customerCB.setItems(FXCollections.observableArrayList(customers));
 
         totalLabel.setText(String.valueOf(AppointmentCRUD.getTotals(null, null, null)));
+
+        List<Contact> contacts = ContactCRUD.getAll();
+        contactCB.setItems(FXCollections.observableArrayList(contacts));
+
+        aptIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        descCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("custId"));
+
     }
 
     @FXML
@@ -111,5 +125,16 @@ public class Reports implements Initializable {
         typeCB.setValue(null);
         customerCB.setValue(null);
         totalLabel.setText("0");
+    }
+
+    @FXML
+    private void handleContactSelected() {
+        Contact selectedContact = contactCB.getSelectionModel().getSelectedItem();
+        List<Appointment> apts = Objects.requireNonNull(AppointmentCRUD.getAll())
+                .stream()
+                .filter(apt -> apt.getContact().id() == selectedContact.id())
+                .toList();
+        contactScheduleTable.setItems(FXCollections.observableArrayList(apts));
+        contactScheduleTable.getSortOrder().setAll(startCol);
     }
 }

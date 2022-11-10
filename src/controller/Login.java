@@ -118,8 +118,7 @@ public class Login implements Initializable {
         }
         Log.loginAttempt(username, true);
         currentUser = user;
-        FXUtils.getInstance().redirect(event, "/view/reports.fxml");
-//        FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
+        FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
         checkForUpcoming(currentUser.getUserId());
     }
 
