@@ -63,12 +63,6 @@ public record DateTimeValue(Timestamp originalValue) {
         ZonedDateTime businessClosed = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(22, 1), ZoneId.of("America/New_York"));
         ZonedDateTime businessOpened = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(8, 1), ZoneId.of("America/New_York"));
         ZonedDateTime curr = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()), ZoneId.systemDefault());
-        return !curr.isAfter(businessOpened) && !curr.isBefore(businessClosed);
-    }
-
-    public boolean isAfterOpen() {
-        ZonedDateTime businessOpened = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(8, 1), ZoneId.of("America/New_York"));
-        ZonedDateTime aptTime = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()), ZoneId.systemDefault());
-        return aptTime.isBefore(businessOpened);
+        return curr.isAfter(businessOpened) && curr.isBefore(businessClosed);
     }
 }
