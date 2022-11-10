@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * Singleton class of JavaFX utility methods.
+ * Singleton class containing custom JavaFX utility methods.
  *
  * @author Jeramiah Coffey
  */
@@ -69,12 +69,20 @@ public class FXUtils {
         return alert.getResult() == ButtonType.YES;
     }
 
+    /**
+     * Display an error dialog.
+     *
+     * @param message The message to display in the dialog.
+     */
     public void error(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.CLOSE);
         alert.setHeaderText("An issue was encountered");
         alert.showAndWait();
     }
 
+    /**
+     * Displays a generic error dialog, and exits the program on dialog close. Status: 101
+     */
     public void errorAndExit() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Shutting down, please try again later.", ButtonType.CLOSE);
         alert.setHeaderText("An issue was encountered");
@@ -82,6 +90,13 @@ public class FXUtils {
         System.exit(101);
     }
 
+    /**
+     * Display an informative dialog.
+     *
+     * @param message The message to display in the dialog.
+     * @param header  The dialog header text displayed to the left of the "Info" icon.
+     * @param title   The dialog title displayed in the window header.
+     */
     public void inform(String message, String header, String title) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.CLOSE);
         alert.setTitle(title);

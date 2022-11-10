@@ -26,7 +26,10 @@ public class Main extends Application {
     }
 
     /**
-     * @param stage The first stage to load on program start
+     * Start the JavaFX Application. Called when launch is called from the main method.
+     * Sets Login page language to French if it is the default system locale.
+     *
+     * @param stage The first stage to load on program start.
      */
     @Override
     public void start(@NotNull Stage stage) throws Exception {
