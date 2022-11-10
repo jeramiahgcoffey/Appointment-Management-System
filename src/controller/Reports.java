@@ -25,6 +25,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * JavaFX controller for the Reports view.
+ *
+ * @author Jeramiah Coffey
+ */
 public class Reports implements Initializable {
 
     @FXML
@@ -68,8 +73,10 @@ public class Reports implements Initializable {
 
 
     /**
-     * @param url
-     * @param resourceBundle
+     * Initializes the view. Populates ComboBoxes. Gets total appointment records on page load.
+     *
+     * @param url            URL used to resolve paths, null if not known.
+     * @param resourceBundle Resources used to localize the root object, null if not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -104,6 +111,9 @@ public class Reports implements Initializable {
 
     }
 
+    /**
+     * Event handler for the Run Report button.
+     */
     @FXML
     private void handleRunReport() {
         Month selectedMonth = monthCB.getSelectionModel().getSelectedItem();
@@ -114,11 +124,19 @@ public class Reports implements Initializable {
         totalLabel.setText(String.valueOf(total));
     }
 
+    /**
+     * Event handler for the Close button
+     *
+     * @param event The event which was fired from the Reports page.
+     */
     @FXML
     private void handleClose(ActionEvent event) throws IOException {
         FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
     }
 
+    /**
+     * Event handler for the Reset button.
+     */
     @FXML
     private void handleReset() {
         monthCB.setValue(null);
@@ -127,6 +145,9 @@ public class Reports implements Initializable {
         totalLabel.setText("0");
     }
 
+    /**
+     * Event handler for selected a Contact from the ComboBox.
+     */
     @FXML
     private void handleContactSelected() {
         Contact selectedContact = contactCB.getSelectionModel().getSelectedItem();

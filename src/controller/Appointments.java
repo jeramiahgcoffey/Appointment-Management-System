@@ -231,7 +231,13 @@ public class Appointments implements Initializable {
         ));
     }
 
-    public void handleReports(ActionEvent event) throws IOException {
+    /**
+     * Handle Reports button clicked.
+     *
+     * @param event The event which was fired from the Appointments page.
+     */
+    @FXML
+    private void handleReports(ActionEvent event) throws IOException {
         FXUtils.getInstance().redirect(event, "/view/reports.fxml");
     }
 }

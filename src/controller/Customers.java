@@ -155,13 +155,20 @@ public class Customers implements Initializable {
     }
 
     /**
+     * Handle Reports button clicked.
+     *
+     * @param event The event which was fired from the Appointments page.
+     */
+    @FXML
+    private void handleReports(ActionEvent event) throws IOException {
+        FXUtils.getInstance().redirect(event, "/view/reports.fxml");
+    }
+
+    /**
      * Sets selectedCustomer to the currently selected customer in the table view.
      */
     private void setSelectedCustomer() {
         selectedCustomer = custTable.getSelectionModel().getSelectedItem();
     }
 
-    public void handleReports(ActionEvent event) throws IOException {
-        FXUtils.getInstance().redirect(event, "/view/reports.fxml");
-    }
 }
