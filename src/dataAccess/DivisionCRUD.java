@@ -24,7 +24,7 @@ public abstract class DivisionCRUD {
      * @return A List of all Division that belong to the country passed in.
      */
     public static List<Division> getAllByCountry(int countryId) {
-        ArrayList<Division> divisions = new ArrayList<Division>();
+        ArrayList<Division> divisions = new ArrayList<>();
         String query = "SELECT * FROM first_level_divisions WHERE country_id=" + countryId;
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {
@@ -48,7 +48,7 @@ public abstract class DivisionCRUD {
      * @return A List of all Divisions.
      */
     public static List<Division> getAll() {
-        ArrayList<Division> divisions = new ArrayList<Division>();
+        ArrayList<Division> divisions = new ArrayList<>();
         String query = "SELECT * FROM first_level_divisions";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {

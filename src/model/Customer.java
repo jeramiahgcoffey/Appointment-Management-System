@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class Customer {
     private final int id;
-    private String name;
+    private final String name;
     private final String address;
     private final String postal;
     private final String phone;
@@ -24,7 +24,7 @@ public class Customer {
     private final String updatedBy;
     private final int divisionId;
 
-    private static final HashMap<Integer, String> divisionMap = new HashMap<Integer, String>();
+    private static final HashMap<Integer, String> divisionMap = new HashMap<>();
 
     public Customer(
             int id,
@@ -113,9 +113,5 @@ public class Customer {
 
     public String getState() {
         return Objects.requireNonNull(DivisionCRUD.get(divisionId)).name();
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

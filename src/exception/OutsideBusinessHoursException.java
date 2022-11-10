@@ -1,7 +1,7 @@
 package exception;
 
 /**
- * Exception to represent the attempt to schedule an appointment outside of business hours.
+ * Exception to represent the attempt to schedule an appointment outside business hours.
  *
  * @author Jeramiah Coffey
  */

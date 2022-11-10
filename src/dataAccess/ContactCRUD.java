@@ -23,7 +23,7 @@ public abstract class ContactCRUD {
      * @return A List of all Contacts.
      */
     public static List<Contact> getAll() {
-        ArrayList<Contact> contacts = new ArrayList<Contact>();
+        ArrayList<Contact> contacts = new ArrayList<>();
         String query = "SELECT * FROM contacts";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {

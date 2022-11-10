@@ -10,6 +10,7 @@ import java.sql.SQLException;
  *
  * @author Jeramiah Coffey
  */
+@SuppressWarnings("SpellCheckingInspection")
 public abstract class DBConnection {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";

@@ -102,7 +102,7 @@ public class CustomerForm implements Initializable {
      * @param event The event that was fired from the CustomerForm
      */
     @FXML
-    private void handleCountryChange(ActionEvent event) throws IOException {
+    private void handleCountryChange(ActionEvent event) {
         int countryId = custCountryCB.getSelectionModel().getSelectedItem().id();
         custDivisionCB.setItems(FXCollections.observableArrayList(DivisionCRUD.getAllByCountry(countryId)));
         custDivisionCB.setValue(null);

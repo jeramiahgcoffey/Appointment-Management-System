@@ -59,6 +59,7 @@ public record DateTimeValue(Timestamp originalValue) {
         return cal.get(Calendar.MINUTE);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isValidBusinessHours() {
         ZonedDateTime businessClosed = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(22, 1), ZoneId.of("America/New_York"));
         ZonedDateTime businessOpened = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(8, 1), ZoneId.of("America/New_York"));

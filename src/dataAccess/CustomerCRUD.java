@@ -21,7 +21,7 @@ public abstract class CustomerCRUD {
      * @return A List of all Customers
      */
     public static List<Customer> getAll() {
-        ArrayList<Customer> customers = new ArrayList<Customer>();
+        ArrayList<Customer> customers = new ArrayList<>();
         String query = "SELECT * FROM customers";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {
@@ -34,8 +34,6 @@ public abstract class CustomerCRUD {
                 String phone = rs.getString("Phone");
                 DateTimeValue createdAt = new DateTimeValue(rs.getTimestamp("Create_Date"));
                 DateTimeValue updatedAt = new DateTimeValue(rs.getTimestamp("Last_Update"));
-                String createdBy = rs.getString("Created_By");
-                String updatedBy = rs.getString("Last_Updated_By");
                 int divisionId = rs.getInt("Division_ID");
                 customers.add(new Customer(
                         id,

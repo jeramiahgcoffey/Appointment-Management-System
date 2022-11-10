@@ -25,7 +25,6 @@ import util.ListUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -170,7 +169,7 @@ public class AppointmentForm implements Initializable {
      * @param event The event which was fired from the appointmentForm page.
      */
     @FXML
-    private void handleSave(ActionEvent event) throws SQLException, IOException {
+    private void handleSave(ActionEvent event) throws IOException {
         try {
             boolean hasErrors = false;
 

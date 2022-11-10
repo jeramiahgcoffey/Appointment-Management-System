@@ -23,7 +23,7 @@ public abstract class CountryCRUD {
      * @return A List of all Countries.
      */
     public static List<Country> getAll() {
-        ArrayList<Country> countries = new ArrayList<Country>();
+        ArrayList<Country> countries = new ArrayList<>();
         String query = "SELECT * FROM countries";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {

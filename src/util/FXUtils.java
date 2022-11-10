@@ -62,6 +62,7 @@ public class FXUtils {
      * @param message The message to display in the dialog.
      * @return Whether the user confirmed or denied the dialog.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean confirm(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
         alert.showAndWait();

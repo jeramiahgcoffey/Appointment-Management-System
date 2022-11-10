@@ -74,7 +74,7 @@ public abstract class AppointmentCRUD {
      * @return A List of all Appointments.
      */
     public static List<Appointment> getAll() {
-        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        ArrayList<Appointment> appointments = new ArrayList<>();
         String query = "SELECT * FROM appointments";
         Connection conn = DBConnection.connection;
         try (Statement stmt = conn.createStatement()) {
