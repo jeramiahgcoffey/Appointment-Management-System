@@ -117,7 +117,7 @@ public class AppointmentForm implements Initializable {
     private Label timeError;
 
     /**
-     * Initialize the view. Populate fields with Appointment data if form mode is MODIFY.
+     * Initialize the view. Populate ComboBoxes. Populate fields with Appointment data if form mode is MODIFY.
      *
      * @param url            URL used to resolve paths, null if not known
      * @param resourceBundle Resources used to localize the root object, null if not localized

@@ -2,6 +2,7 @@ package dataAccess;
 
 import db.DBConnection;
 import model.User;
+import util.FXUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,8 +32,8 @@ public abstract class UserCRUD {
             int id = rs.getInt("User_ID");
             String password = rs.getString("password");
             return new User(id, username, password);
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }
@@ -52,8 +53,8 @@ public abstract class UserCRUD {
             String username = rs.getString("User_Name");
             String password = rs.getString("password");
             return new User(id, username, password);
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }
@@ -78,10 +79,11 @@ public abstract class UserCRUD {
                         null
                 ));
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+
+            return users;
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
-        return users;
     }
 }

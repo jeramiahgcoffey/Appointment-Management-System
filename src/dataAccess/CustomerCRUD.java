@@ -3,6 +3,7 @@ package dataAccess;
 import db.DBConnection;
 import model.Customer;
 import util.DateTimeValue;
+import util.FXUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,11 +50,12 @@ public abstract class CustomerCRUD {
                         divisionId
                 ));
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+
+            return customers;
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
-        return customers;
     }
 
     /**
@@ -61,27 +63,32 @@ public abstract class CustomerCRUD {
      *
      * @param customer The Customer to save.
      */
-    public static void save(Customer customer) throws SQLException {
+    public static void save(Customer customer) {
         String sql = "INSERT INTO customers (" +
                 "Customer_ID, Customer_Name, Address, Postal_Code," +
                 " Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID" +
                 ") VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-        DBConnection.setPreparedStatement(sql);
-        PreparedStatement ps = DBConnection.preparedStatement;
+        try {
+            DBConnection.setPreparedStatement(sql);
 
-        ps.setInt(1, customer.getId());
-        ps.setString(2, customer.getName());
-        ps.setString(3, customer.getAddress());
-        ps.setString(4, customer.getPostal());
-        ps.setString(5, customer.getPhone());
-        ps.setTimestamp(6, customer.getCreatedAtTimestamp().originalValue());
-        ps.setString(7, null);
-        ps.setTimestamp(8, customer.getUpdatedAtTimestamp().originalValue());
-        ps.setString(9, null);
-        ps.setInt(10, customer.getDivisionId());
+            PreparedStatement ps = DBConnection.preparedStatement;
 
-        ps.execute();
+            ps.setInt(1, customer.getId());
+            ps.setString(2, customer.getName());
+            ps.setString(3, customer.getAddress());
+            ps.setString(4, customer.getPostal());
+            ps.setString(5, customer.getPhone());
+            ps.setTimestamp(6, customer.getCreatedAtTimestamp().originalValue());
+            ps.setString(7, null);
+            ps.setTimestamp(8, customer.getUpdatedAtTimestamp().originalValue());
+            ps.setString(9, null);
+            ps.setInt(10, customer.getDivisionId());
+
+            ps.execute();
+        } catch (SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
+        }
     }
 
     /**
@@ -89,7 +96,7 @@ public abstract class CustomerCRUD {
      *
      * @param customer The Customer to change.
      */
-    public static void update(Customer customer) throws SQLException {
+    public static void update(Customer customer) {
         String sql = "UPDATE customers " +
                 "SET Customer_Name = ?," +
                 "Address = ?," +
@@ -99,18 +106,23 @@ public abstract class CustomerCRUD {
                 "Division_ID = ? " +
                 "WHERE Customer_ID = ?";
 
-        DBConnection.setPreparedStatement(sql);
-        PreparedStatement ps = DBConnection.preparedStatement;
+        try {
+            DBConnection.setPreparedStatement(sql);
 
-        ps.setString(1, customer.getName());
-        ps.setString(2, customer.getAddress());
-        ps.setString(3, customer.getPostal());
-        ps.setString(4, customer.getPhone());
-        ps.setTimestamp(5, customer.getUpdatedAtTimestamp().originalValue());
-        ps.setInt(6, customer.getDivisionId());
-        ps.setInt(7, customer.getId());
+            PreparedStatement ps = DBConnection.preparedStatement;
 
-        ps.execute();
+            ps.setString(1, customer.getName());
+            ps.setString(2, customer.getAddress());
+            ps.setString(3, customer.getPostal());
+            ps.setString(4, customer.getPhone());
+            ps.setTimestamp(5, customer.getUpdatedAtTimestamp().originalValue());
+            ps.setInt(6, customer.getDivisionId());
+            ps.setInt(7, customer.getId());
+
+            ps.execute();
+        } catch (SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
+        }
     }
 
     /**
@@ -118,13 +130,18 @@ public abstract class CustomerCRUD {
      *
      * @param customer The Customer to delete.
      */
-    public static void delete(Customer customer) throws SQLException {
+    public static void delete(Customer customer) {
         String sql = "DELETE FROM customers WHERE Customer_ID = ?";
 
-        DBConnection.setPreparedStatement(sql);
-        PreparedStatement ps = DBConnection.preparedStatement;
-        ps.setInt(1, customer.getId());
+        try {
+            DBConnection.setPreparedStatement(sql);
 
-        ps.execute();
+            PreparedStatement ps = DBConnection.preparedStatement;
+            ps.setInt(1, customer.getId());
+
+            ps.execute();
+        } catch (SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
+        }
     }
 }

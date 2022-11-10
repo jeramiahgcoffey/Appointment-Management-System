@@ -4,6 +4,7 @@ import db.DBConnection;
 import model.Appointment;
 import model.Customer;
 import util.DateTimeValue;
+import util.FXUtils;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -17,16 +18,6 @@ import java.util.List;
  * @author Jeramiah Coffey
  */
 public abstract class AppointmentCRUD {
-    /**
-     * Get Appointment by id.
-     *
-     * @param id Unique id associated with the Appointment.
-     * @return The Appointment associated with the id passed in.
-     */
-    public static Appointment get(int id) {
-        return null;
-    }
-
     /**
      * Get Appointments by customer id.
      *
@@ -71,8 +62,8 @@ public abstract class AppointmentCRUD {
                 ));
             }
             return appointments;
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }
@@ -121,8 +112,8 @@ public abstract class AppointmentCRUD {
                 ));
             }
             return appointments;
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }
@@ -132,30 +123,35 @@ public abstract class AppointmentCRUD {
      *
      * @param appointment The Appointment to save.
      */
-    public static void save(Appointment appointment) throws SQLException {
+    public static void save(Appointment appointment) {
         String sql = "INSERT INTO appointments" +
                 " (Title, Description, Location, Type, Start, End, Create_Date," +
                 " Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        DBConnection.setPreparedStatement(sql);
-        PreparedStatement ps = DBConnection.preparedStatement;
+        try {
+            DBConnection.setPreparedStatement(sql);
 
-        ps.setString(1, appointment.getTitle());
-        ps.setString(2, appointment.getDescription());
-        ps.setString(3, appointment.getLocation());
-        ps.setString(4, appointment.getType());
-        ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
-        ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
-        ps.setTimestamp(7, appointment.getCreatedAt());
-        ps.setString(8, appointment.getCreatedBy());
-        ps.setTimestamp(9, appointment.getUpdatedAt());
-        ps.setString(10, appointment.getUpdatedBy());
-        ps.setInt(11, appointment.getCustId());
-        ps.setInt(12, appointment.getUserId());
-        ps.setInt(13, appointment.getContact().id());
+            PreparedStatement ps = DBConnection.preparedStatement;
 
-        ps.execute();
+            ps.setString(1, appointment.getTitle());
+            ps.setString(2, appointment.getDescription());
+            ps.setString(3, appointment.getLocation());
+            ps.setString(4, appointment.getType());
+            ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
+            ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
+            ps.setTimestamp(7, appointment.getCreatedAt());
+            ps.setString(8, appointment.getCreatedBy());
+            ps.setTimestamp(9, appointment.getUpdatedAt());
+            ps.setString(10, appointment.getUpdatedBy());
+            ps.setInt(11, appointment.getCustId());
+            ps.setInt(12, appointment.getUserId());
+            ps.setInt(13, appointment.getContact().id());
+
+            ps.execute();
+        } catch (SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
+        }
     }
 
     /**
@@ -163,7 +159,7 @@ public abstract class AppointmentCRUD {
      *
      * @param appointment The Appointment to change.
      */
-    public static void update(Appointment appointment) throws SQLException {
+    public static void update(Appointment appointment) {
         String sql = "UPDATE appointments " +
                 "SET Title = ?," +
                 "Description = ?," +
@@ -177,22 +173,27 @@ public abstract class AppointmentCRUD {
                 "Contact_ID = ? " +
                 "WHERE Appointment_ID = ?";
 
-        DBConnection.setPreparedStatement(sql);
-        PreparedStatement ps = DBConnection.preparedStatement;
+        try {
+            DBConnection.setPreparedStatement(sql);
 
-        ps.setString(1, appointment.getTitle());
-        ps.setString(2, appointment.getDescription());
-        ps.setString(3, appointment.getLocation());
-        ps.setString(4, appointment.getType());
-        ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
-        ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
-        ps.setTimestamp(7, appointment.getUpdatedAt());
-        ps.setInt(8, appointment.getCustId());
-        ps.setInt(9, appointment.getUserId());
-        ps.setInt(10, appointment.getContact().id());
-        ps.setInt(11, appointment.getId());
+            PreparedStatement ps = DBConnection.preparedStatement;
 
-        ps.execute();
+            ps.setString(1, appointment.getTitle());
+            ps.setString(2, appointment.getDescription());
+            ps.setString(3, appointment.getLocation());
+            ps.setString(4, appointment.getType());
+            ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
+            ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
+            ps.setTimestamp(7, appointment.getUpdatedAt());
+            ps.setInt(8, appointment.getCustId());
+            ps.setInt(9, appointment.getUserId());
+            ps.setInt(10, appointment.getContact().id());
+            ps.setInt(11, appointment.getId());
+
+            ps.execute();
+        } catch (SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
+        }
     }
 
     /**
@@ -200,16 +201,28 @@ public abstract class AppointmentCRUD {
      *
      * @param appointment The Appointment to delete.
      */
-    public static void delete(Appointment appointment) throws SQLException {
+    public static void delete(Appointment appointment) {
         String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
 
-        DBConnection.setPreparedStatement(sql);
-        PreparedStatement ps = DBConnection.preparedStatement;
-        ps.setInt(1, appointment.getId());
+        try {
+            DBConnection.setPreparedStatement(sql);
 
-        ps.execute();
+            PreparedStatement ps = DBConnection.preparedStatement;
+            ps.setInt(1, appointment.getId());
+            ps.execute();
+        } catch (SQLException e) {
+            FXUtils.getInstance().error(e.getMessage());
+        }
     }
 
+    /**
+     * Get total count of appointments based on the filters passed in.
+     * Returns total count of all appointments if three null values are passed in.
+     *
+     * @param selectedCustomer Nullable Customer object with the ID to query for.
+     * @param selectedMonth    Nullable Month object with the value to query for.
+     * @param selectedType     Nullable string value of the type to query for.
+     */
     public static int getTotals(Month selectedMonth, String selectedType, Customer selectedCustomer) {
         StringBuilder query = new StringBuilder();
         query.append("SELECT COUNT(Appointment_ID) FROM appointments");
@@ -251,7 +264,7 @@ public abstract class AppointmentCRUD {
             rs.next();
             return rs.getInt(1);
         } catch (SQLException e) {
-            System.out.println(e);
+            FXUtils.getInstance().error(e.getMessage());
             return 0;
         }
     }

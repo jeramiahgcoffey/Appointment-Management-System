@@ -2,6 +2,7 @@ package dataAccess;
 
 import db.DBConnection;
 import model.Country;
+import util.FXUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,8 +34,8 @@ public abstract class CountryCRUD {
 
                 countries.add(new Country(id, name));
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
         return countries;
@@ -58,8 +59,8 @@ public abstract class CountryCRUD {
             int id = rs.getInt("Country_ID");
             String name = rs.getString("Country");
             return new Country(id, name);
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }

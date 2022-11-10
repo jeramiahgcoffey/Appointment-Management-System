@@ -18,7 +18,6 @@ import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -140,7 +139,7 @@ public class Customers implements Initializable {
             String msg = selectedCustomer.getId() + " - " + selectedCustomer.getName() + " has been deleted.";
             FXUtils.getInstance().inform(msg, "Customer deleted successfully", "Success");
             custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
-        } catch (ItemNotSelectedException | SQLException | CannotDeleteCustomerException e) {
+        } catch (ItemNotSelectedException | CannotDeleteCustomerException e) {
             FXUtils.getInstance().error(e.getMessage());
         }
     }

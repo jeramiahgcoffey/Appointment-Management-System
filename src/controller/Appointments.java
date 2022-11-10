@@ -17,7 +17,6 @@ import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -126,7 +125,7 @@ public class Appointments implements Initializable {
                     selectedAppointment.getType() +
                     " has been successfully deleted.";
             FXUtils.getInstance().inform(msg, "Appointment deleted successfully", "Success");
-        } catch (ItemNotSelectedException | SQLException e) {
+        } catch (ItemNotSelectedException e) {
             FXUtils.getInstance().error(e.getMessage());
         }
     }

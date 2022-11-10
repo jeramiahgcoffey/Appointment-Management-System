@@ -70,8 +70,15 @@ public class FXUtils {
 
     public void error(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.CLOSE);
-        alert.setHeaderText("An issue was encountered.");
+        alert.setHeaderText("An issue was encountered");
         alert.showAndWait();
+    }
+
+    public void errorAndExit() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Shutting down, please try again later.", ButtonType.CLOSE);
+        alert.setHeaderText("An issue was encountered");
+        alert.showAndWait();
+        System.exit(101);
     }
 
     public void inform(String message, String header, String title) {

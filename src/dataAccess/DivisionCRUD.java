@@ -2,6 +2,7 @@ package dataAccess;
 
 import db.DBConnection;
 import model.Division;
+import util.FXUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,8 +35,8 @@ public abstract class DivisionCRUD {
 
                 divisions.add(new Division(id, countryId, name));
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
         return divisions;
@@ -60,8 +61,8 @@ public abstract class DivisionCRUD {
                 divisions.add(new Division(id, countryId, name));
             }
             return divisions;
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }
@@ -82,8 +83,8 @@ public abstract class DivisionCRUD {
             String name = rs.getString("Division");
 
             return new Division(id, countryId, name);
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }

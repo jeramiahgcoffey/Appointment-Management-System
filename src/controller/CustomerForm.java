@@ -19,7 +19,6 @@ import util.FXUtils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -115,7 +114,7 @@ public class CustomerForm implements Initializable {
      * @param event The event that was fired from the CustomerForm.
      */
     @FXML
-    private void handleSaveCustomer(ActionEvent event) throws IOException, SQLException {
+    private void handleSaveCustomer(ActionEvent event) throws IOException {
         // TODO: VALIDATION
         if (Objects.equals(custNameTF.getText(), "") || custDivisionCB.getValue() == null) return;
 

@@ -2,6 +2,7 @@ package dataAccess;
 
 import db.DBConnection;
 import model.Contact;
+import util.FXUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,8 +34,8 @@ public abstract class ContactCRUD {
                 String email = rs.getString("Email");
                 contacts.add(new Contact(id, name, email));
             }
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
         return contacts;
@@ -54,8 +55,8 @@ public abstract class ContactCRUD {
             String name = rs.getString("Contact_Name");
             String email = rs.getString("Email");
             return new Contact(id, name, email);
-        } catch (SQLException e) {
-            System.out.println(e);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
             return null;
         }
     }
