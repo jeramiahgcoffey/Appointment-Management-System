@@ -57,9 +57,6 @@ public class Customers implements Initializable {
     @FXML
     private TableColumn<Customer, String> updatedAtCol;
 
-    @FXML
-    private TableColumn<Customer, String> updatedByCol;
-
     public static FormMode formMode;
     public static Customer selectedCustomer;
 
@@ -79,7 +76,6 @@ public class Customers implements Initializable {
         createdAtCol.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         updatedAtCol.setCellValueFactory(new PropertyValueFactory<>("updatedAt"));
-        updatedByCol.setCellValueFactory(new PropertyValueFactory<>("updatedBy"));
         custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
     }
 
@@ -140,7 +136,9 @@ public class Customers implements Initializable {
                 return;
 
             CustomerCRUD.delete(selectedCustomer);
-            FXUtils.getInstance().inform(selectedCustomer.getId() + " - " + selectedCustomer.getName() + " has been deleted.", "Customer deleted successfully.", "Success");
+
+            String msg = selectedCustomer.getId() + " - " + selectedCustomer.getName() + " has been deleted.";
+            FXUtils.getInstance().inform(msg, "Customer deleted successfully", "Success");
             custTable.setItems(FXCollections.observableList(Objects.requireNonNull(CustomerCRUD.getAll())));
         } catch (ItemNotSelectedException | SQLException | CannotDeleteCustomerException e) {
             FXUtils.getInstance().error(e.getMessage());

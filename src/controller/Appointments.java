@@ -119,6 +119,13 @@ public class Appointments implements Initializable {
                 return;
             AppointmentCRUD.delete(selectedAppointment);
             aptTable.setItems(FXCollections.observableList(Objects.requireNonNull(AppointmentCRUD.getAll())));
+
+            String msg = "Appointment ID: " +
+                    selectedAppointment.getId() +
+                    " of Type: " +
+                    selectedAppointment.getType() +
+                    " has been successfully deleted.";
+            FXUtils.getInstance().inform(msg, "Appointment deleted successfully", "Success");
         } catch (ItemNotSelectedException | SQLException e) {
             FXUtils.getInstance().error(e.getMessage());
         }
