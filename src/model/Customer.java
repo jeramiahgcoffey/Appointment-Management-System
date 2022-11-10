@@ -1,7 +1,7 @@
 package model;
 
 import dataAccess.DivisionCRUD;
-import util.TimestampValue;
+import util.DateTimeValue;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +18,8 @@ public class Customer {
     private final String address;
     private final String postal;
     private final String phone;
-    private final TimestampValue createdAt;
-    private final TimestampValue updatedAt;
+    private final DateTimeValue createdAt;
+    private final DateTimeValue updatedAt;
     private final String createdBy;
     private final String updatedBy;
     private final int divisionId;
@@ -32,8 +32,8 @@ public class Customer {
             String address,
             String postal,
             String phone,
-            TimestampValue createdAt,
-            TimestampValue updatedAt,
+            DateTimeValue createdAt,
+            DateTimeValue updatedAt,
             String createdBy,
             String updatedBy,
             int divisionId
@@ -83,11 +83,11 @@ public class Customer {
         return phone;
     }
 
-    public TimestampValue getCreatedAtTimestamp() {
+    public DateTimeValue getCreatedAtTimestamp() {
         return createdAt;
     }
 
-    public TimestampValue getUpdatedAtTimestamp() {
+    public DateTimeValue getUpdatedAtTimestamp() {
         return updatedAt;
     }
 

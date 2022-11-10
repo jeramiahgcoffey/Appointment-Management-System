@@ -2,22 +2,26 @@ package util;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
- * Record class for modeling and manipulating SQL Timestamps.
+ * Record class for modeling and manipulating SQL Timestamps, and converting between LocalDateTimes.
  *
  * @author Jeramiah Coffey
  */
-public record TimestampValue(Timestamp originalValue) {
+public record DateTimeValue(Timestamp originalValue) {
     /**
      * Static method for getting the current moment in time as a TimestampValue object.
      *
      * @return The current moment in time as a TimestampValue object.
      */
-    public static TimestampValue now() {
-        return new TimestampValue(new Timestamp(System.currentTimeMillis()));
+    public static DateTimeValue now() {
+        return new DateTimeValue(new Timestamp(System.currentTimeMillis()));
     }
 
     /**
@@ -53,5 +57,18 @@ public record TimestampValue(Timestamp originalValue) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(originalValue.getTime());
         return cal.get(Calendar.MINUTE);
+    }
+
+    public boolean isValidBusinessHours() {
+        ZonedDateTime businessClosed = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(22, 1), ZoneId.of("America/New_York"));
+        ZonedDateTime businessOpened = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(8, 1), ZoneId.of("America/New_York"));
+        ZonedDateTime curr = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()), ZoneId.systemDefault());
+        return !curr.isAfter(businessOpened) && !curr.isBefore(businessClosed);
+    }
+
+    public boolean isAfterOpen() {
+        ZonedDateTime businessOpened = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()).toLocalDate(), LocalTime.of(8, 1), ZoneId.of("America/New_York"));
+        ZonedDateTime aptTime = ZonedDateTime.of(Objects.requireNonNull(this.toLocalDateTime()), ZoneId.systemDefault());
+        return aptTime.isBefore(businessOpened);
     }
 }

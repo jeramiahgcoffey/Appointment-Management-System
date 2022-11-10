@@ -11,6 +11,6 @@ public class AppointmentOverlapException extends Exception {
      * Constructs an AppointmentOverlap exception when thrown.
      */
     public AppointmentOverlapException() {
-        super("Please delete this customer's appointments before deleting the customer record.");
+        super("The appointment time selected collides with an existing appointment for this customer.");
     }
 }

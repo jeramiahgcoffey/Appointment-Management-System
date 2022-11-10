@@ -10,11 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
+import util.DateTimeValue;
 import util.FXUtils;
-import util.TimestampValue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,9 +33,6 @@ import java.util.stream.Collectors;
  * @author Jeramiah Coffey
  */
 public class Appointments implements Initializable {
-    @FXML
-    private ToggleGroup view;
-
     @FXML
     private Label zoneIdLabel;
 
@@ -159,11 +155,9 @@ public class Appointments implements Initializable {
 
     /**
      * Handle Logout button clicked.
-     *
-     * @param event The event that was fired from the Appointments page.
      */
     @FXML
-    private void handleLogout(ActionEvent event) {
+    private void handleLogout() {
         System.exit(0);
     }
 
@@ -188,8 +182,8 @@ public class Appointments implements Initializable {
      */
     @FXML
     private void handleViewMonth() {
-        int month = Objects.requireNonNull(TimestampValue.now().toLocalDateTime()).getMonthValue();
-        int year = Objects.requireNonNull(TimestampValue.now().toLocalDateTime()).getYear();
+        int month = Objects.requireNonNull(DateTimeValue.now().toLocalDateTime()).getMonthValue();
+        int year = Objects.requireNonNull(DateTimeValue.now().toLocalDateTime()).getYear();
 
         List<Appointment> apts = AppointmentCRUD.getAll();
 

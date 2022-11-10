@@ -35,9 +35,8 @@
     <RadioButton layoutX="245.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleViewWeek" text="View this week"
                  toggleGroup="$view"/>
     <Button layoutX="549.0" layoutY="72.0" mnemonicParsing="false" onAction="#handleCustomers" text="Customers"/>
-    <DatePicker layoutX="775.0" layoutY="71.0" prefHeight="25.0" prefWidth="219.0"/>
-    <Label layoutX="775.0" layoutY="54.0" text="Time Zone: "/>
-    <Label fx:id="zoneIdLabel" layoutX="846.0" layoutY="54.0"/>
+    <Label layoutX="770.0" layoutY="85.0" text="Time Zone: "/>
+    <Label fx:id="zoneIdLabel" layoutX="842.0" layoutY="85.0" prefHeight="17.0" prefWidth="170.0"/>
     <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleReports" text="Reports"/>
     <Button layoutX="124.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleAddApt" text="Add Appointment"/>
     <Button layoutX="252.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleModifyApt"

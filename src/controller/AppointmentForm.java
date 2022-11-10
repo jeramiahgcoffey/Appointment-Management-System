@@ -6,6 +6,7 @@ import dataAccess.CustomerCRUD;
 import dataAccess.UserCRUD;
 import enumerable.FormMode;
 import exception.AppointmentOverlapException;
+import exception.OutsideBusinessHoursException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,9 +19,9 @@ import model.Appointment;
 import model.Contact;
 import model.Customer;
 import model.User;
+import util.DateTimeValue;
 import util.FXUtils;
 import util.ListUtils;
-import util.TimestampValue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -171,7 +172,6 @@ public class AppointmentForm implements Initializable {
     @FXML
     private void handleSave(ActionEvent event) throws SQLException, IOException {
         try {
-            // TODO: Business hours validation
             boolean hasErrors = false;
 
             String title = aptTitleTF.getText();
@@ -267,8 +267,8 @@ public class AppointmentForm implements Initializable {
             int custId = customer.getId();
             int contactId = contact.id();
             int userId = user.getUserId();
-            TimestampValue start = new TimestampValue(Timestamp.valueOf(startDate.atTime(startHour, startMin)));
-            TimestampValue end = new TimestampValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(endHour, endMin)));
+            DateTimeValue start = new DateTimeValue(Timestamp.valueOf(startDate.atTime(startHour, startMin)));
+            DateTimeValue end = new DateTimeValue(Timestamp.valueOf(aptFinishDP.getValue().atTime(endHour, endMin)));
             List<Appointment> customersApts = AppointmentCRUD.getByCustomerId(custId);
             AtomicBoolean hasOverlap = new AtomicBoolean(false);
             if (customersApts != null && !customersApts.isEmpty()) {
@@ -294,17 +294,19 @@ public class AppointmentForm implements Initializable {
             }
             if (hasOverlap.get()) throw new AppointmentOverlapException();
 
+            if (!start.isValidBusinessHours() || !end.isValidBusinessHours()) throw new OutsideBusinessHoursException();
+
             if (Appointments.formMode == FormMode.ADD) {
-                Appointment apt = new Appointment(0, title, desc, location, contactId, type, start, end, TimestampValue.now(), TimestampValue.now(), null, null, custId, userId);
+                Appointment apt = new Appointment(0, title, desc, location, contactId, type, start, end, DateTimeValue.now(), DateTimeValue.now(), null, null, custId, userId);
                 AppointmentCRUD.save(apt);
             } else if (Appointments.formMode == FormMode.MODIFY) {
-                Appointment apt = new Appointment(Appointments.selectedAppointment.getId(), title, desc, location, contactId, type, start, end, null, TimestampValue.now(), null, null, custId, userId);
+                Appointment apt = new Appointment(Appointments.selectedAppointment.getId(), title, desc, location, contactId, type, start, end, null, DateTimeValue.now(), null, null, custId, userId);
                 AppointmentCRUD.update(apt);
             }
             FXUtils.getInstance().redirect(event, "/view/appointments.fxml");
         } catch (NumberFormatException e) {
             timeError.setText("Time values must be valid integers.");
-        } catch (AppointmentOverlapException e) {
+        } catch (AppointmentOverlapException | OutsideBusinessHoursException e) {
             FXUtils.getInstance().error(e.getMessage());
         }
     }

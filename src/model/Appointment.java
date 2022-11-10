@@ -1,7 +1,7 @@
 package model;
 
 import dataAccess.ContactCRUD;
-import util.TimestampValue;
+import util.DateTimeValue;
 
 import java.sql.Timestamp;
 
@@ -16,10 +16,10 @@ public class Appointment {
     private final String description;
     private final String location;
     private final String type;
-    private final TimestampValue start;
-    private final TimestampValue end;
-    private final TimestampValue createdAt;
-    private final TimestampValue updatedAt;
+    private final DateTimeValue start;
+    private final DateTimeValue end;
+    private final DateTimeValue createdAt;
+    private final DateTimeValue updatedAt;
     private final String createdBy;
     private final String updatedBy;
     private final int custId;
@@ -33,10 +33,10 @@ public class Appointment {
             String location,
             int contactId,
             String type,
-            TimestampValue start,
-            TimestampValue end,
-            TimestampValue createdAt,
-            TimestampValue updatedAt,
+            DateTimeValue start,
+            DateTimeValue end,
+            DateTimeValue createdAt,
+            DateTimeValue updatedAt,
             String createdBy,
             String updatedBy,
             int custId,
@@ -84,11 +84,11 @@ public class Appointment {
         return type;
     }
 
-    public TimestampValue getStartTimestamp() {
+    public DateTimeValue getStartTimestamp() {
         return start;
     }
 
-    public TimestampValue getEndTimestamp() {
+    public DateTimeValue getEndTimestamp() {
         return end;
     }
 

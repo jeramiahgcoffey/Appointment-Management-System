@@ -18,7 +18,7 @@ public abstract class Log {
      * @param success  Represents if a login attempt was successful.
      */
     public static void loginAttempt(String username, boolean success) throws IOException {
-        TimestampValue now = TimestampValue.now();
+        DateTimeValue now = DateTimeValue.now();
         String str = username + " - " + now.displayFormat() + " " + ZoneId.systemDefault() + " - Success: " + success;
         BufferedWriter writer = new BufferedWriter(new FileWriter(" login_attempts.txt", true));
         writer.append(str);

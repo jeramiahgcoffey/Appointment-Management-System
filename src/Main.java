@@ -16,13 +16,12 @@ import java.util.ResourceBundle;
  */
 public class Main extends Application {
     /**
-     * Main function that's called when the application is run.
+     * Main method that's called when the application is run.
      *
-     * @param args Optional arguments passed to the main function.
+     * @param args Optional arguments passed to the main method.
      */
     public static void main(String[] args) throws IOException {
         DBConnection.openConnection();
-//        Objects.requireNonNull(AppointmentCRUD.getAll()).stream().filter(apt -> Objects.requireNonNull(apt.getStartTimestamp().toLocalDateTime()).getMonth().getValue() == 11).forEach(System.out::println);
         launch(args);
         DBConnection.closeConnection();
     }

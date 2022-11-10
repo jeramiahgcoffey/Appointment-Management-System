@@ -2,7 +2,7 @@ package dataAccess;
 
 import db.DBConnection;
 import model.Customer;
-import util.TimestampValue;
+import util.DateTimeValue;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ public abstract class CustomerCRUD {
                 String address = rs.getString("Address");
                 String postal = rs.getString("Postal_Code");
                 String phone = rs.getString("Phone");
-                TimestampValue createdAt = new TimestampValue(rs.getTimestamp("Create_Date"));
-                TimestampValue updatedAt = new TimestampValue(rs.getTimestamp("Last_Update"));
+                DateTimeValue createdAt = new DateTimeValue(rs.getTimestamp("Create_Date"));
+                DateTimeValue updatedAt = new DateTimeValue(rs.getTimestamp("Last_Update"));
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int divisionId = rs.getInt("Division_ID");

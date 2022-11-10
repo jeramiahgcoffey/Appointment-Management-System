@@ -3,7 +3,7 @@ package dataAccess;
 import db.DBConnection;
 import model.Appointment;
 import model.Customer;
-import util.TimestampValue;
+import util.DateTimeValue;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -46,10 +46,10 @@ public abstract class AppointmentCRUD {
                 String location = rs.getString("Location");
                 int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                TimestampValue start = new TimestampValue(rs.getTimestamp("Start"));
-                TimestampValue end = new TimestampValue(rs.getTimestamp("End"));
-                TimestampValue createdAt = new TimestampValue(rs.getTimestamp("Create_Date"));
-                TimestampValue updatedAt = new TimestampValue(rs.getTimestamp("Last_Update"));
+                DateTimeValue start = new DateTimeValue(rs.getTimestamp("Start"));
+                DateTimeValue end = new DateTimeValue(rs.getTimestamp("End"));
+                DateTimeValue createdAt = new DateTimeValue(rs.getTimestamp("Create_Date"));
+                DateTimeValue updatedAt = new DateTimeValue(rs.getTimestamp("Last_Update"));
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int userId = rs.getInt("User_ID");
@@ -95,10 +95,10 @@ public abstract class AppointmentCRUD {
                 String location = rs.getString("Location");
                 int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                TimestampValue start = new TimestampValue(rs.getTimestamp("Start"));
-                TimestampValue end = new TimestampValue(rs.getTimestamp("End"));
-                TimestampValue createdAt = new TimestampValue(rs.getTimestamp("Create_Date"));
-                TimestampValue updatedAt = new TimestampValue(rs.getTimestamp("Last_Update"));
+                DateTimeValue start = new DateTimeValue(rs.getTimestamp("Start"));
+                DateTimeValue end = new DateTimeValue(rs.getTimestamp("End"));
+                DateTimeValue createdAt = new DateTimeValue(rs.getTimestamp("Create_Date"));
+                DateTimeValue updatedAt = new DateTimeValue(rs.getTimestamp("Last_Update"));
                 String createdBy = rs.getString("Created_By");
                 String updatedBy = rs.getString("Last_Updated_By");
                 int custId = rs.getInt("Customer_ID");
