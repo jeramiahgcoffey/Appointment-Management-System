@@ -30,6 +30,9 @@ import java.util.ResourceBundle;
 public class CustomerForm implements Initializable {
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     private Label customerFormTitle;
 
     @FXML
@@ -98,11 +101,9 @@ public class CustomerForm implements Initializable {
 
     /**
      * Handle Country ComboBox change.
-     *
-     * @param event The event that was fired from the CustomerForm
      */
     @FXML
-    private void handleCountryChange(ActionEvent event) {
+    private void handleCountryChange() {
         int countryId = custCountryCB.getSelectionModel().getSelectedItem().id();
         custDivisionCB.setItems(FXCollections.observableArrayList(DivisionCRUD.getAllByCountry(countryId)));
         custDivisionCB.setValue(null);
@@ -115,8 +116,11 @@ public class CustomerForm implements Initializable {
      */
     @FXML
     private void handleSaveCustomer(ActionEvent event) throws IOException {
-        // TODO: VALIDATION
-        if (Objects.equals(custNameTF.getText(), "") || custDivisionCB.getValue() == null) return;
+        errorLabel.setVisible(false);
+        if (Objects.equals(custNameTF.getText(), "") || custDivisionCB.getValue() == null) {
+            errorLabel.setVisible(true);
+            return;
+        }
 
         String name = custNameTF.getText();
         String address = custAddressTF.getText();
