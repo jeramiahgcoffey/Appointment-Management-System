@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Appointment;
 import model.User;
-import org.jetbrains.annotations.NotNull;
 import util.FXUtils;
 import util.Log;
 
@@ -65,7 +64,7 @@ public class Login implements Initializable {
      * @param user      User object with password property
      * @param candidate The candidate password to check
      */
-    private Boolean comparePassword(@NotNull User user, String candidate) {
+    private Boolean comparePassword(User user, String candidate) {
         return user.getPassword().equals(candidate);
     }
 

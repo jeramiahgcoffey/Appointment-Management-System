@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -32,7 +31,7 @@ public class Main extends Application {
      * @param stage The first stage to load on program start.
      */
     @Override
-    public void start(@NotNull Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception {
         ResourceBundle bundle = ResourceBundle.getBundle("strings", Locale.getDefault());
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/login.fxml")), bundle);
         stage.setTitle("Appointment Management System");
