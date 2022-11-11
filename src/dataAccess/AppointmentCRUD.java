@@ -138,8 +138,8 @@ public abstract class AppointmentCRUD {
             ps.setString(2, appointment.getDescription());
             ps.setString(3, appointment.getLocation());
             ps.setString(4, appointment.getType());
-            ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
-            ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
+            ps.setTimestamp(5, appointment.getStartDateTimeValue().originalValue());
+            ps.setTimestamp(6, appointment.getEndDateTimeValue().originalValue());
             ps.setTimestamp(7, appointment.getCreatedAt());
             ps.setString(8, appointment.getCreatedBy());
             ps.setTimestamp(9, appointment.getUpdatedAt());
@@ -182,8 +182,8 @@ public abstract class AppointmentCRUD {
             ps.setString(2, appointment.getDescription());
             ps.setString(3, appointment.getLocation());
             ps.setString(4, appointment.getType());
-            ps.setTimestamp(5, appointment.getStartTimestamp().originalValue());
-            ps.setTimestamp(6, appointment.getEndTimestamp().originalValue());
+            ps.setTimestamp(5, appointment.getStartDateTimeValue().originalValue());
+            ps.setTimestamp(6, appointment.getEndDateTimeValue().originalValue());
             ps.setTimestamp(7, appointment.getUpdatedAt());
             ps.setInt(8, appointment.getCustId());
             ps.setInt(9, appointment.getUserId());

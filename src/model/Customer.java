@@ -20,12 +20,22 @@ public class Customer {
     private final String phone;
     private final DateTimeValue createdAt;
     private final DateTimeValue updatedAt;
-    private final String createdBy;
-    private final String updatedBy;
     private final int divisionId;
 
     private static final HashMap<Integer, String> divisionMap = new HashMap<>();
 
+    /**
+     * Instantiates Customer objects. Fetches and stores static divisionMap if it is currently empty.
+     *
+     * @param id         The customer id.
+     * @param name       The customer name.
+     * @param address    The customer address.
+     * @param postal     The customer postal code.
+     * @param phone      The customer phone number.
+     * @param createdAt  The customer creation DateTimeValue.
+     * @param updatedAt  The customer modification DateTimeValue.
+     * @param divisionId The customer first level division id.
+     */
     public Customer(
             int id,
             String name,
@@ -34,8 +44,6 @@ public class Customer {
             String phone,
             DateTimeValue createdAt,
             DateTimeValue updatedAt,
-            String createdBy,
-            String updatedBy,
             int divisionId
     ) {
         if (divisionMap.isEmpty()) {
@@ -53,8 +61,6 @@ public class Customer {
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
         this.divisionId = divisionId;
     }
 
@@ -63,54 +69,101 @@ public class Customer {
         return String.valueOf(id);
     }
 
+    /**
+     * Get the Customer ID.
+     *
+     * @return The Customer ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Get the Customer name.
+     *
+     * @return The Customer name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Get the Customer address.
+     *
+     * @return The Customer address.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Get the Customer postal code.
+     *
+     * @return The Customer postal code.
+     */
     public String getPostal() {
         return postal;
     }
 
+    /**
+     * Get the Customer phone number.
+     *
+     * @return The Customer phone number.
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Get the Customer creation DateTimeValue object.
+     *
+     * @return The Customer creation DateTimeValue object.
+     */
     public DateTimeValue getCreatedAtTimestamp() {
         return createdAt;
     }
 
+    /**
+     * Get the Customer modification DateTimeValue object.
+     *
+     * @return The Customer modification DateTimeValue object.
+     */
     public DateTimeValue getUpdatedAtTimestamp() {
         return updatedAt;
     }
 
+    /**
+     * Get the Customer first level division id.
+     *
+     * @return The Customer first level division id.
+     */
     public int getDivisionId() {
         return divisionId;
     }
 
+    /**
+     * Get the Customer creation display format.
+     *
+     * @return The Customer creation display format.
+     */
     public String getCreatedAt() {
         return createdAt.displayFormat();
     }
 
+    /**
+     * Get the Customer modification display format.
+     *
+     * @return The Customer modification display format.
+     */
     public String getUpdatedAt() {
         return updatedAt.displayFormat();
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
+    /**
+     * Get the Customer division name based on the divisionId.
+     *
+     * @return The Customer division name based on the divisionId.
+     */
     public String getState() {
         return Objects.requireNonNull(DivisionCRUD.get(divisionId)).name();
     }

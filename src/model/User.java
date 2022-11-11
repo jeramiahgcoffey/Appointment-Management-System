@@ -1,10 +1,5 @@
 package model;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 /**
  * Class for modeling User objects.
  *
@@ -26,6 +21,11 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
     }
 
     /**
@@ -53,14 +53,5 @@ public class User {
      */
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(id);
-    }
-
-    public static Map<Integer, User> toMap(List<User> list) {
-        return list.stream().collect(Collectors.toMap(User::getUserId, Function.identity()));
     }
 }

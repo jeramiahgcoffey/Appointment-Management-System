@@ -132,7 +132,7 @@ public class AppointmentForm implements Initializable {
         assert customers != null;
         Map<Integer, Customer> customerMap = ListUtils.toCustomerMap(customers);
         assert users != null;
-        Map<Integer, User> userMap = User.toMap(users);
+        Map<Integer, User> userMap = ListUtils.toUserMap(users);
 
         aptContactCB.setItems(FXCollections.observableArrayList(contacts));
         aptCustCB.setItems(FXCollections.observableArrayList(customers));
@@ -153,12 +153,12 @@ public class AppointmentForm implements Initializable {
             aptContactCB.setValue(contactMap.get(appointment.getContact().id()));
             aptCustCB.setValue(customerMap.get(appointment.getCustId()));
             aptUserCB.setValue(userMap.get(appointment.getUserId()));
-            aptStartDP.setValue(appointment.getStartTimestamp().originalValue().toLocalDateTime().toLocalDate());
-            aptStartHour.setText(String.valueOf(appointment.getStartTimestamp().getHour()));
-            aptStartMin.setText(String.valueOf(appointment.getStartTimestamp().getMinute()));
-            aptFinishDP.setValue(appointment.getEndTimestamp().originalValue().toLocalDateTime().toLocalDate());
-            aptFinishHour.setText(String.valueOf(appointment.getEndTimestamp().getHour()));
-            aptFinishMin.setText(String.valueOf(appointment.getEndTimestamp().getMinute()));
+            aptStartDP.setValue(appointment.getStartDateTimeValue().originalValue().toLocalDateTime().toLocalDate());
+            aptStartHour.setText(String.valueOf(appointment.getStartDateTimeValue().getHour()));
+            aptStartMin.setText(String.valueOf(appointment.getStartDateTimeValue().getMinute()));
+            aptFinishDP.setValue(appointment.getEndDateTimeValue().originalValue().toLocalDateTime().toLocalDate());
+            aptFinishHour.setText(String.valueOf(appointment.getEndDateTimeValue().getHour()));
+            aptFinishMin.setText(String.valueOf(appointment.getEndDateTimeValue().getMinute()));
         }
     }
 
@@ -276,7 +276,7 @@ public class AppointmentForm implements Initializable {
                         return;
 
                     LocalDateTime selectedAptStartDate = start.toLocalDateTime();
-                    LocalDateTime currAptStartDate = apt.getStartTimestamp().toLocalDateTime();
+                    LocalDateTime currAptStartDate = apt.getStartDateTimeValue().toLocalDateTime();
 
                     assert selectedAptStartDate != null;
                     assert currAptStartDate != null;
@@ -284,8 +284,8 @@ public class AppointmentForm implements Initializable {
                     if (selectedAptStartDate.toLocalDate().equals(currAptStartDate.toLocalDate())) {
                         long selectedAptStart = start.originalValue().getTime();
                         long selectedAptEnd = end.originalValue().getTime();
-                        long currAptStart = apt.getStartTimestamp().originalValue().getTime();
-                        long currAptEnd = apt.getEndTimestamp().originalValue().getTime();
+                        long currAptStart = apt.getStartDateTimeValue().originalValue().getTime();
+                        long currAptEnd = apt.getEndDateTimeValue().originalValue().getTime();
 
                         if (selectedAptEnd > currAptStart && selectedAptStart < currAptEnd) hasOverlap.set(true);
                     }

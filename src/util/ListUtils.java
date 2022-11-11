@@ -2,6 +2,7 @@ package util;
 
 import model.Contact;
 import model.Customer;
+import model.User;
 
 import java.util.List;
 import java.util.Map;
@@ -32,5 +33,15 @@ public abstract class ListUtils {
      */
     public static Map<Integer, Customer> toCustomerMap(List<Customer> list) {
         return list.stream().collect(Collectors.toMap(Customer::getId, Function.identity()));
+    }
+
+    /**
+     * Collects a list of User objects into a Map object.
+     *
+     * @param list The list of Users to collect.
+     * @return A Map of User objects.
+     */
+    public static Map<Integer, User> toUserMap(List<User> list) {
+        return list.stream().collect(Collectors.toMap(User::getUserId, Function.identity()));
     }
 }

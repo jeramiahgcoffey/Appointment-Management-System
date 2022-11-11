@@ -1,5 +1,7 @@
 package db;
 
+import util.FXUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,8 +33,8 @@ public abstract class DBConnection {
             Class.forName(driver); // Locate Driver
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
             System.out.println("Connection successful!");
-        } catch (Exception e) {
-            System.out.println("Error:" + e.getMessage());
+        } catch (Exception ignored) {
+            FXUtils.getInstance().errorAndExit();
         }
     }
 
@@ -44,15 +46,19 @@ public abstract class DBConnection {
             connection.close();
             connection = null;
             System.out.println("Connection closed!");
-        } catch (Exception e) {
-            System.out.println("Error:" + e.getMessage());
+        } catch (Exception ignored) {
+            FXUtils.getInstance().errorAndExit();
         }
     }
 
     /**
      * Set the static preparedStatement member to be used for complex queries.
      */
-    public static void setPreparedStatement(String sqlStatement) throws SQLException {
-        preparedStatement = connection.prepareStatement(sqlStatement);
+    public static void setPreparedStatement(String sqlStatement) {
+        try {
+            preparedStatement = connection.prepareStatement(sqlStatement);
+        } catch (SQLException ignored) {
+            FXUtils.getInstance().errorAndExit();
+        }
     }
 }

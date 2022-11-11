@@ -135,7 +135,7 @@ public class Login implements Initializable {
         List<Appointment> upcomingApts = usersApts
                 .filter(apt -> {
                     long minRemaining = ChronoUnit.MINUTES
-                            .between(LocalDateTime.now(), apt.getStartTimestamp().toLocalDateTime());
+                            .between(LocalDateTime.now(), apt.getStartDateTimeValue().toLocalDateTime());
                     return minRemaining >= 0 && minRemaining <= 15;
                 })
                 .toList();

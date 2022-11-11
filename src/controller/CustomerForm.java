@@ -129,10 +129,10 @@ public class CustomerForm implements Initializable {
         String phone = custPhoneTF.getText();
 
         if (Customers.formMode.equals(FormMode.ADD)) {
-            Customer newCustomer = new Customer(0, name, address, postal, phone, DateTimeValue.now(), DateTimeValue.now(), null, null, division.id());
+            Customer newCustomer = new Customer(0, name, address, postal, phone, DateTimeValue.now(), DateTimeValue.now(), division.id());
             CustomerCRUD.save(newCustomer);
         } else if (Customers.formMode.equals(FormMode.MODIFY)) {
-            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, DateTimeValue.now(), null, null, division.id());
+            Customer updatedCustomer = new Customer(Customers.selectedCustomer.getId(), name, address, postal, phone, null, DateTimeValue.now(), division.id());
             CustomerCRUD.update(updatedCustomer);
         }
         FXUtils.getInstance().redirect(event, "/view/customers.fxml");

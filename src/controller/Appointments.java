@@ -198,7 +198,7 @@ public class Appointments implements Initializable {
                 apts.stream()
                         .filter(apt -> {
                             LocalDateTime dt = Objects.requireNonNull(apt
-                                    .getStartTimestamp()
+                                    .getStartDateTimeValue()
                                     .toLocalDateTime());
                             return dt.getMonthValue() == month && dt.getYear() == year;
                         })
@@ -221,7 +221,7 @@ public class Appointments implements Initializable {
         aptTable.setItems(FXCollections.observableArrayList(
                 apts.stream()
                         .filter(apt -> {
-                            Timestamp t = Objects.requireNonNull(apt.getStartTimestamp().originalValue());
+                            Timestamp t = Objects.requireNonNull(apt.getStartDateTimeValue().originalValue());
                             Calendar c = Calendar.getInstance();
                             c.setTimeInMillis(t.getTime());
                             int w = c.get(Calendar.WEEK_OF_YEAR);

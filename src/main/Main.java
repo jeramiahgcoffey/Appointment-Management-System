@@ -1,3 +1,5 @@
+package main;
+
 import db.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +12,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
- * Main class for the application.
+ * main.Main class for the application.
  */
 public class Main extends Application {
     /**
-     * Main method that's called when the application is run.
+     * main.Main method that's called when the application is run.
      *
      * @param args Optional arguments passed to the main method.
      */
