@@ -1,4 +1,6 @@
-# QAM2 Appointment Management System
+# University Submission - Appointment Management System
+
+## This project was a solution to a set of requirments that I am not allowed to publish. Passwords were required to be stored and compared as plaintext. Due to this, the application in it's current form is meant to be an experiment, and should never be used to store sensitive information.
 
 ### This application manages appointments and customers by interacting with a MySQL database.
 
